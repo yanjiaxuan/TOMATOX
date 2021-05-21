@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from 'antd'
 import './custom-header.css'
 import {ReloadOutlined, SearchOutlined, LeftOutlined, MinusOutlined, BlockOutlined, CloseOutlined, UserOutlined, SkinOutlined, ShareAltOutlined} from '@ant-design/icons';
+const {ipcRenderer} = require('electron')
 
 export default function CustomHeader() {
     function onSearch() {
@@ -16,9 +17,9 @@ export default function CustomHeader() {
             <ShareAltOutlined />
         </span>
         <span className={'operation-btn'}>
-            <MinusOutlined/>
-            <BlockOutlined />
-            <CloseOutlined/>
+            <MinusOutlined onClick={() => { ipcRenderer.send('WINDOW_MIN') }}/>
+            <BlockOutlined onClick={() => { ipcRenderer.send('WINDOW_MAX') }}/>
+            <CloseOutlined onClick={() => { ipcRenderer.send('WINDOW_CLOSE') }}/>
         </span>
     </div>)
 }
