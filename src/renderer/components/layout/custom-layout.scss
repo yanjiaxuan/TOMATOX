@@ -1,0 +1,15 @@
+.full-content {
+    width: 100%;
+    height: 100vh;
+}
+
+.custom-header {
+    height: 50px;
+    line-height: 50px;
+    background-color: #4a4a4a;
+    -webkit-app-region: drag;
+}
+
+.custom-content {
+    background-color: #403f3f;
+}

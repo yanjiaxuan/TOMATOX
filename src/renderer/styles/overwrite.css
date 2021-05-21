@@ -1,0 +1,26 @@
+* {
+    font-family: tahoma,"microsoft yahei","\5FAE\8F6F\96C5\9ED1", "sans-serif" !important;
+}
+
+.ant-layout-sider-children {
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.ant-layout-header {
+    padding: 0 10px;
+    background-color: #4a4a4a;
+    height: 50px;
+    line-height: 50px;
+}
+
+.ant-layout-sider-dark {
+    background-color: #333333;
+}
+
+.ant-menu-dark {
+    background-color: #333333 !important;
+}

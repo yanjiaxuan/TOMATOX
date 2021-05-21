@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# electron-react-typescript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### A Boilerplate for an Easy Start with TypeScript, React, and Electron.
 
-## Available Scripts
+[![React](docs/img/react.png)](https://reactjs.org/)
+[![Webpack](docs/img/webpack.png)](https://webpack.js.org/)
+[![TypeScript](docs/img/ts.png)](https://www.typescriptlang.org/)
+[![Electron](docs/img/electron.png)](https://electronjs.org/)
+[![Redux](docs/img/redux.png)](https://redux.js.org/)
+[![Jest](docs/img/jest.png)](https://facebook.github.io/jest/)
 
-In the project directory, you can run:
+[Electron](https://electronjs.org/) application boilerplate based on [React](https://reactjs.org/), [Redux](https://redux.js.org/), and [Webpack](https://webpack.js.org/) for rapid application development using [TypeScript](https://www.typescriptlang.org/).
 
-### `npm start`
+## Install
+Clone the repository with Git:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+git clone --depth=1 git@github.com:Robinfr/electron-react-typescript.git <your-project-name>
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+And then install the dependencies:
 
-### `npm test`
+```bash
+cd <your-project-name>
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
+Both processes have to be started **simultaneously** in different console tabs:
 
-### `npm run build`
+```bash
+npm run start-renderer-dev
+npm run start-main-dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This will start the application with hot-reload so you can instantly start developing your application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can also run do the following to start both in a single process:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run start-dev
+```
 
-### `npm run eject`
+## Packaging
+We use [Electron builder](https://www.electron.build/) to build and package the application. By default you can run the following to package for your current platform:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm run dist
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This will create a installer for your platform in the `releases` folder.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+You can make builds for specific platforms (or multiple platforms) by using the options found [here](https://www.electron.build/cli). E.g. building for all platforms (Windows, Mac, Linux):
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm run dist -- -mwl
+```
 
-## Learn More
+## Husky and Prettier
+This project comes with both Husky and Prettier setup to ensure a consistent code style. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To change the code style, you can change the configuration in `.prettierrc`. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+In case you want to get rid of this, you can removing the following from `package.json`:
 
-### Code Splitting
+1. Remove `precommit` from the `scripts` section
+1. Remove the `lint-staged` section
+1. Remove `lint-staged`, `prettier`, `eslint-config-prettier`, and `husky` from the `devDependencies`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Also remove all mentions of Prettier from the `extends` section in `.eslintrc.json`.
 
-### Analyzing the Bundle Size
+## About this project
+This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate) and [React Redux TypeScript guide](https://github.com/piotrwitek/react-redux-typescript-guide).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+MIT © [R. Franken](https://github.com/Robinfr)

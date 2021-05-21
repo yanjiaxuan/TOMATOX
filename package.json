@@ -1,175 +1,166 @@
 {
-  "name": "tomatox",
-  "version": "0.1.0",
-  "private": true,
-  "main": "main.js",
+  "name": "electron-react-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.js",
   "scripts": {
-    "start": "node scripts/start.js",
-    "start:electron": "electron .",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "build-main": "cross-env NODE_ENV=production webpack --config webpack.main.prod.config.js",
+    "build-renderer": "cross-env NODE_ENV=production webpack --config webpack.renderer.prod.config.js",
+    "build": "npm run build-main && npm run build-renderer",
+    "start-renderer-dev": "webpack-dev-server --config webpack.renderer.dev.config.js",
+    "start-main-dev": "webpack --config webpack.main.config.js && electron ./dist/main.js",
+    "start-dev": "cross-env START_HOT=1 npm run start-renderer-dev",
+    "prestart": "npm run build",
+    "start": "electron .",
+    "lint": "eslint --ext=jsx,js,tsx,ts src",
+    "test": "jest '(\\/test\\/(?!e2e/)).*'",
+    "pretest:e2e": "npm run build",
+    "test:e2e": "jest '(\\/test\\/e2e/).*'",
+    "unpacked": "npm run build && electron-builder --dir",
+    "pack": "npm run build && electron-builder --win --x64",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "build": {
-    "win": {
-      "icon": "public/logo.png"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "lint-staged": {
+    "{src,test,mocks}/**/*.{json,css,scss,md}": [
+      "prettier --config ./.prettierrc --write"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+    "{src,test,mocks}/**/*.{js,ts,tsx}": [
+      "prettier --config ./.prettierrc --write",
+      "eslint --ext=jsx,js,ts,tsx --fix src"
     ]
   },
-  "dependencies": {
-    "@babel/core": "7.12.3",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
-    "@svgr/webpack": "5.5.0",
-    "@typescript-eslint/eslint-plugin": "^4.5.0",
-    "@typescript-eslint/parser": "^4.5.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.6.0",
-    "babel-loader": "8.1.0",
-    "babel-plugin-named-asset-import": "^0.3.7",
-    "babel-preset-react-app": "^10.0.0",
-    "bfj": "^7.0.2",
-    "camelcase": "^6.1.0",
-    "case-sensitive-paths-webpack-plugin": "2.3.0",
-    "css-loader": "4.3.0",
-    "dotenv": "8.2.0",
-    "dotenv-expand": "5.1.0",
-    "eslint": "^7.11.0",
-    "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^5.2.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testing-library": "^3.9.2",
-    "eslint-webpack-plugin": "^2.5.2",
-    "file-loader": "6.1.1",
-    "fs-extra": "^9.0.1",
-    "html-webpack-plugin": "4.5.0",
-    "identity-obj-proxy": "3.0.0",
-    "jest": "26.6.0",
-    "jest-circus": "26.6.0",
-    "jest-resolve": "26.6.0",
-    "jest-watch-typeahead": "0.6.1",
-    "mini-css-extract-plugin": "0.11.3",
-    "optimize-css-assets-webpack-plugin": "5.0.4",
-    "pnp-webpack-plugin": "1.6.4",
-    "postcss-flexbugs-fixes": "4.2.1",
-    "postcss-loader": "3.0.0",
-    "postcss-normalize": "8.0.1",
-    "postcss-preset-env": "6.7.0",
-    "postcss-safe-parser": "5.0.2",
-    "prompts": "2.4.0",
-    "react-app-polyfill": "^2.0.0",
-    "react-dev-utils": "^11.0.3",
-    "react-refresh": "^0.8.3",
-    "resolve": "1.18.1",
-    "resolve-url-loader": "^3.1.2",
-    "sass-loader": "^10.0.5",
-    "semver": "7.3.2",
-    "style-loader": "1.3.0",
-    "terser-webpack-plugin": "4.2.3",
-    "ts-pnp": "1.2.0",
-    "url-loader": "4.1.1",
-    "webpack": "4.44.2",
-    "webpack-dev-server": "3.11.1",
-    "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "5.1.4"
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/test/.+\\.spec)\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
+      "\\.(s?css|sass)$": "<rootDir>/mocks/styleMock.js"
+    }
   },
+  "build": {
+    "productName": "TOMATOX",
+    "appId": "org.yanjiaxuan.tomatox",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/",
+      "package.json"
+    ],
+    "win": {
+      "icon": "./public/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "installerIcon": "./public/icon.ico",
+      "uninstallerIcon": "./public/icon.ico",
+      "uninstallDisplayName": "TOMATOX",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Robinfr/electron-react-typescript.git"
+  },
+  "author": {
+    "name": "Your name",
+    "email": "Your email"
+  },
+  "license": "SEE LICENSE",
+  "bugs": {
+    "url": "https://github.com/Robinfr/electron-react-typescript/issues"
+  },
+  "homepage": "https://github.com/Robinfr/electron-react-typescript",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
+    "@babel/core": "7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/runtime": "^7.14.0",
+    "@hot-loader/react-dom": "^16.8.6",
     "@types/dplayer": "^1.25.1",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.3.0",
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/jest": "^24.0.13",
     "@types/react": "^17.0.5",
     "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-dom": "^17.0.5",
-    "@types/react-router": "^5.1.14",
+    "@types/react-redux": "^7.0.9",
     "@types/react-router-dom": "^5.1.7",
+    "@types/react-test-renderer": "^16.8.1",
+    "@types/webdriverio": "^4.8.7",
+    "@types/webpack-env": "^1.13.3",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "antd": "^4.15.5",
     "axios": "^0.21.1",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "cross-env": "^5.1.3",
+    "css-loader": "^2.1.1",
     "dplayer": "^1.26.0",
-    "electron": "^12.0.9",
+    "electron": "^3.1.9",
+    "electron-builder": "^22.3.2",
+    "electron-devtools-installer": "^2.2.4",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "file-loader": "^3.0.1",
+    "fork-ts-checker-webpack-plugin": "^1.3.4",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.1",
+    "image-webpack-loader": "^4.6.0",
+    "interpolate-html-plugin": "^3.0.0",
+    "jest": "^24.8.0",
+    "lint-staged": "^10.0.7",
+    "mini-css-extract-plugin": "^1.6.0",
+    "prettier": "^1.18.2",
     "react": "^17.0.2",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.8.8",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.2.0",
+    "react-test-renderer": "^16.8.6",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.5",
+    "sass": "^1.33.0",
+    "sass-loader": "^7.1.0",
+    "source-map-loader": "^0.2.4",
+    "spectron": "^5.0.0",
+    "style-loader": "^0.23.1",
+    "ts-jest": "^24.0.2",
     "typescript": "^4.2.4",
-    "web-vitals": "^1.1.2"
+    "url-loader": "^4.1.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1",
+    "webpack-merge": "^4.2.1"
   },
-  "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
-    ],
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.ts"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
-    ],
-    "testEnvironment": "jsdom",
-    "testRunner": "E:\\project\\TOMATOX\\node_modules\\jest-circus\\runner.js",
-    "transform": {
-      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "modulePaths": [],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ],
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ],
-    "resetMocks": true
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  }
+  "dependencies": {}
 }
