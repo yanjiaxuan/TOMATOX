@@ -15,6 +15,7 @@ let mainWindow: Electron.BrowserWindow|null;
 function createWindow() {
 // 创建浏览器窗口,宽高自定义具体大小你开心就好
     mainWindow = new BrowserWindow({
+        show: false,
         width: 1260,
         height: 700,
         frame: false,
@@ -39,6 +40,9 @@ function createWindow() {
             })
         );
     }
+    mainWindow.on('ready-to-show', () => {
+        mainWindow?.show()
+    })
 }
 
 // 当 Electron 完成初始化并准备创建浏览器窗口时调用此方法

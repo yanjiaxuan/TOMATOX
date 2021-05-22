@@ -25,3 +25,7 @@
 .ant-menu-dark {
     background-color: #333333 !important;
 }
+
+.ant-spin-nested-loading > div > .ant-spin {
+    max-height: unset;
+}

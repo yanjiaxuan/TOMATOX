@@ -78,11 +78,10 @@ module.exports = merge.smart(baseConfig, {
             {
                 test: /\.(gif|png|jpe?g|svg)$/,
                 use: [
-                    'file-loader',
                     {
-                        loader: 'image-webpack-loader',
+                        loader: 'svg-url-loader',
                         options: {
-                            disable: true
+                            encoding: 'base64'
                         }
                     }
                 ]

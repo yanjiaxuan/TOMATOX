@@ -6,8 +6,8 @@ import Scrollbars from 'react-custom-scrollbars';
 import playTool from '@/utils/paly-tool';
 import CardStream from '@/views/recommend/CardStream';
 import InfiniteScroll from 'react-infinite-scroller'
-import cssM from './recommend.scss'
 import CustomSpin from '@/components/custom-spin/custom-spin';
+import cssM from './recommend.scss'
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Recommends extends React.Component<any, any>{
@@ -51,7 +51,7 @@ export default class Recommends extends React.Component<any, any>{
         const { api } = this.origin
         this.page++
         const curPage = this.page
-        const res = await playTool.list(api, this.page, this.type)
+        const res = await playTool.list(api, curPage, this.type)
         if (curPage === 1) {
             store.setState('GLOBAL_LOADING', false)
             this.setState({
@@ -95,7 +95,7 @@ export default class Recommends extends React.Component<any, any>{
                         <div className={cssM.cardList}>
                             {convertEle(this.state.cardsData)}
                         </div>
-                        <div style={{height: 50, position: 'relative'}}>
+                        <div style={{height: 80, position: 'relative'}}>
                             <Spin size={'large'} indicator={<CustomSpin />} spinning={this.state.recommendLoading} />
                         </div>
                 </InfiniteScroll>
