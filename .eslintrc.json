@@ -115,6 +115,8 @@
     "no-plusplus": 0,
     "no-multi-assign": 0,
     "react/no-deprecated": 0,
-    "lines-between-class-members": 0
+    "lines-between-class-members": 0,
+    "react/sort-comp": 0,
+    "class-methods-use-this": 0
   }
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {BrowserRouter, Route, Link, Redirect} from 'react-router-dom'
 import Recommend from '@/views/recommend/recommend';
 import Classify from '@/views/classify/classify'
 import History from '@/views/history/history'
@@ -8,6 +7,7 @@ import Player from '@/views/player/player'
 import {Spin} from "antd";
 import CustomSpin from "@/components/custom-spin/custom-spin";
 import store from '@/utils/store';
+import {Route} from 'react-keeper'
 import cssM from './custom-content.scss'
 
 export default function customContent() {
@@ -20,25 +20,12 @@ export default function customContent() {
     return (
     <Spin size={'large'} indicator={<CustomSpin />} spinning={load}>
         <div className={cssM.contentWrapper}>
-            <Redirect to={'/recommend'} />
-            <Route exact path='/'>
-                <Redirect to={'/recommend'} />
-            </Route>
-            <Route exact path='/recommend'>
-                <Recommend />
-            </Route>
-            <Route exact path='/classify'>
-                <Classify />
-            </Route>
-            <Route exact path='/history'>
-                <History />
-            </Route>
-            <Route exact path='/collect'>
-                <Collect />
-            </Route>
-            <Route exact path='/play'>
-                <Player />
-            </Route>
+            <Route cache path='/' component={Recommend} />
+            <Route cache path='/recommend' component={Recommend} />
+            <Route cache path='/classify' component={Classify} />
+            <Route cache path='/history' component={History} />
+            <Route cache path='/collect' component={Collect} />
+            <Route path='/play' component={Player} />
         </div>
     </Spin>
 )

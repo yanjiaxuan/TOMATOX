@@ -4,13 +4,11 @@ import { Button, Spin } from 'antd';
 import store from '@/utils/store';
 import Scrollbars from 'react-custom-scrollbars';
 import playTool from '@/utils/paly-tool';
-import CardStream from '@/views/recommend/CardStream';
 import InfiniteScroll from 'react-infinite-scroller'
 import CustomSpin from '@/components/custom-spin/custom-spin';
 import cssM from './recommend.scss'
 
-// eslint-disable-next-line react/prefer-stateless-function
-export default class Recommends extends React.Component<any, any>{
+export default class Recommend extends React.Component<any, any>{
     private storeListener: any
     private origin: Iorigin|undefined
     private page = 0
