@@ -15,7 +15,7 @@ let mainWindow: Electron.BrowserWindow|null;
 function createWindow() {
 // 创建浏览器窗口,宽高自定义具体大小你开心就好
     mainWindow = new BrowserWindow({
-        width: 1200,
+        width: 1260,
         height: 700,
         frame: false,
         backgroundColor: "#403f3f",
@@ -38,13 +38,6 @@ function createWindow() {
                 slashes: true
             })
         );
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-        // Open DevTools, see https://github.com/electron/electron/issues/12438 for why we wait for dom-ready
-        mainWindow!.webContents.once('dom-ready', () => {
-            mainWindow!.webContents.openDevTools();
-        });
     }
 }
 

@@ -1,5 +1,6 @@
 * {
     font-family: tahoma,"microsoft yahei","\5FAE\8F6F\96C5\9ED1", "sans-serif" !important;
+    user-select: none;
 }
 
 .ant-layout-sider-children {

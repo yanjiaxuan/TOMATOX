@@ -1,3 +1,4 @@
+// @ts-ignore
 const {ipcMain} = require('electron')
 
 module.exports = function processHeaderEvent(mainWindow: Electron.BrowserWindow) {
@@ -13,5 +14,8 @@ module.exports = function processHeaderEvent(mainWindow: Electron.BrowserWindow)
     })
     ipcMain.on('WINDOW_CLOSE', () => {
         mainWindow.close()
+    })
+    ipcMain.on('WINDOW_DEBUG', () => {
+        mainWindow.webContents.openDevTools()
     })
 }
