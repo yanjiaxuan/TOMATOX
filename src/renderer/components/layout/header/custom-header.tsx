@@ -18,7 +18,7 @@ export default function CustomHeader() {
         <Input.Search placeholder="电影、电视剧、综艺..." onSearch={onSearch} enterButton={<span><SearchOutlined /> 全网搜</span>} className={cssModule.headerInput} />
         <span className={cssModule.appBtn}>
             <BugOutlined onClick={() => { ipcRenderer.send('WINDOW_DEBUG') }} />
-            <ReloadOutlined onClick={() => {window.location.href += ''}} style={{fontSize: 18}} />
+            <ReloadOutlined onClick={() => {window.location.href = '/'}} style={{fontSize: 18}} />
             <SkinOutlined />
             <UserOutlined />
             <ShareAltOutlined />
