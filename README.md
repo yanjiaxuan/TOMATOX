@@ -1,21 +1,24 @@
-# electron-react-typescript
+[![TOMATOX](docs/img/logo.png)]()
+# TOMATOX
 
-### A Boilerplate for an Easy Start with TypeScript, React, and Electron.
+### A Online video player with TypeScript, React, and Electron.
 
 [![React](docs/img/react.png)](https://reactjs.org/)
 [![Webpack](docs/img/webpack.png)](https://webpack.js.org/)
 [![TypeScript](docs/img/ts.png)](https://www.typescriptlang.org/)
 [![Electron](docs/img/electron.png)](https://electronjs.org/)
-[![Redux](docs/img/redux.png)](https://redux.js.org/)
-[![Jest](docs/img/jest.png)](https://facebook.github.io/jest/)
 
-[Electron](https://electronjs.org/) application boilerplate based on [React](https://reactjs.org/), [Redux](https://redux.js.org/), and [Webpack](https://webpack.js.org/) for rapid application development using [TypeScript](https://www.typescriptlang.org/).
+[Electron](https://electronjs.org/) application boilerplate based on [React](https://reactjs.org/) and [Webpack](https://webpack.js.org/) for rapid application development using [TypeScript](https://www.typescriptlang.org/).
+
+## Screenshot
+
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/TOMATOX.png?raw=true)
 
 ## Install
 Clone the repository with Git:
 
 ```bash
-git clone --depth=1 git@github.com:Robinfr/electron-react-typescript.git <your-project-name>
+git clone --depth=1 git@github.com:yanjiaxuan/TOMATOX.git <your-project-name>
 ```
 
 And then install the dependencies:
@@ -69,8 +72,5 @@ In case you want to get rid of this, you can removing the following from `packag
 
 Also remove all mentions of Prettier from the `extends` section in `.eslintrc.json`.
 
-## About this project
-This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate) and [React Redux TypeScript guide](https://github.com/piotrwitek/react-redux-typescript-guide).
-
 ## License
-MIT © [R. Franken](https://github.com/Robinfr)
+MIT © [yanjiaxuan](https://github.com/yanjiaxuan)
