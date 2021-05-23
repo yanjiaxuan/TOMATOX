@@ -39,16 +39,18 @@ export default class Search extends React.Component<any, any>{
                 Promise.all(promises).finally(() => {
                     this.setState({
                         cardsData: newCradsData
+                    }, () => {
+                        store.setState('GLOBAL_LOADING', false)
                     })
-                    store.setState('GLOBAL_LOADING', false)
                 })
             } else if (res instanceof Object) {
                 const rr = await playTool.detail('', res.id)
                 newCradsData.push(rr)
                 this.setState({
                     cardsData: newCradsData
+                }, () => {
+                    store.setState('GLOBAL_LOADING', false)
                 })
-                store.setState('GLOBAL_LOADING', false)
             } else {
                 store.setState('GLOBAL_LOADING', false)
             }
