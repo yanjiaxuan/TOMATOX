@@ -117,6 +117,9 @@
     "react/no-deprecated": 0,
     "lines-between-class-members": 0,
     "react/sort-comp": 0,
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "react/no-string-refs": 0,
+    "guard-for-in": 0,
+    "no-await-in-loop": 0
   }
 }

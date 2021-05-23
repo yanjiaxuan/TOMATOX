@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import { FireOutlined, HistoryOutlined, HeartOutlined, AppstoreOutlined } from '@ant-design/icons'
+import { FireOutlined, HistoryOutlined, HeartOutlined, AppstoreOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link } from 'react-keeper'
 import Icon from '@/images/svg/icon.svg'
 import { Scrollbars } from 'react-custom-scrollbars'
@@ -23,6 +23,11 @@ export default function CustomSider(props: any) {
                 <Menu.Item key={"classify"} icon={<AppstoreOutlined />}>
                     <Link to={'/classify'}>
                         <span>分类</span>
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key={"search"} icon={<SearchOutlined />}>
+                    <Link to={'/search'}>
+                        <span>搜索</span>
                     </Link>
                 </Menu.Item>
                 <Menu.Item key={"history"} icon={<HistoryOutlined />}>

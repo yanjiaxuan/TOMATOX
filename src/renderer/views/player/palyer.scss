@@ -54,11 +54,45 @@
     width: 70%;
     height: 100%;
 }
-.video-info {
+.video-info-wrapper {
     width: 30%;
     color: #fff;
-    padding: 10px;
+    overflow-y: auto;
 }
 .video-info-title {
     font-size: 14px;
+}
+
+.video-frame {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #232323;
+}
+
+.video-info {
+    padding: 15px;
+}
+
+.series-tag {
+    margin: 5px 8px;
+    padding: 5px 15px;
+    display: inline-block;
+    background-color: #8080809e;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s linear;
+    &:hover {
+        color: #e05f2d;
+    }
+}
+
+.series-tag-active {
+    background-color: #e05f2d;
+    &:hover
+    {
+        color: #fff;
+    }
 }

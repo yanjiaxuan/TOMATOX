@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
 import { Button, Spin } from 'antd';
 import store from '@/utils/store';
 import Scrollbars from 'react-custom-scrollbars';
 import playTool from '@/utils/paly-tool';
 import InfiniteScroll from 'react-infinite-scroller'
 import CustomSpin from '@/components/custom-spin/custom-spin';
+import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall'
 import cssM from './recommend.scss'
 
 export default class Recommend extends React.Component<any, any>{
@@ -68,20 +68,6 @@ export default class Recommend extends React.Component<any, any>{
     }
 
     render(): React.ReactNode {
-        function convertEle(eles: any[]) {
-            const res = []
-            for (const ele of eles) {
-                res.push(<div key={ele.id} className={cssM.card}>
-                    <div>
-                        <img src={ele.pic} className={cssM.descImg} />
-                        <span className={cssM.topRightTitle}>{ele.note}</span>
-                    </div>
-                    <span>{ele.name}</span>
-                    <span>主演 : {ele.director||'未知'}</span>
-                </div>)
-            }
-            return res
-        }
         return (
             <Scrollbars>
                 <InfiniteScroll
@@ -90,10 +76,8 @@ export default class Recommend extends React.Component<any, any>{
                     loadMore={this.getRecommend.bind(this)}
                     hasMore
                     useWindow={false} >
-                        <div className={cssM.cardList}>
-                            {convertEle(this.state.cardsData)}
-                        </div>
-                        <div style={{height: 80, position: 'relative'}}>
+                        <TomatoxWaterfall data={this.state.cardsData} />
+                        <div style={{height: 100, position: 'relative'}}>
                             <Spin size={'large'} indicator={<CustomSpin />} spinning={this.state.recommendLoading} />
                         </div>
                 </InfiniteScroll>

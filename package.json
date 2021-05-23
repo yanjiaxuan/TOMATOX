@@ -99,7 +99,6 @@
     "@babel/preset-typescript": "^7.3.3",
     "@babel/runtime": "^7.14.0",
     "@hot-loader/react-dom": "^16.8.6",
-    "@types/dplayer": "^1.25.1",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/jest": "^24.0.13",
     "@types/react": "^17.0.5",
@@ -120,7 +119,6 @@
     "copy-webpack-plugin": "^4.6.0",
     "cross-env": "^5.1.3",
     "css-loader": "^2.1.1",
-    "dplayer": "^1.26.0",
     "electron": "^3.1.9",
     "electron-builder": "^22.3.2",
     "electron-devtools-installer": "^2.2.4",
@@ -168,7 +166,10 @@
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.4.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "xgplayer": "^2.20.8",
+    "xgplayer-flv.js": "^2.3.0",
+    "xgplayer-hls.js": "^2.4.2"
   },
   "dependencies": {}
 }

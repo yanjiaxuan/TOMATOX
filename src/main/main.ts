@@ -1,5 +1,5 @@
 // 引入electron并创建一个Browserwindow
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut } from 'electron';
 
 const path = require('path');
 const url = require('url');

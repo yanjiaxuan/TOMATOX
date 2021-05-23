@@ -5,8 +5,6 @@ import './app.css'
 import '@/utils/origins'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CustomLayout />
-  </React.StrictMode>,
+    <CustomLayout />,
   document.getElementById('root')
 );

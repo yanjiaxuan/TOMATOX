@@ -4,6 +4,7 @@ import cheerio from 'cheerio'
 import { Parser as M3u8Parser } from 'm3u8-parser'
 // import FLVDemuxer from 'xgplayer-flv.js/src/flv/demux/flv-demuxer.js'
 import SocksProxyAgent from 'socks-proxy-agent'
+import store from '@/utils/store';
 // import { sites, setting } from '../dexie'
 
 // axios使用系统代理  https://evandontje.com/2020/04/02/automatic-system-proxy-configuration-for-electron-applications/
@@ -103,7 +104,11 @@ const playTool = {
     // },
     getSite(url) {
         return new Promise((resolve, reject) => {
-            resolve({ api: url })
+            if (url) {
+                resolve({ api: url })
+            } else {
+                resolve(store.getState('SITE_ADDRESS'))
+            }
         })
     },
     /**

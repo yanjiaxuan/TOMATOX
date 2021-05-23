@@ -6,8 +6,9 @@ class Store {
     constructor() {
         this.state = {
             ORIGIN_LIST: '',
-            GLOBAL_LOADING: true,
-            SITE_ADDRESS: undefined
+            GLOBAL_LOADING: false,
+            SITE_ADDRESS: undefined,
+            SEARCH_KEYWORDS: ''
         }
         this.subscribers = {}
     }

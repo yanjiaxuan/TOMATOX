@@ -8,6 +8,7 @@ import {Spin} from "antd";
 import CustomSpin from "@/components/custom-spin/custom-spin";
 import store from '@/utils/store';
 import {Route} from 'react-keeper'
+import Search from '@/views/search/search';
 import cssM from './custom-content.scss'
 
 export default function customContent() {
@@ -26,6 +27,7 @@ export default function customContent() {
             <Route cache path='/history' component={History} />
             <Route cache path='/collect' component={Collect} />
             <Route path='/play' component={Player} />
+            <Route cache path='/search' component={Search} />
         </div>
     </Spin>
 )

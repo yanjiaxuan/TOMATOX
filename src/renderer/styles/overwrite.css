@@ -29,3 +29,56 @@
 .ant-spin-nested-loading > div > .ant-spin {
     max-height: unset;
 }
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #ff5c49;
+}
+
+.ant-tabs-ink-bar {
+    background: #ff5c49;
+}
+
+.ant-menu-item-selected {
+    background: #ff5c49 !important;
+}
+
+.ant-btn-primary {
+    background: #ff5c49;
+    border-color: #ff5c49;
+}
+
+.ant-btn-primary:hover {
+    background: #ff5c49;
+    border-color: #ff5c49;
+}
+
+.ant-btn-primary:focus {
+    background: #ff5c49;
+    border-color: #ff5c49;
+}
+
+.ant-input {
+    color: #fff;
+}
+
+.ant-input:hover {
+    border-color: #ff5c49!important;
+}
+.ant-input:focus {
+    border-color: #ff5c49!important;
+}
+
+.ant-spin {
+    color: #403f3f;
+    transition: unset !important;
+}
+
+.ant-spin-blur {
+    opacity: 0.1 !important;
+}
+.ant-spin-container {
+    transition: unset;
+}
+.ant-spin-container::after {
+    transition: unset !important;
+}

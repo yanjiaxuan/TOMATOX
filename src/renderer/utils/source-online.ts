@@ -2,6 +2,7 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 
 function open(url: string) {
+    debugger
     return url
 }
 
