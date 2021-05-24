@@ -52,7 +52,11 @@ export default class Search extends React.Component<any, any>{
                     store.setState('GLOBAL_LOADING', false)
                 })
             } else {
-                store.setState('GLOBAL_LOADING', false)
+                this.setState({
+                    cardsData: []
+                }, () => {
+                    store.setState('GLOBAL_LOADING', false)
+                })
             }
         } catch (e) {
             store.setState('GLOBAL_LOADING', false)
