@@ -8,10 +8,15 @@ import {Spin} from "antd";
 import CustomSpin from "@/components/custom-spin/custom-spin";
 import store from '@/utils/store';
 import Developing from '@/views/developing/developing'
-import {Route} from 'react-keeper'
+import { Route } from 'react-keeper';
 import Search from '@/views/search/search';
 import Redirect from '@/components/redirect/redirect'
 import cssM from './custom-content.scss'
+
+function updatePath(cb: Function, props: any) {
+    store.setState('CURRENT_PATH', props.path)
+    cb()
+}
 
 export default function customContent() {
     const [load, setLoading] = useState(store.getState('GLOBAL_LOADING'))
@@ -24,12 +29,12 @@ export default function customContent() {
     <Spin size={'large'} indicator={<CustomSpin />} spinning={load}>
         <div className={cssM.contentWrapper}>
             <Route path='/' component={Redirect} />
-            <Route cache path='/recommend' component={Recommend} />
-            <Route cache path='/classify' component={Developing} />
-            <Route cache path='/history' component={Developing} />
-            <Route cache path='/collect' component={Developing} />
-            <Route path='/play' component={Player} />
-            <Route cache path='/search' component={Search} />
+            <Route cache path='/recommend' component={Recommend} enterFilter={updatePath} />
+            <Route cache path='/classify' component={Developing} enterFilter={updatePath} />
+            <Route cache path='/history' component={Developing} enterFilter={updatePath} />
+            <Route cache path='/collect' component={Developing} enterFilter={updatePath} />
+            <Route path='/play' component={Player} enterFilter={updatePath} />
+            <Route cache path='/search' component={Search} enterFilter={updatePath} />
         </div>
     </Spin>
 )

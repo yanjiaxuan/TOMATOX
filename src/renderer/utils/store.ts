@@ -5,10 +5,11 @@ class Store {
 
     constructor() {
         this.state = {
-            ORIGIN_LIST: '',
-            GLOBAL_LOADING: false,
-            SITE_ADDRESS: undefined,
-            SEARCH_KEYWORDS: ''
+            ORIGIN_LIST: '',    // 视频源列表
+            GLOBAL_LOADING: false,  // 全局loading
+            SITE_ADDRESS: undefined,  // 当前视频源
+            SEARCH_KEYWORDS: '', // 搜索关键字
+            CURRENT_PATH: ''
         }
         this.subscribers = {}
     }
