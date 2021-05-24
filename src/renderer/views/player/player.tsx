@@ -99,6 +99,7 @@ export default class Player extends React.Component<any, any> {
     }
 
     componentWillUnmount(): void {
+        this.xgPlayer?.off('ended', this.playNext.bind(this))
         this.xgPlayer?.destroy();
     }
 
