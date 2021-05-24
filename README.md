@@ -12,7 +12,7 @@
 
 ## Screenshot
 
-![image](https://ghproxy.com/https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/TOMATOX.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/TOMATOX.png?raw=true)
 
 ## Install
 Clone the repository with Git:
