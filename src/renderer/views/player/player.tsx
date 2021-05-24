@@ -12,6 +12,7 @@ const { ipcRenderer } = require('electron');
 export default class Player extends React.Component<any, any> {
     private xgPlayer: XGPlayer | undefined;
     private sourceList: Record<string, Record<string, string>> = {}
+    private selectedKey = ''
     private firstPlaySrc = ''
     private first = true
     private controlState: Record<string, any> = {}
@@ -42,12 +43,24 @@ export default class Player extends React.Component<any, any> {
             if (name && url) {
                 sourceUrl[name] = url;
                 if (this.first) {
+                    this.selectedKey = option._flag
                     this.firstPlaySrc = url
                     this.first = false
                 }
             }
         });
         this.sourceList[option._flag] = sourceUrl
+    }
+
+    playNext() {
+        const srcs = Object.values(this.sourceList[this.selectedKey])
+        const curIdx = srcs.indexOf(this.state.curPlaySrc)
+        if (curIdx >= 0 && curIdx < srcs.length - 1) {
+            this.setState({
+                curPlaySrc: srcs[curIdx + 1]
+            })
+            this.xgPlayer!.src = srcs[curIdx + 1]
+        }
     }
 
     componentDidMount(): void {
@@ -82,6 +95,7 @@ export default class Player extends React.Component<any, any> {
             preloadTime: 300,
         })
         this.xgPlayer?.play()
+        this.xgPlayer?.on('ended', this.playNext.bind(this))
     }
 
     componentWillUnmount(): void {
@@ -106,7 +120,12 @@ export default class Player extends React.Component<any, any> {
         for (const key in playList) {
             eles.push(
                 <span key={key} className={`${cssM.seriesTag} ${playList[key] === this.state.curPlaySrc ? cssM.seriesTagActive : ''}`}
-                     onClick={() => {this.setState({curPlaySrc: playList[key]}); this.xgPlayer!.src = playList[key] }} >
+                     onClick={() => {
+                         if (this.state.curPlaySrc !== playList[key]) {
+                             this.setState({curPlaySrc: playList[key]});
+                             this.xgPlayer!.src = playList[key]
+                         }
+                     }} >
                     {key}
                 </span>
             );
@@ -146,7 +165,15 @@ export default class Player extends React.Component<any, any> {
                     <div className={cssM.videoInfoWrapper}>
                         <Scrollbars>
                             <div className={cssM.videoInfo}>
-                                <Tabs className={cssM.sourceTab}>
+                                <Tabs className={cssM.sourceTab} onChange={ newKey => {
+                                    this.selectedKey = newKey
+                                    const curSrc = Object.values(this.sourceList[newKey])[0]
+                                    this.setState({
+                                        curPlaySrc: curSrc
+                                    })
+                                    this.xgPlayer!.src = curSrc
+                                }
+                                }>
                                     {this.descSources()}
                                 </Tabs>
                             </div>
