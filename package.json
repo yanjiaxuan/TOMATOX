@@ -1,7 +1,7 @@
 {
   "name": "electron-react-typescript",
   "version": "1.0.0",
-  "description": "",
+  "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
   "scripts": {
     "build-main": "cross-env NODE_ENV=production webpack --config webpack.main.prod.config.js",
@@ -22,7 +22,7 @@
     "pack:mac": "electron-builder --mac --x64",
     "pack": "npm run build && npm run pack:win && npm run pack:linux && npm run pack:mac",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "electron-builder -p always"
+    "publish": "npm run build && electron-builder -p always"
   },
   "husky": {
     "hooks": {
@@ -63,7 +63,8 @@
       {
         "provider": "github",
         "owner": "yanjiaxuan",
-        "repo": "TOMATOX"
+        "repo": "TOMATOX",
+        "releaseType": "release"
       }
     ],
     "directories": {
@@ -91,7 +92,9 @@
       }
     },
     "snap": {
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "nsis": {
       "installerIcon": "./public/icon.ico",
@@ -109,6 +112,10 @@
     "type": "git",
     "url": "git@github.com:yanjiaxuan/TOMATOX.git"
   },
+  "files": [
+    "dist/",
+    "package.json"
+  ],
   "author": {
     "name": "yanjiaxuan",
     "email": "330544968@qq.com"
@@ -144,6 +151,7 @@
     "copy-webpack-plugin": "^4.6.0",
     "cross-env": "^5.1.3",
     "css-loader": "^2.1.1",
+    "electron": "^3.1.9",
     "electron-builder": "^22.3.2",
     "electron-devtools-installer": "^2.2.4",
     "electron-proxy-agent": "^1.2.0",
@@ -177,13 +185,10 @@
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.4.1",
-    "webpack-merge": "^4.2.1"
-  },
-  "dependencies": {
+    "webpack-merge": "^4.2.1",
     "antd": "^4.15.5",
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.9",
-    "electron": "^3.1.9",
     "fast-xml-parser": "^3.19.0",
     "m3u8-parser": "^4.7.0",
     "react": "^17.0.2",
@@ -200,5 +205,6 @@
     "xgplayer": "^2.20.8",
     "xgplayer-flv.js": "^2.3.0",
     "xgplayer-hls.js": "^2.4.2"
-  }
+  },
+  "dependencies": {}
 }
