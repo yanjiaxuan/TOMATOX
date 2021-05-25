@@ -178,9 +178,9 @@ export default class Player extends React.Component<any, any> {
                                             <div className={cssM.detailTextWrapper}>
                                                 <div className={cssM.detailTitle}>{this.controlState?.name}</div>
                                                 <div>
-                                                    <div className={cssM.detailContent}>状态：{this.controlState?.state}</div>
                                                     <div className={cssM.detailContent}>年份：{this.controlState?.year}</div>
                                                     <div className={cssM.detailContent}>类型：{this.controlState?.type}</div>
+                                                    <div className={cssM.detailContent}>语言：{this.controlState?.lang}</div>
                                                     <div className={cssM.detailContent}>地区：{this.controlState?.area}</div>
                                                     <div className={cssM.detailContent}>导演：{this.controlState?.director}</div>
                                                     <div className={cssM.detailContent}>主演：{this.controlState?.actor}</div>
