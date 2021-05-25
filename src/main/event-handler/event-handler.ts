@@ -1,7 +1,7 @@
 // @ts-ignore
 const {ipcMain} = require('electron')
 
-module.exports = function processHeaderEvent(mainWindow: Electron.BrowserWindow) {
+module.exports = function eventHandler(mainWindow: Electron.BrowserWindow) {
     ipcMain.on('WINDOW_MIN', () => {
         mainWindow.minimize()
     })

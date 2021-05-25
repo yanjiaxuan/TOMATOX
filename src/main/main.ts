@@ -3,7 +3,7 @@ import { app, BrowserWindow, globalShortcut } from 'electron';
 
 const path = require('path');
 const url = require('url');
-const procHeadEven = require('./custom-header/custom-header');
+const procEvent = require('./event-handler/event-handler');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors'); // 允许跨域
@@ -26,7 +26,7 @@ function createWindow() {
             contextIsolation: false
         }
     });
-    procHeadEven(mainWindow);
+    procEvent(mainWindow);
 
     if (process.env.NODE_ENV !== 'production') {
         process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = '1'; // eslint-disable-line require-atomic-updates
