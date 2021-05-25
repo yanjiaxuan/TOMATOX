@@ -1,5 +1,5 @@
 * {
-    font-family: tahoma,"microsoft yahei","\5FAE\8F6F\96C5\9ED1", "sans-serif" !important;
+    font-family: tahoma, 'microsoft yahei', '\5FAE\8F6F\96C5\9ED1', 'sans-serif' !important;
     user-select: none;
 }
 
@@ -39,7 +39,10 @@
     font-size: 13px;
 }
 
-.ant-tabs-tab-btn:focus, .ant-tabs-tab-remove:focus, .ant-tabs-tab-btn:active, .ant-tabs-tab-remove:active {
+.ant-tabs-tab-btn:focus,
+.ant-tabs-tab-remove:focus,
+.ant-tabs-tab-btn:active,
+.ant-tabs-tab-remove:active {
     color: #ff5c49;
 }
 
@@ -75,10 +78,10 @@
 }
 
 .ant-input:hover {
-    border-color: #ff5c49!important;
+    border-color: #ff5c49 !important;
 }
 .ant-input:focus {
-    border-color: #ff5c49!important;
+    border-color: #ff5c49 !important;
 }
 
 .ant-spin {
@@ -109,5 +112,10 @@
 }
 
 .ant-tabs-nav::before {
-    border-bottom: unset!important;
+    border-bottom: unset !important;
+}
+
+.ant-message-notice-content {
+    background: #484848;
+    color: #f39856;
 }

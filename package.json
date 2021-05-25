@@ -12,7 +12,7 @@
     "start-dev": "cross-env START_HOT=1 npm run start-renderer-dev",
     "prestart": "npm run build",
     "start": "electron .",
-    "lint": "eslint --ext=jsx,js,tsx,ts src",
+    "lint": "eslint --ext=jsx,js,tsx,ts src --fix",
     "test": "jest '(\\/test\\/(?!e2e/)).*'",
     "pretest:e2e": "npm run build",
     "test:e2e": "jest '(\\/test\\/e2e/).*'",
