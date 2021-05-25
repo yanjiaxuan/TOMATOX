@@ -17,8 +17,12 @@
     "pretest:e2e": "npm run build",
     "test:e2e": "jest '(\\/test\\/e2e/).*'",
     "unpacked": "npm run build && electron-builder --dir",
-    "pack": "npm run build && electron-builder --win --x64",
-    "postinstall": "electron-builder install-app-deps"
+    "pack:win": "electron-builder --win --x64",
+    "pack:linux": "electron-builder --linux --x64",
+    "pack:mac": "electron-builder --mac --x64",
+    "pack": "npm run build && npm run pack:win && npm run pack:linux && npm run pack:mac",
+    "postinstall": "electron-builder install-app-deps",
+    "publish": "electron-builder -p always"
   },
   "husky": {
     "hooks": {
@@ -53,7 +57,15 @@
   },
   "build": {
     "productName": "TOMATOX",
-    "appId": "org.yanjiaxuan.tomatox",
+    "copyright": "Copyright @ 2021 yanjiaxuan",
+    "appId": "github.yanjiaxuan.tomatox",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "yanjiaxuan",
+        "repo": "TOMATOX"
+      }
+    ],
     "directories": {
       "output": "release"
     },
@@ -67,29 +79,45 @@
         "nsis"
       ]
     },
+    "linux": {
+      "icon": "./public/icon.ico"
+    },
+    "mac": {
+      "icon": "./public/icon.ico",
+      "category": "public.app-category.developer-tools",
+      "target": "default",
+      "extendInfo": {
+        "LSUIElement": 1
+      }
+    },
+    "snap": {
+      "publish": ["github"]
+    },
     "nsis": {
       "installerIcon": "./public/icon.ico",
+      "installerHeaderIcon": "./public/icon.ico",
       "uninstallerIcon": "./public/icon.ico",
       "uninstallDisplayName": "TOMATOX",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "allowElevation": true,
-      "createDesktopShortcut": true
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:Robinfr/electron-react-typescript.git"
+    "url": "git@github.com:yanjiaxuan/TOMATOX.git"
   },
   "author": {
-    "name": "Your name",
-    "email": "Your email"
+    "name": "yanjiaxuan",
+    "email": "330544968@qq.com"
   },
-  "license": "SEE LICENSE",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Robinfr/electron-react-typescript/issues"
+    "url": "https://github.com/yanjiaxuan/TOMATOX/issues"
   },
-  "homepage": "https://github.com/Robinfr/electron-react-typescript",
+  "homepage": "https://github.com/yanjiaxuan/TOMATOX",
   "devDependencies": {
     "@babel/core": "7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
