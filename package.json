@@ -1,5 +1,5 @@
 {
-  "name": "electron-react-typescript",
+  "name": "tomatox",
   "version": "1.0.0",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
