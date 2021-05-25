@@ -17,7 +17,7 @@ export default function tomatoxWaterfall(props: any) {
                             <span className={cssM.topRightTitle}>{ele.note}</span>
                         </div>
                         <span>{ele.name}</span>
-                        <span>{ele.director||'未知'}</span>
+                        <span>{ele.actor||'未知'}</span>
                         </div>
                     </Link>
                 </span>
