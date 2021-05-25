@@ -30,6 +30,14 @@
     max-height: unset;
 }
 
+.ant-tabs-tab-btn {
+    color: #ffffff;
+}
+
+.ant-tabs-tab-btn:focus, .ant-tabs-tab-remove:focus, .ant-tabs-tab-btn:active, .ant-tabs-tab-remove:active {
+    color: #ff5c49;
+}
+
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #ff5c49;
 }

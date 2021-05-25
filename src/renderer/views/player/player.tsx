@@ -27,11 +27,13 @@ export default class Player extends React.Component<any, any> {
 
         if (this.controlState) {
             if (this.controlState.dl.dd instanceof Array) {
+                let idx = 1
                 for (const source of this.controlState.dl.dd) {
-                    this.parsePlayList(source)
+                    this.parsePlayList({ _flag: `播放列表${idx === 1 ? '' : idx}`, _t: source._t })
+                    idx++
                 }
             } else {
-                this.parsePlayList(this.controlState.dl.dd)
+                this.parsePlayList({ _flag: '播放列表', _t: this.controlState.dl.dd._t })
             }
         }
     }
@@ -116,7 +118,6 @@ export default class Player extends React.Component<any, any> {
     }
 
     descSeries(playList: Record<string, string>) {
-        console.log(playList)
         const eles = [];
         for (const key in playList) {
             eles.push(
@@ -166,15 +167,7 @@ export default class Player extends React.Component<any, any> {
                     <div className={cssM.videoInfoWrapper}>
                         <Scrollbars>
                             <div className={cssM.videoInfo}>
-                                <Tabs className={cssM.sourceTab} onChange={ newKey => {
-                                    this.selectedKey = newKey
-                                    const curSrc = Object.values(this.sourceList[newKey])[0]
-                                    this.setState({
-                                        curPlaySrc: curSrc
-                                    })
-                                    this.xgPlayer!.src = curSrc
-                                }
-                                }>
+                                <Tabs className={cssM.sourceTab} onChange={ newKey => {this.selectedKey = newKey} }>
                                     {this.descSources()}
                                 </Tabs>
                             </div>

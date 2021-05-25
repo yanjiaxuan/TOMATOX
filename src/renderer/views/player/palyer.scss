@@ -51,11 +51,13 @@
 }
 
 .player-wrapper {
-    width: 70%;
+    width: calc(100vw - 340px);
     height: 100%;
 }
 .video-info-wrapper {
-    width: 30%;
+    min-width: 340px;
+    width: 340px;
+    max-width: 340px;
     color: #fff;
     overflow-y: auto;
 }
@@ -75,12 +77,18 @@
 }
 
 .series-tag {
-    margin: 5px 8px;
-    padding: 5px 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    width: 95px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 1px 4px;
     display: inline-block;
     background-color: #8080809e;
     color: #fff;
-    border-radius: 3px;
     font-size: 13px;
     cursor: pointer;
     transition: all .2s linear;
