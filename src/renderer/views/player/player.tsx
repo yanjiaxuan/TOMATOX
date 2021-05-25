@@ -11,7 +11,7 @@ const { ipcRenderer } = require('electron');
 
 export default class Player extends React.Component<any, any> {
     private xgPlayer: XGPlayer | undefined;
-    private sourceList: Record<string, Record<string, string>> = {};
+    private sourceList: Map<string, Map<string, string>> = new Map();
     private selectedKey = '';
     private firstPlaySrc = '';
     private first = true;
@@ -40,11 +40,11 @@ export default class Player extends React.Component<any, any> {
     }
 
     parsePlayList(option: any) {
-        const sourceUrl: Record<string, string> = {};
+        const sourceUrl: Map<string, string> = new Map();
         option._t.split('#').forEach((item: string) => {
             const [name, url] = item.split('$');
             if (name && url) {
-                sourceUrl[name] = url;
+                sourceUrl.set(name, url);
                 if (this.first) {
                     this.selectedKey = option._flag;
                     this.firstPlaySrc = url;
@@ -52,11 +52,11 @@ export default class Player extends React.Component<any, any> {
                 }
             }
         });
-        this.sourceList[option._flag] = sourceUrl;
+        this.sourceList.set(option._flag, sourceUrl);
     }
 
     playNext() {
-        const srcs = Object.values(this.sourceList[this.selectedKey]);
+        const srcs = Array.from(this.sourceList.get(this.selectedKey)!.values());
         const curIdx = srcs.indexOf(this.state.curPlaySrc);
         if (curIdx >= 0 && curIdx < srcs.length - 1) {
             this.setState({
@@ -102,35 +102,38 @@ export default class Player extends React.Component<any, any> {
     }
 
     componentWillUnmount(): void {
+        this.xgPlayer!.src = '';
         this.xgPlayer?.off('ended', this.playNext.bind(this));
         this.xgPlayer?.destroy();
     }
 
     descSources() {
         const eles = [];
-        for (const key in this.sourceList) {
+        // @ts-ignore
+        for (const [key] of this.sourceList) {
             eles.push(
                 <Tabs.TabPane tab={key} key={key}>
-                    {this.descSeries(this.sourceList[key])}
+                    {this.descSeries(this.sourceList.get(key)!)}
                 </Tabs.TabPane>
             );
         }
         return eles;
     }
 
-    descSeries(playList: Record<string, string>) {
+    descSeries(playList: Map<string, string>) {
         const eles = [];
-        for (const key in playList) {
+        // @ts-ignore
+        for (const [key] of playList) {
             eles.push(
                 <span
                     key={key}
                     className={`${cssM.seriesTag} ${
-                        playList[key] === this.state.curPlaySrc ? cssM.seriesTagActive : ''
+                        playList.get(key) === this.state.curPlaySrc ? cssM.seriesTagActive : ''
                     }`}
                     onClick={() => {
-                        if (this.state.curPlaySrc !== playList[key]) {
-                            this.setState({ curPlaySrc: playList[key] });
-                            this.xgPlayer!.src = playList[key];
+                        if (this.state.curPlaySrc !== playList.get(key)) {
+                            this.setState({ curPlaySrc: playList.get(key) });
+                            this.xgPlayer!.src = playList.get(key)!;
                         }
                     }}>
                     {key}
