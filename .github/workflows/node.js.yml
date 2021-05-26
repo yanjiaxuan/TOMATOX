@@ -1,29 +1,86 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+# main.yml
 
+# Workflow's name
+name: Build Electron App For Win/Mac
+
+# Workflow's trigger
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - 'v*.*.*'
 
+# Workflow's jobs
 jobs:
-  build:
+  # job's id
+  release:
+    # job's name
+    name: build and release electron app
 
-    runs-on: ubuntu-latest
+    # the type of machine to run the job on
+    runs-on: ${{ matrix.os }}
 
+    # create a build matrix for jobs
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [10.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        os: [windows-2019, macos-10.15, ubuntu-18.04]
 
+    # create steps
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run pack
+      # step1: check out repository
+      - name: Check out git repository
+        uses: actions/checkout@v2
+
+      # step2: install node env
+      - name: Install Node.js
+        uses: actions/setup-node@v2-beta
+
+      # step3: npm install
+      - name: npm install
+        run: |
+          npm install
+      # step4: build app for mac/win
+      - name: build windows app
+        if: matrix.os == 'windows-2019'
+        run: |
+          npm run build
+      - name: build mac app
+        if: matrix.os == 'macos-10.15'
+        run: |
+          npm run build
+      - name: build Ubuntu app
+        if: matrix.os == 'ubuntu-18.04'
+        run: |
+          npm run build
+      # step5: cleanup artifacts in dist_electron
+      - name: cleanup artifacts for windows
+        if: matrix.os == 'windows-2019'
+        run: |
+          mkdir artifacts
+          mv release/*.exe artifacts || true
+      - name: cleanup artifacts for macosZ
+        if: matrix.os == 'macos-10.15'
+        run: |
+          mkdir artifacts
+          mv release/*.dmg artifacts || true
+      - name: cleanup artifacts for Ubuntu
+        if: matrix.os == 'ubuntu-18.04'
+        run: |
+          mkdir artifacts
+          mv release/*.dmg artifacts || true
+      # step6: upload artifacts
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: artifacts
+
+      # step7: create release
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: 'artifacts/**'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
