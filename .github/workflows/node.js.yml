@@ -65,7 +65,7 @@ jobs:
         run: |
           mkdir artifacts
           mv release/*.exe artifacts || true
-      - name: cleanup artifacts for macosZ
+      - name: cleanup artifacts for macos
         if: matrix.os == 'macos-10.15'
         run: |
           mkdir artifacts
