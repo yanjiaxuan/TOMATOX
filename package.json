@@ -17,10 +17,7 @@
     "pretest:e2e": "npm run build",
     "test:e2e": "jest '(\\/test\\/e2e/).*'",
     "unpacked": "npm run build && electron-builder --dir",
-    "pack:win": "electron-builder --win --x64",
-    "pack:linux": "electron-builder --linux --x64",
-    "pack:mac": "electron-builder --mac --x64",
-    "pack": "npm run build && npm run pack:win && npm run pack:linux && npm run pack:mac",
+    "pack": "npm run build && electron-builder",
     "postinstall": "electron-builder install-app-deps",
     "publish": "npm run build && electron-builder -p always"
   },
@@ -75,16 +72,19 @@
       "package.json"
     ],
     "win": {
-      "icon": "./public/icon.ico",
+      "icon": "./public/icon-128x128.ico",
       "target": [
         "nsis"
+      ],
+      "arch": [
+        "ia32"
       ]
     },
     "linux": {
-      "icon": "./public/icon.ico"
+      "icon": "./public/icon-128x128.ico"
     },
     "mac": {
-      "icon": "./public/icon.ico",
+      "icon": "./public/icon-512x512.ico",
       "category": "public.app-category.developer-tools",
       "target": "default",
       "extendInfo": {
@@ -97,9 +97,9 @@
       ]
     },
     "nsis": {
-      "installerIcon": "./public/icon.ico",
-      "installerHeaderIcon": "./public/icon.ico",
-      "uninstallerIcon": "./public/icon.ico",
+      "installerIcon": "./public/icon-64x64.ico",
+      "installerHeaderIcon": "./public/icon-64x64.ico",
+      "uninstallerIcon": "./public/icon-64x64.ico",
       "uninstallDisplayName": "TOMATOX",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,

@@ -44,19 +44,19 @@ jobs:
       - name: build windows app
         if: matrix.os == 'windows-2019'
         run: |
-          npm run build && npm run pack:win
+          npm run pack
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: build mac app
         if: matrix.os == 'macos-10.15'
         run: |
-          npm run build && npm run pack:mac
+          npm run pack
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: build Ubuntu app
         if: matrix.os == 'ubuntu-18.04'
         run: |
-          npm run build && npm run pack:linux
+          npm run pack
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # step5: cleanup artifacts in dist_electron
