@@ -1,6 +1,6 @@
 {
   "name": "tomatox",
-  "version": "1.0.0-alpha1.0",
+  "version": "1.0.5",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "unpacked": "npm run build && electron-builder --dir",
     "pack": "npm run build && electron-builder",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "npm run build && electron-builder -p always"
+    "release": "npm run build && electron-builder -p always"
   },
   "husky": {
     "hooks": {
