@@ -1,4 +1,4 @@
-[![TOMATOX](docs/img/logo.png)]()
+[![TOMATOX](docs/img/logo.png)](https://github.com/yanjiaxuan/TOMATOX/releases)
 # TOMATOX
 
 ### A Online video player with TypeScript, React, and Electron.
