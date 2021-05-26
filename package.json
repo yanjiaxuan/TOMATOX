@@ -72,7 +72,7 @@
       "package.json"
     ],
     "win": {
-      "icon": "./public/icon-128x128.ico",
+      "icon": "./public/icon.ico",
       "target": [
         "nsis"
       ],
@@ -81,10 +81,10 @@
       ]
     },
     "linux": {
-      "icon": "./public/icon-128x128.png"
+      "icon": "./public/icon.png"
     },
     "mac": {
-      "icon": "./public/icon-512x512.png",
+      "icon": "./public/icon.icn",
       "category": "public.app-category.developer-tools",
       "target": "default",
       "extendInfo": {
@@ -97,9 +97,9 @@
       ]
     },
     "nsis": {
-      "installerIcon": "./public/icon-64x64.ico",
-      "installerHeaderIcon": "./public/icon-64x64.ico",
-      "uninstallerIcon": "./public/icon-64x64.ico",
+      "installerIcon": "./public/icon.ico",
+      "installerHeaderIcon": "./public/icon.ico",
+      "uninstallerIcon": "./public/icon.ico",
       "uninstallDisplayName": "TOMATOX",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
