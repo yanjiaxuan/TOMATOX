@@ -81,10 +81,10 @@
       ]
     },
     "linux": {
-      "icon": "./public/icon-128x128.ico"
+      "icon": "./public/icon-128x128.png"
     },
     "mac": {
-      "icon": "./public/icon-512x512.ico",
+      "icon": "./public/icon-512x512.png",
       "category": "public.app-category.developer-tools",
       "target": "default",
       "extendInfo": {
