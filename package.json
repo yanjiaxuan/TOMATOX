@@ -1,6 +1,6 @@
 {
   "name": "tomatox",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
   "scripts": {
@@ -60,8 +60,7 @@
       {
         "provider": "github",
         "owner": "yanjiaxuan",
-        "repo": "TOMATOX",
-        "releaseType": "release"
+        "repo": "TOMATOX"
       }
     ],
     "directories": {
