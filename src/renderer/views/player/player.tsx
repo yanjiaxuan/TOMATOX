@@ -4,10 +4,11 @@ import { Control } from 'react-keeper';
 import { Tag, Tabs } from 'antd';
 import XGPlayer from 'xgplayer';
 import Scrollbars from 'react-custom-scrollbars';
+import shortcutManager from 'electron-localshortcut'
 import cssM from './palyer.scss';
 
 const HlsPlayer = require('xgplayer-hls.js');
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, remote } = require('electron');
 
 export default class Player extends React.Component<any, any> {
     private xgPlayer: XGPlayer | undefined;
@@ -16,6 +17,20 @@ export default class Player extends React.Component<any, any> {
     private firstPlaySrc = '';
     private first = true;
     private controlState: Record<string, any> = {};
+    private mainEventHandler: Record<string, () => void> = {
+        Up: () => {
+            this.xgPlayer!.volume = Math.min(this.xgPlayer!.volume + 0.1, 1)
+        },
+        Down: () => {
+            this.xgPlayer!.volume = Math.max(this.xgPlayer!.volume - 0.1, 0)
+        },
+        Right: () => {
+            this.xgPlayer!.currentTime = Math.min(this.xgPlayer!.currentTime + 10, this.xgPlayer!.duration)
+        },
+        Left: () => {
+            this.xgPlayer!.currentTime = Math.max(this.xgPlayer!.currentTime - 10, 0)
+        }
+    }
 
     constructor(props: any) {
         super(props);
@@ -99,9 +114,13 @@ export default class Player extends React.Component<any, any> {
         });
         this.xgPlayer?.play();
         this.xgPlayer?.on('ended', this.playNext.bind(this));
+        for (const key in this.mainEventHandler) {
+            shortcutManager.register(remote.getCurrentWindow(), key, this.mainEventHandler[key])
+        }
     }
 
     componentWillUnmount(): void {
+        shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler))
         this.xgPlayer!.src = '';
         this.xgPlayer?.off('ended', this.playNext.bind(this));
         this.xgPlayer?.destroy();
