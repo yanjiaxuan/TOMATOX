@@ -1,6 +1,6 @@
 {
   "name": "tomatox",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
   "scripts": {
@@ -72,9 +72,14 @@
       "package.json"
     ],
     "win": {
-      "icon": "./public/icon.png",
+      "icon": "./public/icon256.ico",
       "target": [
-        "nsis"
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     },
     "linux": {
@@ -94,9 +99,9 @@
       ]
     },
     "nsis": {
-      "installerIcon": "./public/icon.png",
-      "installerHeaderIcon": "./public/icon.png",
-      "uninstallerIcon": "./public/icon.png",
+      "installerIcon": "./public/icon256.ico",
+      "installerHeaderIcon": "./public/icon256.ico",
+      "uninstallerIcon": "./public/icon256.ico",
       "uninstallDisplayName": "TOMATOX",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
