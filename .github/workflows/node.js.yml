@@ -2,7 +2,7 @@
 # main.yml
 
 # Workflow's name
-name: Build Electron App For Win/Mac
+name: Build Electron App For Win/Mac/Linux
 
 # Workflow's trigger
 on:
@@ -44,15 +44,15 @@ jobs:
       - name: build windows app
         if: matrix.os == 'windows-2019'
         run: |
-          npm run build
+          npm run build && npm run pack:win
       - name: build mac app
         if: matrix.os == 'macos-10.15'
         run: |
-          npm run build
+          npm run build && npm run pack:mac
       - name: build Ubuntu app
         if: matrix.os == 'ubuntu-18.04'
         run: |
-          npm run build
+          npm run build && npm run pack:linux
       # step5: cleanup artifacts in dist_electron
       - name: cleanup artifacts for windows
         if: matrix.os == 'windows-2019'
