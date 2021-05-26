@@ -74,10 +74,12 @@
     "win": {
       "icon": "./public/icon.ico",
       "target": [
-        "nsis"
-      ],
-      "arch": [
-        "ia32"
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
       ]
     },
     "linux": {
