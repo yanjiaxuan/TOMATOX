@@ -72,14 +72,9 @@
       "package.json"
     ],
     "win": {
-      "icon": "./public/icon.ico",
+      "icon": "./public/icon.png",
       "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "ia32"
-          ]
-        }
+        "nsis"
       ]
     },
     "linux": {
@@ -99,9 +94,9 @@
       ]
     },
     "nsis": {
-      "installerIcon": "./public/icon.ico",
-      "installerHeaderIcon": "./public/icon.ico",
-      "uninstallerIcon": "./public/icon.ico",
+      "installerIcon": "./public/icon.png",
+      "installerHeaderIcon": "./public/icon.png",
+      "uninstallerIcon": "./public/icon.png",
       "uninstallDisplayName": "TOMATOX",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
