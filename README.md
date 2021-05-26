@@ -2,7 +2,12 @@
 # TOMATOX
 
 ### A Online video player with TypeScript, React, and Electron.
+- 🎞 全网在线VIP视频解析
+- 🎨 贯彻精致简洁的设计风格
+- 👑 PC全平台支持(Windows, Linux, MacOS)
+- ✨ 新功能陆续上线中...
 
+### About Project
 [![React](docs/img/react.png)](https://reactjs.org/)
 [![Webpack](docs/img/webpack.png)](https://webpack.js.org/)
 [![TypeScript](docs/img/ts.png)](https://www.typescriptlang.org/)
@@ -13,6 +18,9 @@
 ## Screenshot
 
 ![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/TOMATOX.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/play.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/play-detail.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/play-info.png?raw=true)
 
 ## Install
 Clone the repository with Git:
