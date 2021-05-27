@@ -1,1 +1,1 @@
-export const ORIGIN_URL = 'https://gitee.com/yanjiaxuan/ZY-Player-Resources/raw/main/Sites/Sites.json'
+export const ORIGIN_URL = 'https://gitee.com/yanjiaxuan/tomatox-res/raw/master/resources.json';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, message } from 'antd';
 import {
     BugOutlined,
@@ -29,13 +29,19 @@ function developingMsg() {
 }
 
 export default function CustomHeader() {
+    const [searchEnable, setSearchEnable] = useState(store.getState('GLOBAL_SEARCH_ENABLE'));
+    store.subscribe('GLOBAL_SEARCH_ENABLE', (newVal: boolean) => {
+        setSearchEnable(newVal);
+    });
     async function onSearch(keyword: string) {
+        store.setState('GLOBAL_SEARCH_ENABLE', false);
         store.setState('SEARCH_KEYWORDS', keyword);
         Control.go('/search');
     }
     return (
         <div className={cssModule.headerWrapper}>
             <Input.Search
+                loading={!searchEnable}
                 placeholder="电影、电视剧、综艺..."
                 onSearch={onSearch}
                 enterButton={

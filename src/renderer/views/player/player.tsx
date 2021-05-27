@@ -4,7 +4,7 @@ import { Control } from 'react-keeper';
 import { Tag, Tabs } from 'antd';
 import XGPlayer from 'xgplayer';
 import Scrollbars from 'react-custom-scrollbars';
-import shortcutManager from 'electron-localshortcut'
+import shortcutManager from 'electron-localshortcut';
 import cssM from './palyer.scss';
 
 const HlsPlayer = require('xgplayer-hls.js');
@@ -14,60 +14,34 @@ export default class Player extends React.Component<any, any> {
     private xgPlayer: XGPlayer | undefined;
     private sourceList: Map<string, Map<string, string>> = new Map();
     private selectedKey = '';
-    private firstPlaySrc = '';
-    private first = true;
     private controlState: Record<string, any> = {};
     private mainEventHandler: Record<string, () => void> = {
         Up: () => {
-            this.xgPlayer!.volume = Math.min(this.xgPlayer!.volume + 0.1, 1)
+            this.xgPlayer!.volume = Math.min(this.xgPlayer!.volume + 0.1, 1);
         },
         Down: () => {
-            this.xgPlayer!.volume = Math.max(this.xgPlayer!.volume - 0.1, 0)
+            this.xgPlayer!.volume = Math.max(this.xgPlayer!.volume - 0.1, 0);
         },
         Right: () => {
-            this.xgPlayer!.currentTime = Math.min(this.xgPlayer!.currentTime + 10, this.xgPlayer!.duration)
+            this.xgPlayer!.currentTime = Math.min(
+                this.xgPlayer!.currentTime + 10,
+                this.xgPlayer!.duration
+            );
         },
         Left: () => {
-            this.xgPlayer!.currentTime = Math.max(this.xgPlayer!.currentTime - 10, 0)
+            this.xgPlayer!.currentTime = Math.max(this.xgPlayer!.currentTime - 10, 0);
         }
-    }
+    };
 
     constructor(props: any) {
         super(props);
-        this.state = {
-            curPlaySrc: ''
-        };
-
         this.controlState = Control.state;
-        // this.controlState = {"last":"2021-05-25 11:08:49","id":29980,"tid":15,"name":"某一天灭亡走进我家门","type":"日韩剧","pic":"http://img.kuaibozy.net/upload/vod/20210510-1/cede2eb39e4ff156cdbd77528da83d25.jpg","lang":"韩语","area":"韩国","year":2021,"state":"","note":"更新至05集","actor":"朴宝英,徐仁国,李洙赫,姜泰伍,申度贤","director":"权英日","dl":{"dd":{"_t":"第01集$https://vod.bunediy.com/20210510/W4kEEgR1/index.m3u8#第02集$https://vod.bunediy.com/20210511/mU5uTDr9/index.m3u8#第03集$https://vod.bunediy.com/20210519/jxigWUOR/index.m3u8#第04集$https://vod.bunediy.com/20210519/PhKgPjMB/index.m3u8#第05集$https://vod.bunediy.com/20210525/HHmFgCQF/index.m3u8","_flag":"kbm3u8"}},"des":"<p>tvN电视剧《某一天灭亡走进我家门》。该剧讲述的是使万物消失的源头“灭亡”和为了不消失而签下生命合约的人类“东景”之间发生的致命限定100天的魔幻浪漫剧，由权英日执导，林回音执笔，Studio&amp;New及DragonStudio企划制作，预计于2021年上半年播出。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>\n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;朴宝英饰演网络小说编辑者“卓同景”，平凡的生活中因意料之外的命运堵上自身性命与爱情的人类。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>\n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;徐仁国饰演跟卓同景签约的“灭亡”，介入狠毒命运在意外的生活下照射出自身怜悯和爱的特别存在。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>\n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;李洙赫饰演网络小说编辑组长“车周益”，和卓同景同公司，同时也是初吻能力男，甜蜜语言，动摇心脏的肌肤接触，有着让作家们的爱情才能燃烧这一能力的人物。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>\n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;姜泰伍饰演初恋后悔男“李贤圭”，从对爱一直逃跑的少年到为了作为初恋经历大人成长痛的咖啡店社长，也是车周益的同居人。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/>\n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;申道贤饰演网络小说作家“罗智娜”，是在初吻能力男和初恋后悔男之间偶然陷入三角关系的女主角。</p>","fullList":[{"flag":"kbm3u8","list":["第01集$https://vod.bunediy.com/20210510/W4kEEgR1/index.m3u8","第02集$https://vod.bunediy.com/20210511/mU5uTDr9/index.m3u8","第03集$https://vod.bunediy.com/20210519/jxigWUOR/index.m3u8","第04集$https://vod.bunediy.com/20210519/PhKgPjMB/index.m3u8","第05集$https://vod.bunediy.com/20210525/HHmFgCQF/index.m3u8"]}]}
-
         if (this.controlState) {
-            if (this.controlState.dl.dd instanceof Array) {
-                let idx = 1;
-                for (const source of this.controlState.dl.dd) {
-                    this.parsePlayList({ _flag: `播放列表${idx === 1 ? '' : idx}`, _t: source._t });
-                    idx++;
-                }
-            } else {
-                this.parsePlayList({ _flag: '播放列表', _t: this.controlState.dl.dd._t });
-            }
+            this.sourceList.set('播放列表', this.controlState.playList);
+            this.state = {
+                curPlaySrc: this.controlState.playList.values().next().value
+            };
         }
-    }
-
-    parsePlayList(option: any) {
-        const sourceUrl: Map<string, string> = new Map();
-        option._t.split('#').forEach((item: string) => {
-            const [name, url] = item.split('$');
-            if (name && url) {
-                sourceUrl.set(name, url);
-                if (this.first) {
-                    this.selectedKey = option._flag;
-                    this.firstPlaySrc = url;
-                    this.first = false;
-                }
-            }
-        });
-        this.sourceList.set(option._flag, sourceUrl);
     }
 
     playNext() {
@@ -82,12 +56,9 @@ export default class Player extends React.Component<any, any> {
     }
 
     componentDidMount(): void {
-        this.setState({
-            curPlaySrc: this.firstPlaySrc
-        });
         this.xgPlayer = new HlsPlayer({
             el: this.refs.playWrapperRef as any,
-            url: this.firstPlaySrc,
+            url: this.state.curPlaySrc,
             id: 'tomatox',
             lang: 'zh-cn',
             width: '100%',
@@ -115,12 +86,12 @@ export default class Player extends React.Component<any, any> {
         this.xgPlayer?.play();
         this.xgPlayer?.on('ended', this.playNext.bind(this));
         for (const key in this.mainEventHandler) {
-            shortcutManager.register(remote.getCurrentWindow(), key, this.mainEventHandler[key])
+            shortcutManager.register(remote.getCurrentWindow(), key, this.mainEventHandler[key]);
         }
     }
 
     componentWillUnmount(): void {
-        shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler))
+        shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler));
         this.xgPlayer!.src = '';
         this.xgPlayer?.off('ended', this.playNext.bind(this));
         this.xgPlayer?.destroy();
@@ -152,6 +123,7 @@ export default class Player extends React.Component<any, any> {
                     onClick={() => {
                         if (this.state.curPlaySrc !== playList.get(key)) {
                             this.setState({ curPlaySrc: playList.get(key) });
+                            this.xgPlayer!.currentTime = 0;
                             this.xgPlayer!.src = playList.get(key)!;
                         }
                     }}>
@@ -209,42 +181,54 @@ export default class Player extends React.Component<any, any> {
                                         <div className={cssM.detailHeaderWrapper}>
                                             <img
                                                 className={cssM.detailImage}
-                                                src={this.controlState?.pic}
+                                                src={this.controlState?.picture}
                                                 />
                                             <div className={cssM.detailTextWrapper}>
                                                 <div className={cssM.detailTitle}>
                                                     {this.controlState?.name}
                                                 </div>
                                                 <div>
-                                                    <div className={cssM.detailContent}>
-                                                        年份：{this.controlState?.year}
-                                                    </div>
-                                                    <div className={cssM.detailContent}>
-                                                        类型：{this.controlState?.type}
-                                                    </div>
-                                                    <div className={cssM.detailContent}>
-                                                        语言：{this.controlState?.lang}
-                                                    </div>
-                                                    <div className={cssM.detailContent}>
-                                                        地区：{this.controlState?.area}
-                                                    </div>
-                                                    <div className={cssM.detailContent}>
-                                                        导演：{this.controlState?.director}
-                                                    </div>
-                                                    <div className={cssM.detailContent}>
-                                                        主演：{this.controlState?.actor}
-                                                    </div>
+                                                    {this.controlState?.doubanScore && (
+                                                        <div className={cssM.detailContent}>
+                                                            评分：{this.controlState?.doubanScore}
+                                                        </div>
+                                                    )}
+                                                    {this.controlState?.type && (
+                                                        <div className={cssM.detailContent}>
+                                                            类型：{this.controlState?.type}
+                                                        </div>
+                                                    )}
+                                                    {this.controlState?.lang && (
+                                                        <div className={cssM.detailContent}>
+                                                            语言：{this.controlState?.lang}
+                                                        </div>
+                                                    )}
+                                                    {this.controlState?.area && (
+                                                        <div className={cssM.detailContent}>
+                                                            地区：{this.controlState?.area}
+                                                        </div>
+                                                    )}
+                                                    {this.controlState?.director && (
+                                                        <div className={cssM.detailContent}>
+                                                            导演：{this.controlState?.director}
+                                                        </div>
+                                                    )}
+                                                    {this.controlState?.actor && (
+                                                        <div className={cssM.detailContent}>
+                                                            主演：{this.controlState?.actor}
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className={cssM.detailNote}>
-                                            {this.controlState?.note}
+                                            {this.controlState?.remark}
                                         </div>
                                         <div className={cssM.detailDescTitle}>简介</div>
                                         <div
                                             className={cssM.detailDesc}
                                             dangerouslySetInnerHTML={{
-                                                __html: this.controlState?.des
+                                                __html: this.controlState?.describe
                                             }}
                                             />
                                     </Tabs.TabPane>
