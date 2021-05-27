@@ -19,6 +19,8 @@ import cssModule from './custom-header.scss';
 
 const { ipcRenderer } = require('electron');
 
+let latestKW = '';
+
 function developingMsg() {
     message.info({
         content: '功能正在开发中...',
@@ -34,9 +36,12 @@ export default function CustomHeader() {
         setSearchEnable(newVal);
     });
     async function onSearch(keyword: string) {
-        store.setState('GLOBAL_SEARCH_ENABLE', false);
-        store.setState('SEARCH_KEYWORDS', keyword);
-        Control.go('/search');
+        if (keyword !== latestKW) {
+            latestKW = keyword;
+            store.setState('GLOBAL_SEARCH_ENABLE', false);
+            store.setState('SEARCH_KEYWORDS', keyword);
+            Control.go('/search');
+        }
     }
     return (
         <div className={cssModule.headerWrapper}>
