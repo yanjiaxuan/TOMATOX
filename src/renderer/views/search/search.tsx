@@ -23,6 +23,13 @@ export default class Search extends React.Component<any, any> {
         store.subscribe('SEARCH_KEYWORDS', this.searchResByKW.bind(this));
     }
 
+    componentWillMount(): void {
+        const kw = store.getState('SEARCH_KEYWORDS');
+        if (kw) {
+            this.searchResByKW();
+        }
+    }
+
     async searchResByKW() {
         this.page = 0;
         store.setState('GLOBAL_LOADING', true);
