@@ -1,6 +1,6 @@
 {
   "name": "tomatox",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
   "scripts": {
@@ -161,6 +161,7 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-localshortcut": "^3.2.1",
     "electron-proxy-agent": "^1.2.0",
+    "electron-updater": "^4.3.9",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",

@@ -5,6 +5,8 @@ import { Tag, Tabs } from 'antd';
 import XGPlayer from 'xgplayer';
 import Scrollbars from 'react-custom-scrollbars';
 import shortcutManager from 'electron-localshortcut';
+import Indexed from '@/utils/db/indexed';
+import { TABLES } from '@/utils/constants';
 import cssM from './palyer.scss';
 
 const HlsPlayer = require('xgplayer-hls.js');
@@ -14,7 +16,7 @@ export default class Player extends React.Component<any, any> {
     private xgPlayer: XGPlayer | undefined;
     private sourceList: Map<string, Map<string, string>> = new Map();
     private selectedKey = '';
-    private controlState: Record<string, any> = {};
+    private controlState: IplayResource;
     private mainEventHandler: Record<string, () => void> = {
         Up: () => {
             this.xgPlayer!.volume = Math.min(this.xgPlayer!.volume + 0.1, 1);
@@ -39,7 +41,12 @@ export default class Player extends React.Component<any, any> {
         if (this.controlState) {
             this.sourceList.set('播放列表', this.controlState.playList);
             this.state = {
-                curPlaySrc: this.controlState.playList.values().next().value
+                curPlaySrc:
+                    this.controlState.lastPlaySrc ||
+                    this.controlState.playList.values().next().value,
+                curPlayDrama:
+                    this.controlState.lastPlayDrama ||
+                    this.controlState.playList.keys().next().value
             };
         }
     }
@@ -70,7 +77,7 @@ export default class Player extends React.Component<any, any> {
             crossOrigin: true,
             cssFullscreen: true,
             defaultPlaybackRate: 1,
-            playbackRate: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 3, 4, 5],
+            playbackRate: [0.5, 1, 1.25, 1.5, 2],
             playPrev: true,
             playNextOne: true,
             videoStop: true,
@@ -83,6 +90,7 @@ export default class Player extends React.Component<any, any> {
             ignores: ['replay', 'error'], // 为了切换播放器类型时避免显示错误刷新，暂时忽略错误
             preloadTime: 300
         });
+        this.xgPlayer!.currentTime = this.controlState.lastPlayTime || 0;
         this.xgPlayer?.play();
         this.xgPlayer?.on('ended', this.playNext.bind(this));
         for (const key in this.mainEventHandler) {
@@ -91,6 +99,17 @@ export default class Player extends React.Component<any, any> {
     }
 
     componentWillUnmount(): void {
+        const newData: IplayResource = {
+            ...this.controlState,
+            lastPlayDrama: this.state.curPlayDrama,
+            lastPlaySrc: this.state.curPlaySrc,
+            lastPlayTime: this.xgPlayer?.currentTime || 0,
+            lastPlayDate: Date.now()
+        };
+        Indexed.getInstance().then(instance => {
+            instance.insertOrUpdate(TABLES.TABLE_HISTORY, newData);
+        });
+
         shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler));
         this.xgPlayer!.src = '';
         this.xgPlayer?.off('ended', this.playNext.bind(this));
@@ -122,7 +141,10 @@ export default class Player extends React.Component<any, any> {
                     }`}
                     onClick={() => {
                         if (this.state.curPlaySrc !== playList.get(key)) {
-                            this.setState({ curPlaySrc: playList.get(key) });
+                            this.setState({
+                                curPlaySrc: playList.get(key),
+                                curPlayDrama: key
+                            });
                             this.xgPlayer!.currentTime = 0;
                             this.xgPlayer!.src = playList.get(key)!;
                         }
