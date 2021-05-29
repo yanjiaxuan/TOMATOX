@@ -16,6 +16,7 @@ import shortcutManager from 'electron-localshortcut';
 import Indexed from '@/utils/db/indexed';
 import { TABLES } from '@/utils/constants';
 import cssM from './palyer.scss';
+import { getPlayConfig, setPlayConfig } from '@/utils/db/storage';
 
 const HlsPlayer = require('xgplayer-hls.js');
 const { ipcRenderer, remote } = require('electron');
@@ -60,7 +61,7 @@ export default class Player extends React.Component<any, any> {
         }
     }
 
-    playNext() {
+    private playNext = () => {
         const dramas = Array.from(this.sourceList.get(this.selectedKey)!.keys());
         const curIdx = dramas.indexOf(this.state.curPlayDrama);
         if (curIdx >= 0 && curIdx < dramas.length - 1) {
@@ -72,7 +73,7 @@ export default class Player extends React.Component<any, any> {
             });
             this.xgPlayer!.src = src;
         }
-    }
+    };
 
     doCollect() {
         this.setState({
@@ -102,7 +103,8 @@ export default class Player extends React.Component<any, any> {
             keyShortcut: 'off',
             crossOrigin: true,
             cssFullscreen: true,
-            defaultPlaybackRate: 1,
+            volume: getPlayConfig().voice,
+            defaultPlaybackRate: getPlayConfig().speed,
             playbackRate: [0.5, 1, 1.25, 1.5, 2],
             playPrev: true,
             playNextOne: true,
@@ -118,11 +120,21 @@ export default class Player extends React.Component<any, any> {
         });
         this.xgPlayer!.currentTime = this.controlState.historyOption?.lastPlayTime || 0;
         this.xgPlayer?.play();
-        this.xgPlayer?.on('ended', this.playNext.bind(this));
+        this.xgPlayer?.on('ended', this.playNext);
+        this.xgPlayer?.on('volumechange', this.updateVolumeConf);
+        this.xgPlayer?.on('playbackrateChange', this.updateSpeedConf);
         for (const key in this.mainEventHandler) {
             shortcutManager.register(remote.getCurrentWindow(), key, this.mainEventHandler[key]);
         }
     }
+
+    private updateVolumeConf = () => {
+        setPlayConfig({ voice: this.xgPlayer!.volume });
+    };
+
+    private updateSpeedConf = () => {
+        setPlayConfig({ speed: this.xgPlayer!.playbackRate });
+    };
 
     private timeConverter(time: number) {
         const hours = Math.floor(time / 3600);
@@ -149,7 +161,9 @@ export default class Player extends React.Component<any, any> {
 
         shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler));
         this.xgPlayer!.src = '';
-        this.xgPlayer?.off('ended', this.playNext.bind(this));
+        this.xgPlayer?.off('ended', this.playNext);
+        this.xgPlayer?.off('volumechange', this.updateVolumeConf);
+        this.xgPlayer?.off('playbackrateChange', this.updateSpeedConf);
         this.xgPlayer?.destroy();
     }
 

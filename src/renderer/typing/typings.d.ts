@@ -42,3 +42,8 @@ declare interface IplayResource {
         collectDate?: number;
     };
 }
+
+declare interface IplayConfig {
+    voice?: number;
+    speed?: number;
+}
