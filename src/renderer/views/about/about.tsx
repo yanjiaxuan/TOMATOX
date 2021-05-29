@@ -21,9 +21,9 @@ export default class About extends React.Component<any, any> {
             updateStatus: 0, // 0: 未检查， 1：检查中，2：无新版本，3：有新版本，4：下载完成，等待安装，5：更新失败，6：正在下载
             newVersion: '',
             percent: 0,
-            bytesPerSecond: 0,
-            transferred: 0,
-            total: 0
+            bytesPerSecond: '',
+            transferred: '',
+            total: ''
             // note: ''
         };
     }
@@ -61,11 +61,21 @@ export default class About extends React.Component<any, any> {
                 this.setState({
                     updateStatus: 6,
                     percent: Math.floor(procInfo.percent || 0),
-                    bytesPerSecond: Math.floor(procInfo.bytesPerSecond || 0),
-                    transferred: Math.floor(procInfo.transferred || 0),
-                    total: Math.floor(procInfo.total || 0)
+                    bytesPerSecond: this.convertBytes(procInfo.bytesPerSecond || 0),
+                    transferred: this.convertBytes(procInfo.transferred || 0),
+                    total: this.convertBytes(procInfo.total || 0)
                 });
             });
+    }
+
+    private convertBytes(bytes: number) {
+        if (bytes > 1024 * 1024) {
+            return `${Math.floor(bytes / 1024 / 1024)}MB`;
+        }
+        if (bytes > 1024) {
+            return `${Math.floor(bytes / 1024)}KB`;
+        }
+        return `${Math.floor(bytes)}B`;
     }
 
     private checkUpdate = () => {
@@ -130,7 +140,7 @@ export default class About extends React.Component<any, any> {
                             <span>
                                 <SyncOutlined spin />
                                 正在下载新版本{' '}
-                                {`${this.state.transferred}/${this.state.total} ${this.state.percent}% ${this.state.bytesPerSecond}byte/s`}
+                                {`${this.state.transferred}/${this.state.total} ${this.state.percent}% ${this.state.bytesPerSecond}/s`}
                             </span>
                         )}
                     </span>
