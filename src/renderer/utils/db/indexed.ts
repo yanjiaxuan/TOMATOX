@@ -63,17 +63,7 @@ export default class Indexed {
         });
     }
 
-    public insert(tableName: string, data: any) {
-        return new Promise(resolve => {
-            Indexed.db!.transaction(tableName, 'readwrite')
-                .objectStore(tableName)
-                .add(data).onsuccess = () => {
-                resolve(null);
-            };
-        });
-    }
-
-    public update(tableName: string, data: any) {
+    public insertOrUpdate(tableName: string, data: any) {
         return new Promise(resolve => {
             Indexed.db!.transaction(tableName, 'readwrite')
                 .objectStore(tableName)
@@ -104,18 +94,6 @@ export default class Indexed {
                 }
                 resolve(null);
             };
-        });
-    }
-
-    public insertOrUpdate(tableName: string, data: any) {
-        return new Promise(resolve => {
-            this.queryById(tableName, data.id).then(res => {
-                if (res) {
-                    this.update(tableName, data);
-                } else {
-                    this.insert(tableName, data);
-                }
-            });
         });
     }
 

@@ -15,7 +15,7 @@ const { ipcRenderer, remote } = require('electron');
 export default class Player extends React.Component<any, any> {
     private xgPlayer: XGPlayer | undefined;
     private sourceList: Map<string, Map<string, string>> = new Map();
-    private selectedKey = '';
+    private selectedKey = '播放列表';
     private controlState: IplayResource;
     private mainEventHandler: Record<string, () => void> = {
         Up: () => {
@@ -52,13 +52,16 @@ export default class Player extends React.Component<any, any> {
     }
 
     playNext() {
-        const srcs = Array.from(this.sourceList.get(this.selectedKey)!.values());
-        const curIdx = srcs.indexOf(this.state.curPlaySrc);
-        if (curIdx >= 0 && curIdx < srcs.length - 1) {
+        const dramas = Array.from(this.sourceList.get(this.selectedKey)!.keys());
+        const curIdx = dramas.indexOf(this.state.curPlayDrama);
+        if (curIdx >= 0 && curIdx < dramas.length - 1) {
+            const drama = dramas[curIdx + 1];
+            const src = this.sourceList.get(this.selectedKey)!.get(dramas[curIdx + 1])!;
             this.setState({
-                curPlaySrc: srcs[curIdx + 1]
+                curPlayDrama: drama,
+                curPlaySrc: src
             });
-            this.xgPlayer!.src = srcs[curIdx + 1];
+            this.xgPlayer!.src = src;
         }
     }
 
