@@ -1,5 +1,6 @@
 // 引入electron并创建一个BrowserWindow
 import { app, BrowserWindow } from 'electron';
+import { initUpdater } from './auto-update/auto-update';
 
 const path = require('path');
 const url = require('url');
@@ -17,11 +18,13 @@ function createWindow() {
         show: false,
         width: 1260,
         height: 700,
+        minWidth: 1260,
+        minHeight: 700,
         frame: false,
         backgroundColor: '#403f3f',
         webPreferences: {
             webSecurity: false,
-            nodeIntegration: true,
+            // nodeIntegration: true,
             contextIsolation: false
         }
     });
@@ -42,6 +45,7 @@ function createWindow() {
     mainWindow.on('ready-to-show', () => {
         mainWindow?.show();
     });
+    initUpdater(mainWindow);
 }
 
 // 当 Electron 完成初始化并准备创建浏览器窗口时调用此方法

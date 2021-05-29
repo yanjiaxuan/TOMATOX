@@ -1,5 +1,12 @@
 import React, { createRef, LegacyRef, useEffect, useRef } from 'react';
-import { LeftOutlined, MinusOutlined, BlockOutlined, CloseOutlined , HeartOutlined, HeartFilled } from '@ant-design/icons';
+import {
+    LeftOutlined,
+    MinusOutlined,
+    BlockOutlined,
+    CloseOutlined,
+    HeartOutlined,
+    HeartFilled
+} from '@ant-design/icons';
 import { Control } from 'react-keeper';
 import { Tag, Tabs } from 'antd';
 
@@ -48,7 +55,7 @@ export default class Player extends React.Component<any, any> {
                 curPlayDrama:
                     this.controlState.lastPlayDrama ||
                     this.controlState.playList.keys().next().value,
-                isCollect: false
+                isCollect: Indexed.collectedRes.has(this.controlState.id)
             };
         }
     }
@@ -67,31 +74,21 @@ export default class Player extends React.Component<any, any> {
         }
     }
 
-    async doCollect() {
+    doCollect() {
         this.setState({
             isCollect: true
         });
-        (await Indexed.getInstance()).insertOrUpdate(TABLES.TABLE_COLLECT, {
+        Indexed.instance!.doCollect({
             ...this.controlState,
             collectDate: Date.now()
         });
     }
 
-    async cancelCollect() {
+    cancelCollect() {
         this.setState({
             isCollect: false
         });
-        (await Indexed.getInstance()).deleteById(TABLES.TABLE_COLLECT, this.controlState.id);
-    }
-
-    async componentWillMount() {
-        const res = await (await Indexed.getInstance()).queryById(
-            TABLES.TABLE_COLLECT,
-            this.controlState.id
-        );
-        this.setState({
-            isCollect: Boolean(res)
-        });
+        Indexed.instance!.cancelCollect(this.controlState.id);
     }
 
     componentDidMount(): void {
@@ -138,9 +135,7 @@ export default class Player extends React.Component<any, any> {
             lastPlayTime: this.xgPlayer?.currentTime || 0,
             lastPlayDate: Date.now()
         };
-        Indexed.getInstance().then(instance => {
-            instance.insertOrUpdate(TABLES.TABLE_HISTORY, newData);
-        });
+        Indexed.instance!.insertOrUpdate(TABLES.TABLE_HISTORY, newData);
 
         shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler));
         this.xgPlayer!.src = '';

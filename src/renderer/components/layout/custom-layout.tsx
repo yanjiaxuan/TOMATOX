@@ -23,7 +23,7 @@ export default function CustomLayout() {
                 setLoaded(true);
             }
         });
-        Indexed.getInstance().then(() => {
+        Indexed.init().then(() => {
             dbLoaded = true;
             if (siteLoaded) {
                 setLoaded(true);

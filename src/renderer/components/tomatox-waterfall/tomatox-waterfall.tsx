@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-keeper';
 import TOMATOX_ICON from '@/images/svg/icon.svg';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
@@ -15,27 +15,15 @@ function timeConverter(time: number) {
 }
 
 export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
-    const [collects, setCollects] = useState<string[]>([]);
-
-    async function doCollect(data: IplayResource) {
-        (await Indexed.getInstance()).insertOrUpdate(TABLES.TABLE_COLLECT, {
-            ...data,
-            collectDate: Date.now()
-        });
-    }
-
-    async function cancelCollect(id: string) {
-        (await Indexed.getInstance()).deleteById(TABLES.TABLE_COLLECT, id);
-    }
-
-    Indexed.getInstance()
-        .then(db => {
-            return db.queryAllKeys(TABLES.TABLE_COLLECT);
-        })
-        .then(res => {
-            setCollects(res as string[]);
-        });
+    const [collectRes, setCollectRes] = useState(Indexed.collectedRes);
     const cardsData = props.data;
+    cardsData.forEach(item => {
+        if (item.lastPlayDrama || item.lastPlayTime) {
+            item.lastPlayDesc = `观看至 ${item.lastPlayDrama || ''} ${timeConverter(
+                item.lastPlayTime || 0
+            )}`;
+        }
+    });
     function convertEle() {
         const res = [];
         for (const ele of cardsData) {
@@ -47,11 +35,12 @@ export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
                                 <img src={ele.picture} className={cssM.descImg} />
                                 <span className={cssM.topRightTitle}>{ele.remark}</span>
                                 <div>
-                                    {collects.indexOf(ele.id) >= 0 ? (
+                                    {collectRes.has(ele.id) ? (
                                         <HeartFilled
                                             className={cssM.resourceCollect}
                                             onClick={e => {
-                                                cancelCollect(ele.id);
+                                                Indexed.instance?.cancelCollect(ele.id);
+                                                setCollectRes(new Set(Indexed.collectedRes));
                                                 e.stopPropagation();
                                                 e.preventDefault();
                                             }}
@@ -60,7 +49,8 @@ export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
                                         <HeartOutlined
                                             className={cssM.resourceNotCollect}
                                             onClick={e => {
-                                                doCollect(ele);
+                                                Indexed.instance?.doCollect(ele);
+                                                setCollectRes(new Set(Indexed.collectedRes));
                                                 e.stopPropagation();
                                                 e.preventDefault();
                                             }}
@@ -69,14 +59,8 @@ export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
                                 </div>
                             </div>
                             <span>{ele.name}</span>
-                            <span>
-                                {ele.lastPlayTime || ele.lastPlayDrama ? '' : ele.actor || '未知'}
-                            </span>
-                            {(ele.lastPlayTime || ele.lastPlayDrama) && (
-                                <span>{`观看至 ${ele.lastPlayDrama || ''} ${timeConverter(
-                                    ele.lastPlayTime || 0
-                                )}`}</span>
-                            )}
+                            <span>{ele.lastPlayDesc ? '' : ele.actor || '未知'}</span>
+                            {ele.lastPlayDesc && <span>{ele.lastPlayDesc}</span>}
                         </div>
                     </Link>
                 </span>

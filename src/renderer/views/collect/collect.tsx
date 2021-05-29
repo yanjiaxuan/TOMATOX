@@ -14,12 +14,10 @@ export default class Collect extends React.Component<any, any> {
     }
 
     async componentWillMount() {
-        const res = (await (await Indexed.getInstance()).queryAll(
-            TABLES.TABLE_COLLECT
-        )) as IplayResource[];
-        res.sort((a, b) => (a.collectDate || 0) - (b.collectDate || 0));
+        const res = (await Indexed.instance!.queryAll(TABLES.TABLE_COLLECT)) as IplayResource[];
+        res.sort((a, b) => (b.collectDate || 0) - (a.collectDate || 0));
         this.setState({
-            resources: res.reverse()
+            resources: res
         });
     }
 

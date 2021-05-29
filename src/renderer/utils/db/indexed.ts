@@ -2,13 +2,14 @@ import { TABLES } from '@/utils/constants';
 
 export default class Indexed {
     private static db: IDBDatabase | undefined;
-    private static instance: Indexed | undefined;
+    public static instance: Indexed | undefined;
+    static collectedRes: Set<string> = new Set();
 
     private constructor() {
         // do nothing
     }
 
-    public static getInstance(): Promise<Indexed> {
+    public static init(): Promise<Indexed> {
         return new Promise((resolve, reject) => {
             if (!this.instance) {
                 const dbReq = window.indexedDB.open('TOMATOX');
@@ -32,6 +33,7 @@ export default class Indexed {
                     this.db = dbReq.result;
                     this.instance = new Indexed();
                     this.instance.removeThreeMonthAgoHistoryData();
+                    this.instance.loadCollectedRes();
                     resolve(this.instance);
                 };
             } else {
@@ -74,17 +76,27 @@ export default class Indexed {
         });
     }
 
-    public insertOrUpdate(tableName: string, data: any) {
+    public insertOrUpdate(tableName: string, data: IplayResource) {
+        if (tableName === TABLES.TABLE_COLLECT) {
+            Indexed.collectedRes.add(data.id);
+        }
         return new Promise(resolve => {
             Indexed.db!.transaction(tableName, 'readwrite')
                 .objectStore(tableName)
-                .put(data).onsuccess = () => {
+                .put({
+                    ...data,
+                    isCollected: undefined,
+                    lastPlayDesc: undefined
+                }).onsuccess = () => {
                 resolve(null);
             };
         });
     }
 
     public deleteById(tableName: string, id: any) {
+        if (tableName === TABLES.TABLE_COLLECT) {
+            Indexed.collectedRes.delete(id);
+        }
         return new Promise(resolve => {
             Indexed.db!.transaction(tableName, 'readwrite')
                 .objectStore(tableName)
@@ -108,6 +120,13 @@ export default class Indexed {
         });
     }
 
+    public doCollect(data: IplayResource) {
+        this.insertOrUpdate(TABLES.TABLE_COLLECT, data);
+    }
+    public cancelCollect(id: string) {
+        this.deleteById(TABLES.TABLE_COLLECT, id);
+    }
+
     private removeThreeMonthAgoHistoryData() {
         const req = Indexed.db!.transaction(TABLES.TABLE_HISTORY, 'readwrite')
             .objectStore(TABLES.TABLE_HISTORY)
@@ -118,5 +137,13 @@ export default class Indexed {
                 this.deleteById(TABLES.TABLE_HISTORY, key);
             });
         };
+    }
+
+    private loadCollectedRes() {
+        this.queryAllKeys(TABLES.TABLE_COLLECT).then(res => {
+            (res as string[]).forEach(item => {
+                Indexed.collectedRes.add(item);
+            });
+        });
     }
 }
