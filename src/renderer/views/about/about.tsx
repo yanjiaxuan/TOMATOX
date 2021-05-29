@@ -18,7 +18,13 @@ export default class About extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            updateStatus: 0 // 0: 未检查， 1：检查中，2：无新版本，3：有新版本，4：下载完成，等待安装，5：更新失败，6：正在下载
+            updateStatus: 0, // 0: 未检查， 1：检查中，2：无新版本，3：有新版本，4：下载完成，等待安装，5：更新失败，6：正在下载
+            newVersion: '',
+            percent: 0,
+            bytesPerSecond: 0,
+            transferred: 0,
+            total: 0
+            // note: ''
         };
     }
 
@@ -29,11 +35,12 @@ export default class About extends React.Component<any, any> {
                     updateStatus: 1
                 });
             })
-            .on('update-available', (info: any) => {
+            .on('update-available', (event: any, info: any) => {
                 this.setState({
-                    updateStatus: 3
+                    updateStatus: 3,
+                    newVersion: info.version
+                    // note: info.releaseNotes
                 });
-                console.log(info);
             })
             .on('update-not-available', () => {
                 this.setState({
@@ -50,11 +57,14 @@ export default class About extends React.Component<any, any> {
                     updateStatus: 4
                 });
             })
-            .on('download-progress', (procInfo: any) => {
+            .on('download-progress', (event: any, procInfo: any) => {
                 this.setState({
-                    updateStatus: 6
+                    updateStatus: 6,
+                    percent: procInfo.percent,
+                    bytesPerSecond: procInfo.bytesPerSecond,
+                    transferred: procInfo.transferred,
+                    total: procInfo.total
                 });
-                console.log(procInfo);
             });
     }
 
@@ -93,7 +103,7 @@ export default class About extends React.Component<any, any> {
                             </span>
                         )}
                         {this.state.updateStatus === 2 && (
-                            <span>
+                            <span onClick={this.checkUpdate}>
                                 <CheckCircleOutlined />
                                 已是最新版本
                             </span>
@@ -101,7 +111,7 @@ export default class About extends React.Component<any, any> {
                         {this.state.updateStatus === 3 && (
                             <span onClick={this.downloadNew}>
                                 <ArrowUpOutlined />
-                                发现新版本，点击更新
+                                发现新版本({this.state.newVersion || ''})，点击更新
                             </span>
                         )}
                         {this.state.updateStatus === 4 && (
@@ -113,13 +123,14 @@ export default class About extends React.Component<any, any> {
                         {this.state.updateStatus === 5 && (
                             <span onClick={this.checkUpdate}>
                                 <CloseCircleOutlined />
-                                更新失败，点击重试
+                                (检查)更新失败，点击重试
                             </span>
                         )}
                         {this.state.updateStatus === 6 && (
                             <span>
                                 <SyncOutlined spin />
-                                正在下载新版本
+                                正在下载新版本{' '}
+                                {`${this.state.transferred}/${this.state.total} ${this.state.percent}% ${this.state.bytesPerSecond}byte/s`}
                             </span>
                         )}
                     </span>

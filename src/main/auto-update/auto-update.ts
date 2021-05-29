@@ -8,10 +8,12 @@ export function initUpdater(win: BrowserWindow) {
     autoUpdater.autoDownload = false;
     autoUpdater.autoInstallOnAppQuit = true;
     autoUpdater.updateConfigPath = path.join(app.getAppPath(), '../app-update.yml');
-
+    // autoUpdater.updateConfigPath = 'E:\\project\\TOMATOX\\release\\win-unpacked\\resources\\app-update.yml'
     // 主进程监听检查更新事件
     ipcMain.on('checkForUpdate', () => {
-        autoUpdater.checkForUpdates();
+        autoUpdater.checkForUpdates().catch(e => {
+            win.webContents.send('update-error', e);
+        });
     });
 
     // 主进程监听开始下载事件
