@@ -1,0 +1,39 @@
+.logo-wrapper {
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 100px);
+    span:nth-of-type(1) {
+        line-height: 30px;
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        .check-update {
+            cursor: pointer;
+            transition: all 0.2s linear;
+            &:hover {
+                color: #ff5c49;
+            }
+        }
+        span {
+            line-height: 10px;
+            font-size: 13px;
+            margin: 0 5px 0 8px;
+            font-weight: normal;
+        }
+    }
+    span:nth-of-type(2) {
+        line-height: 30px;
+    }
+    .gh-icon {
+        font-size: 25px;
+        margin-left: 15px;
+        cursor: pointer;
+        transition: all 0.2s linear;
+        &:hover {
+            color: #ff5c49;
+        }
+    }
+}

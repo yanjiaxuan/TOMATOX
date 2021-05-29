@@ -1,10 +1,13 @@
-import { BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, remote } from 'electron';
 import { autoUpdater } from 'electron-updater';
+
+const path = require('path');
 
 // electron-updater 增量更新时似乎无法显示进度
 export function initUpdater(win: BrowserWindow) {
     autoUpdater.autoDownload = false;
     autoUpdater.autoInstallOnAppQuit = true;
+    autoUpdater.updateConfigPath = path.join(app.getAppPath(), '../app-update.yml');
 
     // 主进程监听检查更新事件
     ipcMain.on('checkForUpdate', () => {

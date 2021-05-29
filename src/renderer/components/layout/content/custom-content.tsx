@@ -12,6 +12,7 @@ import { Route } from 'react-keeper';
 import Search from '@/views/search/search';
 import Redirect from '@/components/redirect/redirect';
 import cssM from './custom-content.scss';
+import About from '@/views/about/about';
 
 function updatePath(cb: Function, props: any) {
     store.setState('CURRENT_PATH', props.path);
@@ -35,6 +36,7 @@ export default function customContent() {
                 <Route path="/collect" component={Collect} enterFilter={updatePath} />
                 <Route path="/play" component={Player} enterFilter={updatePath} />
                 <Route cache path="/search" component={Search} enterFilter={updatePath} />
+                <Route cache path="/about" component={About} enterFilter={updatePath} />
             </div>
         </Spin>
     );
