@@ -60,10 +60,10 @@ export default class About extends React.Component<any, any> {
             .on('download-progress', (event: any, procInfo: any) => {
                 this.setState({
                     updateStatus: 6,
-                    percent: procInfo.percent,
-                    bytesPerSecond: procInfo.bytesPerSecond,
-                    transferred: procInfo.transferred,
-                    total: procInfo.total
+                    percent: Math.floor(procInfo.percent || 0),
+                    bytesPerSecond: Math.floor(procInfo.bytesPerSecond || 0),
+                    transferred: Math.floor(procInfo.transferred || 0),
+                    total: Math.floor(procInfo.total || 0)
                 });
             });
     }
