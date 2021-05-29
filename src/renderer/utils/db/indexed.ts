@@ -63,6 +63,17 @@ export default class Indexed {
         });
     }
 
+    public queryAllKeys(tableName: string) {
+        return new Promise(resolve => {
+            const req = Indexed.db!.transaction(tableName, 'readonly')
+                .objectStore(tableName)
+                .getAllKeys();
+            req.onsuccess = () => {
+                resolve(req.result);
+            };
+        });
+    }
+
     public insertOrUpdate(tableName: string, data: any) {
         return new Promise(resolve => {
             Indexed.db!.transaction(tableName, 'readwrite')

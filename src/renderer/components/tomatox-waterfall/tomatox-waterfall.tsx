@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-keeper';
 import TOMATOX_ICON from '@/images/svg/icon.svg';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import Indexed from '@/utils/db/indexed';
+import { TABLES } from '@/utils/constants';
 import cssM from './tomatox-waterfall.scss';
 
 function timeConverter(time: number) {
@@ -11,8 +14,28 @@ function timeConverter(time: number) {
     return hours === 0 ? ms : `${hours < 10 ? '0' : ''}${hours}:${ms}`;
 }
 
-export default function tomatoxWaterfall(props: any) {
-    const cardsData = props.data as IplayResource[];
+export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
+    const [collects, setCollects] = useState<string[]>([]);
+
+    async function doCollect(data: IplayResource) {
+        (await Indexed.getInstance()).insertOrUpdate(TABLES.TABLE_COLLECT, {
+            ...data,
+            collectDate: Date.now()
+        });
+    }
+
+    async function cancelCollect(id: string) {
+        (await Indexed.getInstance()).deleteById(TABLES.TABLE_COLLECT, id);
+    }
+
+    Indexed.getInstance()
+        .then(db => {
+            return db.queryAllKeys(TABLES.TABLE_COLLECT);
+        })
+        .then(res => {
+            setCollects(res as string[]);
+        });
+    const cardsData = props.data;
     function convertEle() {
         const res = [];
         for (const ele of cardsData) {
@@ -23,6 +46,27 @@ export default function tomatoxWaterfall(props: any) {
                             <div>
                                 <img src={ele.picture} className={cssM.descImg} />
                                 <span className={cssM.topRightTitle}>{ele.remark}</span>
+                                <div>
+                                    {collects.indexOf(ele.id) >= 0 ? (
+                                        <HeartFilled
+                                            className={cssM.resourceCollect}
+                                            onClick={e => {
+                                                cancelCollect(ele.id);
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                            }}
+                                            />
+                                    ) : (
+                                        <HeartOutlined
+                                            className={cssM.resourceNotCollect}
+                                            onClick={e => {
+                                                doCollect(ele);
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                            }}
+                                            />
+                                    )}
+                                </div>
                             </div>
                             <span>{ele.name}</span>
                             <span>

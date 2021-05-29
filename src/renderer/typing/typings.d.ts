@@ -35,4 +35,5 @@ declare interface IplayResource {
     lastPlayTime?: number;
     lastPlayDate?: number;
     lastPlayDrama?: string;
+    collectDate?: number;
 }

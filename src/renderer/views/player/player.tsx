@@ -1,7 +1,8 @@
 import React, { createRef, LegacyRef, useEffect, useRef } from 'react';
-import { LeftOutlined, MinusOutlined, BlockOutlined, CloseOutlined } from '@ant-design/icons';
+import { LeftOutlined, MinusOutlined, BlockOutlined, CloseOutlined , HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { Control } from 'react-keeper';
 import { Tag, Tabs } from 'antd';
+
 import XGPlayer from 'xgplayer';
 import Scrollbars from 'react-custom-scrollbars';
 import shortcutManager from 'electron-localshortcut';
@@ -46,7 +47,8 @@ export default class Player extends React.Component<any, any> {
                     this.controlState.playList.values().next().value,
                 curPlayDrama:
                     this.controlState.lastPlayDrama ||
-                    this.controlState.playList.keys().next().value
+                    this.controlState.playList.keys().next().value,
+                isCollect: false
             };
         }
     }
@@ -63,6 +65,33 @@ export default class Player extends React.Component<any, any> {
             });
             this.xgPlayer!.src = src;
         }
+    }
+
+    async doCollect() {
+        this.setState({
+            isCollect: true
+        });
+        (await Indexed.getInstance()).insertOrUpdate(TABLES.TABLE_COLLECT, {
+            ...this.controlState,
+            collectDate: Date.now()
+        });
+    }
+
+    async cancelCollect() {
+        this.setState({
+            isCollect: false
+        });
+        (await Indexed.getInstance()).deleteById(TABLES.TABLE_COLLECT, this.controlState.id);
+    }
+
+    async componentWillMount() {
+        const res = await (await Indexed.getInstance()).queryById(
+            TABLES.TABLE_COLLECT,
+            this.controlState.id
+        );
+        this.setState({
+            isCollect: Boolean(res)
+        });
     }
 
     componentDidMount(): void {
@@ -169,7 +198,20 @@ export default class Player extends React.Component<any, any> {
                         }}>
                         <LeftOutlined /> 返回
                     </span>
-                    <span>{this.controlState?.name}</span>
+                    <span>
+                        <span>{this.controlState?.name}</span>
+                        {this.state.isCollect ? (
+                            <HeartFilled
+                                className={cssM.resourceCollect}
+                                onClick={this.cancelCollect.bind(this)}
+                                />
+                        ) : (
+                            <HeartOutlined
+                                className={cssM.resourceNotCollect}
+                                onClick={this.doCollect.bind(this)}
+                                />
+                        )}
+                    </span>
                     <span>
                         <MinusOutlined
                             onClick={() => {

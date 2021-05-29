@@ -32,7 +32,7 @@ export default function customContent() {
                 <Route cache path="/recommend" component={Recommend} enterFilter={updatePath} />
                 <Route cache path="/classify" component={Developing} enterFilter={updatePath} />
                 <Route path="/history" component={History} enterFilter={updatePath} />
-                <Route cache path="/collect" component={Developing} enterFilter={updatePath} />
+                <Route path="/collect" component={Collect} enterFilter={updatePath} />
                 <Route path="/play" component={Player} enterFilter={updatePath} />
                 <Route cache path="/search" component={Search} enterFilter={updatePath} />
             </div>

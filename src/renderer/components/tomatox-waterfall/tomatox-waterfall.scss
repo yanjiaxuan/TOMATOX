@@ -49,3 +49,31 @@
     border-radius: 5px;
     object-fit: cover;
 }
+
+.resource-collect {
+    position: absolute;
+    right: 7px;
+    top: 195px;
+    cursor: pointer;
+    color: #ff5c49 !important;
+    font-size: 18px;
+    transition: all 0.2s linear;
+    &:hover {
+        font-size: 22px;
+        right: 5px;
+        top: 193px;
+    }
+}
+.resource-not-collect {
+    position: absolute;
+    right: 7px;
+    top: 195px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s linear;
+    &:hover {
+        font-size: 22px;
+        right: 5px;
+        top: 193px;
+    }
+}

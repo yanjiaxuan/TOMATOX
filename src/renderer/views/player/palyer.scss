@@ -164,3 +164,15 @@
         background-color: unset !important;
     }
 }
+
+.resource-collect {
+    cursor: pointer;
+    margin-left: 15px;
+    color: #ff5c49 !important;
+    -webkit-app-region: no-drag;
+}
+.resource-not-collect {
+    margin-left: 15px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
