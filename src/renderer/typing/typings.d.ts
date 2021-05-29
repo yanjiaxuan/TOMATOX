@@ -31,10 +31,14 @@ declare interface IplayResource {
     tag: string;
     year: string;
     playList: Map<string, string>;
-    lastPlaySrc?: string;
-    lastPlayTime?: number;
-    lastPlayDate?: number;
-    lastPlayDrama?: string;
-    collectDate?: number;
-    lastPlayDesc?: string;
+    historyOption?: {
+        lastPlaySrc?: string;
+        lastPlayTime?: number;
+        lastPlayDate?: number;
+        lastPlayDrama?: string;
+        lastPlayDesc?: string;
+    };
+    collectOption?: {
+        collectDate?: number;
+    };
 }

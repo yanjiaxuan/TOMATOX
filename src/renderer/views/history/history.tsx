@@ -18,7 +18,7 @@ export default class History extends React.Component<any, any> {
         const resources = res as IplayResource[];
         const resCovertRes = new Map<string, Map<string, IplayResource[]>>();
         resources.forEach(resource => {
-            const date = new Date(resource.lastPlayDate!);
+            const date = new Date(resource.historyOption!.lastPlayDate!);
             const yearMonth = `${date.getFullYear()}年${date.getMonth() + 1}月`;
             const day = `${date.getDate()}日`;
             if (!resCovertRes.get(yearMonth)) {
@@ -34,7 +34,7 @@ export default class History extends React.Component<any, any> {
             resCovertRes
                 .get(yearMonth)!
                 .get(day)!
-                .sort((a, b) => b.lastPlayDate! - a.lastPlayDate!);
+                .sort((a, b) => b.historyOption!.lastPlayDate! - a.historyOption!.lastPlayDate!);
         });
         this.setState({
             resourceList: resCovertRes

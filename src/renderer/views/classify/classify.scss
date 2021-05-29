@@ -1,0 +1,29 @@
+.type-wrapper {
+    padding: 5px 20px 0 20px;
+    background-color: #444444;
+    position: fixed;
+    top: 50px;
+    z-index: 1;
+    padding-bottom: 10px;
+}
+
+.type-item {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    padding: 10px 10px 0 10px;
+    color: #fff;
+    font-size: 15px;
+    &-active:after {
+        transition: all 0.5s linear;
+        content: '';
+        position: absolute;
+        top: 35px;
+        left: 50%;
+        transform: translate(-50%);
+        width: 30px;
+        height: 3px;
+        background-color: #ff5c49;
+        border-radius: 2px;
+    }
+}

@@ -1,3 +1,5 @@
+import { TABLES } from '@/utils/constants';
+
 export function filterResources(resources: any[]) {
     return resources.map(res => filterResource(res));
 }
@@ -31,4 +33,32 @@ function filterPlayList(listStr: string) {
         key && val && list.set(key, val);
     });
     return list;
+}
+
+export function cleanResourceData(dataType: string, data: IplayResource): IplayResource {
+    const optData: IplayResource = {
+        id: data.id,
+        type: data.type,
+        picture: data.picture,
+        lang: data.lang,
+        name: data.name,
+        director: data.director,
+        describe: data.describe,
+        area: data.area,
+        actor: data.actor,
+        class: data.class,
+        doubanId: data.doubanId,
+        doubanScore: data.doubanScore,
+        origin: data.origin,
+        remark: data.remark,
+        tag: data.tag,
+        year: data.year,
+        playList: data.playList
+    };
+    if (dataType === TABLES.TABLE_HISTORY) {
+        optData.historyOption = data.historyOption;
+    } else if (dataType === TABLES.TABLE_COLLECT) {
+        optData.collectOption = data.collectOption;
+    }
+    return optData;
 }

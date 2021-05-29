@@ -6,24 +6,9 @@ import Indexed from '@/utils/db/indexed';
 import { TABLES } from '@/utils/constants';
 import cssM from './tomatox-waterfall.scss';
 
-function timeConverter(time: number) {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const senconds = Math.floor(time % 60);
-    const ms = `${minutes < 10 ? '0' : ''}${minutes}:${senconds < 10 ? '0' : ''}${senconds}`;
-    return hours === 0 ? ms : `${hours < 10 ? '0' : ''}${hours}:${ms}`;
-}
-
 export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
     const [collectRes, setCollectRes] = useState(Indexed.collectedRes);
     const cardsData = props.data;
-    cardsData.forEach(item => {
-        if (item.lastPlayDrama || item.lastPlayTime) {
-            item.lastPlayDesc = `观看至 ${item.lastPlayDrama || ''} ${timeConverter(
-                item.lastPlayTime || 0
-            )}`;
-        }
-    });
     function convertEle() {
         const res = [];
         for (const ele of cardsData) {
@@ -59,8 +44,12 @@ export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
                                 </div>
                             </div>
                             <span>{ele.name}</span>
-                            <span>{ele.lastPlayDesc ? '' : ele.actor || '未知'}</span>
-                            {ele.lastPlayDesc && <span>{ele.lastPlayDesc}</span>}
+                            <span>
+                                {ele.historyOption?.lastPlayDesc ? '' : ele.actor || '未知'}
+                            </span>
+                            {ele.historyOption?.lastPlayDesc && (
+                                <span>{ele.historyOption.lastPlayDesc}</span>
+                            )}
                         </div>
                     </Link>
                 </span>

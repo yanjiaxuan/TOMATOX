@@ -30,7 +30,7 @@ export default function customContent() {
             <div className={cssM.contentWrapper}>
                 <Route path="/" component={Redirect} />
                 <Route cache path="/recommend" component={Recommend} enterFilter={updatePath} />
-                <Route cache path="/classify" component={Developing} enterFilter={updatePath} />
+                <Route cache path="/classify" component={Classify} enterFilter={updatePath} />
                 <Route path="/history" component={History} enterFilter={updatePath} />
                 <Route path="/collect" component={Collect} enterFilter={updatePath} />
                 <Route path="/play" component={Player} enterFilter={updatePath} />

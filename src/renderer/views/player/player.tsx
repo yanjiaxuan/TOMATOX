@@ -50,10 +50,10 @@ export default class Player extends React.Component<any, any> {
             this.sourceList.set('播放列表', this.controlState.playList);
             this.state = {
                 curPlaySrc:
-                    this.controlState.lastPlaySrc ||
+                    this.controlState.historyOption?.lastPlaySrc ||
                     this.controlState.playList.values().next().value,
                 curPlayDrama:
-                    this.controlState.lastPlayDrama ||
+                    this.controlState.historyOption?.lastPlayDrama ||
                     this.controlState.playList.keys().next().value,
                 isCollect: Indexed.collectedRes.has(this.controlState.id)
             };
@@ -78,10 +78,7 @@ export default class Player extends React.Component<any, any> {
         this.setState({
             isCollect: true
         });
-        Indexed.instance!.doCollect({
-            ...this.controlState,
-            collectDate: Date.now()
-        });
+        Indexed.instance!.doCollect(this.controlState);
     }
 
     cancelCollect() {
@@ -119,7 +116,7 @@ export default class Player extends React.Component<any, any> {
             ignores: ['replay', 'error'], // 为了切换播放器类型时避免显示错误刷新，暂时忽略错误
             preloadTime: 300
         });
-        this.xgPlayer!.currentTime = this.controlState.lastPlayTime || 0;
+        this.xgPlayer!.currentTime = this.controlState.historyOption?.lastPlayTime || 0;
         this.xgPlayer?.play();
         this.xgPlayer?.on('ended', this.playNext.bind(this));
         for (const key in this.mainEventHandler) {
@@ -127,13 +124,26 @@ export default class Player extends React.Component<any, any> {
         }
     }
 
+    private timeConverter(time: number) {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const senconds = Math.floor(time % 60);
+        const ms = `${minutes < 10 ? '0' : ''}${minutes}:${senconds < 10 ? '0' : ''}${senconds}`;
+        return hours === 0 ? ms : `${hours < 10 ? '0' : ''}${hours}:${ms}`;
+    }
+
     componentWillUnmount(): void {
         const newData: IplayResource = {
             ...this.controlState,
-            lastPlayDrama: this.state.curPlayDrama,
-            lastPlaySrc: this.state.curPlaySrc,
-            lastPlayTime: this.xgPlayer?.currentTime || 0,
-            lastPlayDate: Date.now()
+            historyOption: {
+                lastPlayDrama: this.state.curPlayDrama,
+                lastPlaySrc: this.state.curPlaySrc,
+                lastPlayTime: this.xgPlayer?.currentTime || 0,
+                lastPlayDate: Date.now(),
+                lastPlayDesc: `观看至 ${this.state.curPlayDrama || ''} ${this.timeConverter(
+                    this.xgPlayer?.currentTime || 0
+                )}`
+            }
         };
         Indexed.instance!.insertOrUpdate(TABLES.TABLE_HISTORY, newData);
 

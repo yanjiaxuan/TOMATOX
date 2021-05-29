@@ -32,6 +32,7 @@ export default class Search extends React.Component<any, any> {
 
     async searchResByKW() {
         this.page = 0;
+        this.pageCount = 10;
         store.setState('GLOBAL_LOADING', true);
         this.setState(
             {
@@ -46,6 +47,8 @@ export default class Search extends React.Component<any, any> {
 
     async searchWrapper() {
         if (this.page >= this.pageCount) {
+            store.setState('GLOBAL_SEARCH_ENABLE', true);
+            store.setState('GLOBAL_LOADING', false);
             this.setState({
                 recommendLoading: false
             });

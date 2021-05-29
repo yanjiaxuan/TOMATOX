@@ -1,4 +1,5 @@
 import { TABLES } from '@/utils/constants';
+import { cleanResourceData } from '@/utils/filterResources';
 
 export default class Indexed {
     private static db: IDBDatabase | undefined;
@@ -12,10 +13,11 @@ export default class Indexed {
     public static init(): Promise<Indexed> {
         return new Promise((resolve, reject) => {
             if (!this.instance) {
-                const dbReq = window.indexedDB.open('TOMATOX');
+                const dbReq = window.indexedDB.open('TOMATOX', 2);
                 dbReq.onupgradeneeded = () => {
                     const db = dbReq.result;
-                    if (!db.objectStoreNames.contains(TABLES.TABLE_HISTORY)) {
+                    if (db.objectStoreNames.contains(TABLES.TABLE_HISTORY)) {
+                        db.deleteObjectStore(TABLES.TABLE_HISTORY);
                         const table = db.createObjectStore(TABLES.TABLE_HISTORY, {
                             keyPath: 'id'
                         });
@@ -23,7 +25,8 @@ export default class Indexed {
                             unique: false
                         });
                     }
-                    if (!db.objectStoreNames.contains(TABLES.TABLE_COLLECT)) {
+                    if (db.objectStoreNames.contains(TABLES.TABLE_COLLECT)) {
+                        db.deleteObjectStore(TABLES.TABLE_COLLECT);
                         db.createObjectStore(TABLES.TABLE_COLLECT, {
                             keyPath: 'id'
                         });
@@ -80,14 +83,11 @@ export default class Indexed {
         if (tableName === TABLES.TABLE_COLLECT) {
             Indexed.collectedRes.add(data.id);
         }
+        const optData: IplayResource = cleanResourceData(tableName, data);
         return new Promise(resolve => {
             Indexed.db!.transaction(tableName, 'readwrite')
                 .objectStore(tableName)
-                .put({
-                    ...data,
-                    isCollected: undefined,
-                    lastPlayDesc: undefined
-                }).onsuccess = () => {
+                .put(optData).onsuccess = () => {
                 resolve(null);
             };
         });
@@ -121,7 +121,10 @@ export default class Indexed {
     }
 
     public doCollect(data: IplayResource) {
-        this.insertOrUpdate(TABLES.TABLE_COLLECT, data);
+        this.insertOrUpdate(TABLES.TABLE_COLLECT, {
+            ...data,
+            collectOption: { collectDate: Date.now() }
+        });
     }
     public cancelCollect(id: string) {
         this.deleteById(TABLES.TABLE_COLLECT, id);

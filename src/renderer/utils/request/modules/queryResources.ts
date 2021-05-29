@@ -8,7 +8,7 @@ import Req from '../index';
  *  wd 关键字
  */
 
-export function queryResources(curPage: number, type?: string, keyWord?: string): any {
+export function queryResources(curPage: number, type?: number, keyWord?: string): any {
     return Req({
         method: 'get',
         url: store.getState('SITE_ADDRESS').api,
@@ -18,5 +18,12 @@ export function queryResources(curPage: number, type?: string, keyWord?: string)
             t: type,
             wd: keyWord
         }
+    });
+}
+
+export function queryTypes() {
+    return Req({
+        method: 'get',
+        url: store.getState('SITE_ADDRESS').api
     });
 }

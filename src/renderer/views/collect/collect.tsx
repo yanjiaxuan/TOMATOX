@@ -15,7 +15,7 @@ export default class Collect extends React.Component<any, any> {
 
     async componentWillMount() {
         const res = (await Indexed.instance!.queryAll(TABLES.TABLE_COLLECT)) as IplayResource[];
-        res.sort((a, b) => (b.collectDate || 0) - (a.collectDate || 0));
+        res.sort((a, b) => b.collectOption!.collectDate! - a.collectOption!.collectDate!);
         this.setState({
             resources: res
         });
