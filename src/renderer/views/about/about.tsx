@@ -9,6 +9,7 @@ import {
     CloseCircleOutlined
 } from '@ant-design/icons';
 import { ipcRenderer } from 'electron';
+import { PROD_STATEMENT } from '@/utils/constants';
 
 const openBrowser = require('@/utils/openBrowser');
 const { version } = require('@/../../package.json');
@@ -95,66 +96,71 @@ export default class About extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <div className={cssM.logoWrapper}>
-                <img src={logo} width={120} />
-                <span>
-                    TOMATOX {version}
-                    <span className={cssM.checkUpdate}>
-                        {this.state.updateStatus === 0 && (
-                            <span onClick={this.checkUpdate}>
-                                <SyncOutlined />
-                                检查更新
-                            </span>
-                        )}
-                        {this.state.updateStatus === 1 && (
-                            <span>
-                                <SyncOutlined spin />
-                                正在检查更新
-                            </span>
-                        )}
-                        {this.state.updateStatus === 2 && (
-                            <span onClick={this.checkUpdate}>
-                                <CheckCircleOutlined />
-                                已是最新版本
-                            </span>
-                        )}
-                        {this.state.updateStatus === 3 && (
-                            <span onClick={this.downloadNew}>
-                                <ArrowUpOutlined />
-                                发现新版本({this.state.newVersion || ''})，点击更新
-                            </span>
-                        )}
-                        {this.state.updateStatus === 4 && (
-                            <span onClick={this.installNew}>
-                                <ArrowUpOutlined />
-                                下载完毕，点击安装
-                            </span>
-                        )}
-                        {this.state.updateStatus === 5 && (
-                            <span onClick={this.checkUpdate}>
-                                <CloseCircleOutlined />
-                                (检查)更新失败，点击重试
-                            </span>
-                        )}
-                        {this.state.updateStatus === 6 && (
-                            <span>
-                                <SyncOutlined spin />
-                                正在下载新版本{' '}
-                                {`${this.state.transferred}/${this.state.total} ${this.state.percent}% ${this.state.bytesPerSecond}/s`}
-                            </span>
-                        )}
+            <>
+                <div className={cssM.logoWrapper}>
+                    <img src={logo} width={120} />
+                    <span>
+                        TOMATOX {version}
+                        <span className={cssM.checkUpdate}>
+                            {this.state.updateStatus === 0 && (
+                                <span onClick={this.checkUpdate}>
+                                    <SyncOutlined />
+                                    检查更新
+                                </span>
+                            )}
+                            {this.state.updateStatus === 1 && (
+                                <span>
+                                    <SyncOutlined spin />
+                                    正在检查更新
+                                </span>
+                            )}
+                            {this.state.updateStatus === 2 && (
+                                <span onClick={this.checkUpdate}>
+                                    <CheckCircleOutlined />
+                                    已是最新版本
+                                </span>
+                            )}
+                            {this.state.updateStatus === 3 && (
+                                <span onClick={this.downloadNew}>
+                                    <ArrowUpOutlined />
+                                    发现新版本({this.state.newVersion || ''})，点击更新
+                                </span>
+                            )}
+                            {this.state.updateStatus === 4 && (
+                                <span onClick={this.installNew}>
+                                    <ArrowUpOutlined />
+                                    下载完毕，点击安装
+                                </span>
+                            )}
+                            {this.state.updateStatus === 5 && (
+                                <span onClick={this.checkUpdate}>
+                                    <CloseCircleOutlined />
+                                    (检查)更新失败，点击重试
+                                </span>
+                            )}
+                            {this.state.updateStatus === 6 && (
+                                <span>
+                                    <SyncOutlined spin />
+                                    正在下载新版本{' '}
+                                    {`${this.state.transferred}/${this.state.total} ${this.state.percent}% ${this.state.bytesPerSecond}/s`}
+                                </span>
+                            )}
+                        </span>
                     </span>
-                </span>
-                <span>
-                    Author: Freeless
-                    <GithubOutlined
-                        className={cssM.ghIcon}
-                        onClick={() => {
-                            openBrowser('https://github.com/yanjiaxuan/TOMATOX');
-                        }}
-                        />
-                </span>
-            </div>
+                    <span>
+                        Author: Freeless
+                        <GithubOutlined
+                            className={cssM.ghIcon}
+                            onClick={() => {
+                                openBrowser('https://github.com/yanjiaxuan/TOMATOX');
+                            }}
+                            />
+                    </span>
+                </div>
+                <div className={cssM.prodStatementWrapper}>
+                    <div className={cssM.prodStatement}>{PROD_STATEMENT}</div>
+                </div>
+            </>
         );
     }
 }
