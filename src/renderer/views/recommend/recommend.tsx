@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Spin } from 'antd';
 import store from '@/utils/store';
 import Scrollbars from 'react-custom-scrollbars';
-import playTool from '@/utils/paly-tool';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomSpin from '@/components/custom-spin/custom-spin';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';

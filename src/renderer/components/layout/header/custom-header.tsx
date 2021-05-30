@@ -12,7 +12,6 @@ import {
     SkinOutlined,
     ShareAltOutlined
 } from '@ant-design/icons';
-import playTool from '@/utils/paly-tool';
 import { Control } from 'react-keeper';
 import store from '@/utils/store';
 import cssModule from './custom-header.scss';

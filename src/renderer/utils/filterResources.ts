@@ -28,10 +28,13 @@ export function filterResource(resource: any): IplayResource {
 
 function filterPlayList(listStr: string) {
     const list = new Map<string, string>();
-    listStr.split('#').forEach(item => {
-        const [key, val] = item.split('$');
-        key && val && list.set(key, val);
-    });
+    const splitLists = listStr.split('$$$').filter(val => val.includes('.m3u'));
+    if (splitLists.length) {
+        splitLists[0].split('#').forEach(item => {
+            const [key, val] = item.split('$');
+            key && val && list.set(key, val);
+        });
+    }
     return list;
 }
 

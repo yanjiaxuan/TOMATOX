@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import playTool from '@/utils/paly-tool';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';
 import store from '@/utils/store';
 import Scrollbars from 'react-custom-scrollbars';

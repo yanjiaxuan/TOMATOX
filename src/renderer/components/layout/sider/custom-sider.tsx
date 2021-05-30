@@ -6,7 +6,8 @@ import {
     HeartOutlined,
     AppstoreOutlined,
     SearchOutlined,
-    StarOutlined
+    StarOutlined,
+    PlayCircleOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-keeper';
 import Icon from '@/images/svg/icon.svg';
@@ -36,6 +37,11 @@ export default function CustomSider(props: any) {
                     <Menu.Item key={'/classify'} icon={<AppstoreOutlined />}>
                         <Link to={'/classify'}>
                             <span>分类</span>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={'/iptv'} icon={<PlayCircleOutlined />}>
+                        <Link to={'/iptv'}>
+                            <span>直播</span>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key={'/search'} icon={<SearchOutlined />}>
