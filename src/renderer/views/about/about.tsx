@@ -96,7 +96,7 @@ export default class About extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <>
+            <div>
                 <div className={cssM.logoWrapper}>
                     <img src={logo} width={120} />
                     <span>
@@ -160,7 +160,7 @@ export default class About extends React.Component<any, any> {
                 <div className={cssM.prodStatementWrapper}>
                     <div className={cssM.prodStatement}>{PROD_STATEMENT}</div>
                 </div>
-            </>
+            </div>
         );
     }
 }

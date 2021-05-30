@@ -17,10 +17,15 @@
 
 ## Screenshot
 
-![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/TOMATOX.png?raw=true)
-![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/play.png?raw=true)
-![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/play-detail.png?raw=true)
-![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/img/play-info.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-1.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-2.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-3.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-4.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-5.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-6.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-7.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-8.png?raw=true)
+![image](https://github.com/yanjiaxuan/TOMATOX/blob/main/docs/product/TOMATOX-9.png?raw=true)
 
 ## Install
 Clone the repository with Git:
