@@ -274,7 +274,7 @@ export default class Player extends React.Component<any, any> {
                                                     {this.controlState?.name}
                                                 </div>
                                                 <div>
-                                                    {this.controlState?.doubanScore && (
+                                                    {this.controlState?.doubanScore !== '0.0' && (
                                                         <div className={cssM.detailContent}>
                                                             评分：{this.controlState?.doubanScore}
                                                         </div>
@@ -307,8 +307,11 @@ export default class Player extends React.Component<any, any> {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={cssM.detailNote}>
+                                        <div className={cssM.detailNoteFirst}>
                                             {this.controlState?.remark}
+                                        </div>
+                                        <div className={cssM.detailNoteSecond}>
+                                            更新时间：{this.controlState?.updateTime}
                                         </div>
                                         <div className={cssM.detailDescTitle}>简介</div>
                                         <div

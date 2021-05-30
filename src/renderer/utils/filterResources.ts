@@ -22,6 +22,7 @@ export function filterResource(resource: any): IplayResource {
         remark: resource.vod_remarks,
         tag: resource.vod_tag,
         year: resource.vod_year,
+        updateTime: resource.vod_time,
         playList: filterPlayList(resource.vod_play_url)
     };
 }

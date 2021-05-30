@@ -144,8 +144,13 @@
     }
 }
 
-.detail-note {
-    margin: 10px 0;
+.detail-note-first {
+    margin: 10px 0 0 0;
+    padding: 10px 15px 0 15px;
+    background-color: #d8cfcf29;
+}
+.detail-note-second {
+    margin-bottom: 10px;
     padding: 10px 15px;
     background-color: #d8cfcf29;
 }

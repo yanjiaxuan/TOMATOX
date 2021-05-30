@@ -8,7 +8,12 @@ import Req from '../index';
  *  wd 关键字
  */
 
-export function queryResources(curPage: number, type?: number, keyWord?: string): any {
+export function queryResources(
+    curPage: number,
+    type?: number,
+    keyWord?: string,
+    lastUpdate?: number
+): any {
     return Req({
         method: 'get',
         url: store.getState('SITE_ADDRESS').api,
@@ -16,7 +21,8 @@ export function queryResources(curPage: number, type?: number, keyWord?: string)
             ac: 'videolist',
             pg: curPage,
             t: type,
-            wd: keyWord
+            wd: keyWord,
+            h: lastUpdate
         }
     });
 }

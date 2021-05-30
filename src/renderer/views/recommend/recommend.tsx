@@ -30,27 +30,29 @@ export default class Recommend extends React.Component<any, any> {
         this.getRecommendLst();
     }
 
-    async getPerRecommend() {
+    getRecommendLst() {
         if (this.page >= this.pageCount) {
             return;
         }
-        const { list, pagecount } = await queryResources(++this.page, this.type);
-        this.pageCount = pagecount;
-        if (store.getState('GLOBAL_LOADING')) {
-            store.setState('GLOBAL_LOADING', false);
-            this.setState({
-                recommendLoading: true
+        Promise.all([
+            queryResources(++this.page, this.type, undefined, 24 * 30),
+            queryResources(++this.page, this.type, undefined, 24 * 30),
+            queryResources(++this.page, this.type, undefined, 24 * 30)
+        ]).then(resLst => {
+            const collectRes: IplayResource[] = [];
+            resLst.forEach(res => {
+                const { list, pagecount } = res;
+                this.pageCount = pagecount;
+                collectRes.push(...list);
             });
-        }
-        this.setState({
-            cardsData: [...this.state.cardsData, ...filterResources(list)]
+            if (store.getState('GLOBAL_LOADING')) {
+                store.setState('GLOBAL_LOADING', false);
+            }
+            this.setState({
+                recommendLoading: this.page < this.pageCount,
+                cardsData: [...this.state.cardsData, ...filterResources(collectRes)]
+            });
         });
-    }
-
-    getRecommendLst() {
-        this.getPerRecommend();
-        this.getPerRecommend();
-        this.getPerRecommend();
     }
 
     render(): React.ReactNode {
@@ -60,7 +62,7 @@ export default class Recommend extends React.Component<any, any> {
                     initialLoad={false}
                     pageStart={1}
                     loadMore={this.getRecommendLst.bind(this)}
-                    hasMore
+                    hasMore={this.page < this.pageCount}
                     useWindow={false}>
                     <TomatoxWaterfall data={this.state.cardsData} />
                     <div style={{ height: 100, position: 'relative' }}>

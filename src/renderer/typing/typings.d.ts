@@ -30,6 +30,7 @@ declare interface IplayResource {
     remark: string;
     tag: string;
     year: string;
+    updateTime: string;
     playList: Map<string, string>;
     historyOption?: {
         lastPlaySrc?: string;
