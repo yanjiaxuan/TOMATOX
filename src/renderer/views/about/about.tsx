@@ -19,7 +19,7 @@ export default class About extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            updateStatus: 0, // 0: 未检查， 1：检查中，2：无新版本，3：有新版本，4：下载完成，等待安装，5：更新失败，6：正在下载
+            updateStatus: 0, // 0: 未检查， 1：检查中，2：无新版本，3：有新版本，4：下载完成，等待安装，5：更新失败，6：正在下载，7：请求下载中
             newVersion: '',
             percent: 0,
             bytesPerSecond: '',
@@ -87,6 +87,9 @@ export default class About extends React.Component<any, any> {
     };
 
     private downloadNew = () => {
+        this.setState({
+            updateStatus: 7
+        });
         ipcRenderer.send('downloadUpdate');
     };
 
@@ -143,6 +146,12 @@ export default class About extends React.Component<any, any> {
                                     <SyncOutlined spin />
                                     正在下载新版本{' '}
                                     {`${this.state.transferred}/${this.state.total} ${this.state.percent}% ${this.state.bytesPerSecond}/s`}
+                                </span>
+                            )}
+                            {this.state.updateStatus === 7 && (
+                                <span>
+                                    <SyncOutlined spin />
+                                    正在请求更新
                                 </span>
                             )}
                         </span>
