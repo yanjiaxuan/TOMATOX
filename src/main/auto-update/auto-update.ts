@@ -1,24 +1,36 @@
 import { app, BrowserWindow, ipcMain, remote } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
+const delDir = require('../utils/deleteDir');
 const path = require('path');
 
 // electron-updater 增量更新时似乎无法显示进度
 export function initUpdater(win: BrowserWindow) {
     autoUpdater.autoDownload = false;
     autoUpdater.autoInstallOnAppQuit = true;
-    autoUpdater.updateConfigPath = path.join(app.getAppPath(), '../app-update.yml');
-    // autoUpdater.updateConfigPath = 'E:\\project\\TOMATOX\\release\\win-unpacked\\resources\\app-update.yml'
+
+    // fix download error when old version update file already exists
+    function downloadUpdate() {
+        autoUpdater.downloadUpdate().catch(err => {
+            if (err.message && err.message.includes('file already exists') && err.path) {
+                delDir(err.path);
+                downloadUpdate();
+            } else {
+                win.webContents.send('update-error', err);
+            }
+        });
+    }
+
     // 主进程监听检查更新事件
     ipcMain.on('checkForUpdate', () => {
-        autoUpdater.checkForUpdates().catch(e => {
-            win.webContents.send('update-error', e);
+        autoUpdater.checkForUpdates().catch(err => {
+            win.webContents.send('update-error', err);
         });
     });
 
     // 主进程监听开始下载事件
     ipcMain.on('downloadUpdate', () => {
-        autoUpdater.downloadUpdate();
+        downloadUpdate();
     });
 
     // 主进程监听退出并安装事件
