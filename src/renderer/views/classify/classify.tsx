@@ -3,7 +3,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';
 import { Spin } from 'antd';
 import CustomSpin from '@/components/custom-spin/custom-spin';
-import Scrollbars from 'react-custom-scrollbars';
 import { queryResources, queryTypes } from '@/utils/request/modules/queryResources';
 import store from '@/utils/store';
 import { filterResources } from '@/utils/filterResources';
@@ -93,25 +92,23 @@ export default class Classify extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <Scrollbars>
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={1}
-                    hasMore={this.state.recommendLoading}
-                    loadMore={this.getRecommendLst.bind(this)}
-                    style={{ paddingTop: 90 }}
-                    useWindow={false}>
-                    <div className={cssM.typeWrapper}>{this.renderClassify()}</div>
-                    <TomatoxWaterfall data={this.state.cardsData} />
-                    <div style={{ height: 100, position: 'relative' }}>
-                        <Spin
-                            size={'large'}
-                            indicator={<CustomSpin />}
-                            spinning={this.state.recommendLoading}
-                            />
-                    </div>
-                </InfiniteScroll>
-            </Scrollbars>
+            <InfiniteScroll
+                initialLoad={false}
+                pageStart={1}
+                hasMore={this.state.recommendLoading}
+                loadMore={this.getRecommendLst.bind(this)}
+                style={{ paddingTop: 90 }}
+                useWindow={false}>
+                <div className={cssM.typeWrapper}>{this.renderClassify()}</div>
+                <TomatoxWaterfall data={this.state.cardsData} />
+                <div style={{ height: 100, position: 'relative' }}>
+                    <Spin
+                        size={'large'}
+                        indicator={<CustomSpin />}
+                        spinning={this.state.recommendLoading}
+                        />
+                </div>
+            </InfiniteScroll>
         );
     }
 }

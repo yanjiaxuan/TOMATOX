@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import cssM from './iptv.scss';
 import { queryIptvResource } from '@/utils/request/modules/queryIptv';
-import Scrollbars from 'react-custom-scrollbars';
 import { Link } from 'react-keeper';
 import { Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
@@ -50,23 +49,19 @@ export default class Iptv extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <div style={{ width: '100%', height: 'calc(100vh - 50px)' }}>
-                <div className={cssM.searchWrapperWrapper}>
-                    <div className={cssM.searchWrapper}>
-                        <Search
-                            placeholder={'搜索直播频道'}
-                            onSearch={this.filterResources}
-                            enterButton={
-                                <>
-                                    <SearchOutlined /> 搜索
-                                </>
-                            }
-                            />
-                    </div>
+                <div className={cssM.searchWrapper}>
+                    <Search
+                        placeholder={'搜索直播频道'}
+                        onSearch={this.filterResources}
+                        enterButton={
+                            <>
+                                <SearchOutlined /> 搜索
+                            </>
+                        }
+                        />
                 </div>
-                <div style={{ width: '100%', height: '100%', paddingTop: 50 }}>
-                    <Scrollbars>
-                        <div className={cssM.cardWrapper}>{this.renderSources()}</div>
-                    </Scrollbars>
+                <div style={{ width: '100%', height: '100%', marginTop: 50 }}>
+                    <div className={cssM.cardWrapper}>{this.renderSources()}</div>
                 </div>
             </div>
         );

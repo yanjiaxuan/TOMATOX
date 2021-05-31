@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';
 import store from '@/utils/store';
-import Scrollbars from 'react-custom-scrollbars';
 import TOMATOX_ICON from '@/images/svg/icon.svg';
 import { queryResources } from '@/utils/request/modules/queryResources';
 import { filterResources } from '@/utils/filterResources';
@@ -81,23 +80,21 @@ export default class Search extends React.Component<any, any> {
     render(): React.ReactNode {
         if (this.state.cardsData && this.state.cardsData.length) {
             return (
-                <Scrollbars>
-                    <InfiniteScroll
-                        initialLoad={false}
-                        pageStart={1}
-                        loadMore={this.searchWrapper.bind(this)}
-                        hasMore
-                        useWindow={false}>
-                        <TomatoxWaterfall data={this.state.cardsData} />
-                        <div style={{ height: 100, position: 'relative' }}>
-                            <Spin
-                                size={'large'}
-                                indicator={<CustomSpin />}
-                                spinning={this.state.recommendLoading}
-                                />
-                        </div>
-                    </InfiniteScroll>
-                </Scrollbars>
+                <InfiniteScroll
+                    initialLoad={false}
+                    pageStart={1}
+                    loadMore={this.searchWrapper.bind(this)}
+                    hasMore
+                    useWindow={false}>
+                    <TomatoxWaterfall data={this.state.cardsData} />
+                    <div style={{ height: 100, position: 'relative' }}>
+                        <Spin
+                            size={'large'}
+                            indicator={<CustomSpin />}
+                            spinning={this.state.recommendLoading}
+                            />
+                    </div>
+                </InfiniteScroll>
             );
         }
         return (

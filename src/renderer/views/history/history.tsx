@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from 'react';
 import Indexed from '@/utils/db/indexed';
 import { TABLES } from '@/utils/constants';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';
-import Scrollbars from 'react-custom-scrollbars';
 import cssM from './history.scss';
 
 function compareYMStr(a: string, b: string): number {
@@ -89,6 +88,6 @@ export default class History extends React.Component<any, any> {
     }
 
     render(): React.ReactNode {
-        return <Scrollbars>{this.renderYM(this.state.resourceList)}</Scrollbars>;
+        return <>{this.renderYM(this.state.resourceList)}</>;
     }
 }

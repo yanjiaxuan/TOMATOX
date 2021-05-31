@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Spin } from 'antd';
 import store from '@/utils/store';
-import Scrollbars from 'react-custom-scrollbars';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomSpin from '@/components/custom-spin/custom-spin';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';
@@ -57,23 +56,21 @@ export default class Recommend extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <Scrollbars>
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={1}
-                    loadMore={this.getRecommendLst.bind(this)}
-                    hasMore={this.page < this.pageCount}
-                    useWindow={false}>
-                    <TomatoxWaterfall data={this.state.cardsData} />
-                    <div style={{ height: 100, position: 'relative' }}>
-                        <Spin
-                            size={'large'}
-                            indicator={<CustomSpin />}
-                            spinning={this.state.recommendLoading}
-                            />
-                    </div>
-                </InfiniteScroll>
-            </Scrollbars>
+            <InfiniteScroll
+                initialLoad={false}
+                pageStart={1}
+                loadMore={this.getRecommendLst.bind(this)}
+                hasMore={this.page < this.pageCount}
+                useWindow={false}>
+                <TomatoxWaterfall data={this.state.cardsData} />
+                <div style={{ height: 100, position: 'relative' }}>
+                    <Spin
+                        size={'large'}
+                        indicator={<CustomSpin />}
+                        spinning={this.state.recommendLoading}
+                        />
+                </div>
+            </InfiniteScroll>
         );
     }
 }

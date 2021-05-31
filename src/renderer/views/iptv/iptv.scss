@@ -31,12 +31,6 @@
     }
     &:hover {
         color: #ff5c49;
-        &:before {
-            width: 15px;
-            height: 3px;
-            transform: translateY(-100%);
-            background-color: #0edc09;
-        }
     }
 }
 
@@ -44,8 +38,10 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 32px;
+    height: 55px;
     padding: 15px 50px 25px 25px;
+    background-color: #403f3f;
+    z-index: 1;
     input {
         float: unset !important;
         background-color: #696666;

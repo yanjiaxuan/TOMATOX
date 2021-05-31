@@ -1,6 +1,6 @@
 {
   "name": "tomatox",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./dist/main.js",
   "scripts": {
@@ -139,7 +139,6 @@
     "@types/electron-localshortcut": "^3.1.0",
     "@types/jest": "^24.0.13",
     "@types/react": "^17.0.5",
-    "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-dom": "^17.0.5",
     "@types/react-infinite-scroller": "^1.2.1",
     "@types/react-redux": "^7.0.9",
@@ -182,7 +181,6 @@
     "mini-css-extract-plugin": "^1.6.0",
     "prettier": "^1.18.2",
     "react": "^17.0.2",
-    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.8.8",
     "react-infinite-scroller": "^1.2.4",
