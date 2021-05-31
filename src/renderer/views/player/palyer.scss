@@ -1,5 +1,12 @@
-.play-full-header {
+.play-page-wrapper {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+.play-full-header {
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -42,10 +49,9 @@
 }
 
 .play-full-wrapper {
-    position: fixed;
-    padding-top: 30px;
-    width: 100vw;
-    height: 100vh;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 30px);
     left: 0;
     top: 0;
     background: #403f3f;

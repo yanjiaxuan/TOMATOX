@@ -209,7 +209,7 @@ export default class Player extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <>
+            <div className={cssM.playPageWrapper}>
                 <div className={cssM.playFullHeader}>
                     <span
                         onClick={() => {
@@ -326,7 +326,7 @@ export default class Player extends React.Component<any, any> {
                         </Scrollbars>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 }
