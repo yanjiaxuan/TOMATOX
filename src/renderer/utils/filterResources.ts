@@ -57,6 +57,7 @@ export function cleanResourceData(dataType: string, data: IplayResource): IplayR
         remark: data.remark,
         tag: data.tag,
         year: data.year,
+        updateTime: data.updateTime,
         playList: data.playList
     };
     if (dataType === TABLES.TABLE_HISTORY) {

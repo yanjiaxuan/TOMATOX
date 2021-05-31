@@ -10,7 +10,6 @@ import store from '@/utils/store';
 import Developing from '@/views/developing/developing';
 import { Route } from 'react-keeper';
 import Search from '@/views/search/search';
-import Redirect from '@/components/redirect/redirect';
 import cssM from './custom-content.scss';
 import About from '@/views/about/about';
 import Iptv from '@/views/iptv/iptv';
@@ -31,8 +30,13 @@ export default function customContent() {
     return (
         <Spin size={'large'} indicator={<CustomSpin />} spinning={load}>
             <div className={cssM.contentWrapper}>
-                <Route path="/" component={Redirect} />
-                <Route cache path="/recommend" component={Recommend} enterFilter={updatePath} />
+                <Route
+                    cache
+                    index
+                    path="/recommend"
+                    component={Recommend}
+                    enterFilter={updatePath}
+                    />
                 <Route cache path="/classify" component={Classify} enterFilter={updatePath} />
                 <Route cache path="/iptv" component={Iptv} enterFilter={updatePath} />
                 <Route path="/iptvPlayer" component={IptvPlayer} enterFilter={updatePath} />
