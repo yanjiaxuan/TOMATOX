@@ -52,6 +52,7 @@
 .scroll-wrapper {
     width: 100%;
     height: calc(100% - 55px);
+    overflow-x: hidden;
     margin-top: 50px;
     overflow-y: auto;
     transform: translateZ(0);
