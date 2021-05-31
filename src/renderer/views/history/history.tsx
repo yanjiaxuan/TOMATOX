@@ -88,6 +88,6 @@ export default class History extends React.Component<any, any> {
     }
 
     render(): React.ReactNode {
-        return <>{this.renderYM(this.state.resourceList)}</>;
+        return <div className={cssM.scrollWrapper}>{this.renderYM(this.state.resourceList)}</div>;
     }
 }

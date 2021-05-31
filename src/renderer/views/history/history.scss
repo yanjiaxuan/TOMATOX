@@ -12,3 +12,9 @@
     color: #fff;
     padding-left: 30px;
 }
+
+.scroll-wrapper {
+    height: 100%;
+    overflow-y: auto;
+    transform: translateZ(0);
+}

@@ -48,3 +48,11 @@
         border-color: #696666;
     }
 }
+
+.scroll-wrapper {
+    width: 100%;
+    height: calc(100% - 55px);
+    margin-top: 50px;
+    overflow-y: auto;
+    transform: translateZ(0);
+}

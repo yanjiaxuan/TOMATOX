@@ -80,21 +80,25 @@ export default class Search extends React.Component<any, any> {
     render(): React.ReactNode {
         if (this.state.cardsData && this.state.cardsData.length) {
             return (
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={1}
-                    loadMore={this.searchWrapper.bind(this)}
-                    hasMore
-                    useWindow={false}>
-                    <TomatoxWaterfall data={this.state.cardsData} />
-                    <div style={{ height: 100, position: 'relative' }}>
-                        <Spin
-                            size={'large'}
-                            indicator={<CustomSpin />}
-                            spinning={this.state.recommendLoading}
-                            />
-                    </div>
-                </InfiniteScroll>
+                <div className={cssM.scrollWrapper}>
+                    <InfiniteScroll
+                        initialLoad={false}
+                        pageStart={1}
+                        loadMore={this.searchWrapper.bind(this)}
+                        hasMore
+                        useWindow={false}>
+                        <TomatoxWaterfall data={this.state.cardsData} />
+                        {this.state.recommendLoading && (
+                            <div style={{ height: 100, position: 'relative' }}>
+                                <Spin
+                                    size={'large'}
+                                    indicator={<CustomSpin />}
+                                    spinning={this.state.recommendLoading}
+                                    />
+                            </div>
+                        )}
+                    </InfiniteScroll>
+                </div>
             );
         }
         return (

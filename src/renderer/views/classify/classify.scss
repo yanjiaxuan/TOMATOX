@@ -1,9 +1,13 @@
+.scroll-wrapper {
+    height: calc(100% - 80px);
+    overflow-y: auto;
+    transform: translateZ(0);
+}
+
 .type-wrapper {
+    height: 80px;
     padding: 5px 20px 0 20px;
     background-color: #444444;
-    position: fixed;
-    top: 50px;
-    z-index: 1;
     padding-bottom: 10px;
 }
 

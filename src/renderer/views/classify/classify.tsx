@@ -92,23 +92,28 @@ export default class Classify extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <InfiniteScroll
-                initialLoad={false}
-                pageStart={1}
-                hasMore={this.state.recommendLoading}
-                loadMore={this.getRecommendLst.bind(this)}
-                style={{ paddingTop: 90 }}
-                useWindow={false}>
+            <div style={{ height: '100%' }}>
                 <div className={cssM.typeWrapper}>{this.renderClassify()}</div>
-                <TomatoxWaterfall data={this.state.cardsData} />
-                <div style={{ height: 100, position: 'relative' }}>
-                    <Spin
-                        size={'large'}
-                        indicator={<CustomSpin />}
-                        spinning={this.state.recommendLoading}
-                        />
+                <div className={cssM.scrollWrapper}>
+                    <InfiniteScroll
+                        initialLoad={false}
+                        pageStart={1}
+                        hasMore={this.state.recommendLoading}
+                        loadMore={this.getRecommendLst.bind(this)}
+                        useWindow={false}>
+                        <TomatoxWaterfall data={this.state.cardsData} />
+                        {this.state.recommendLoading && (
+                            <div style={{ height: 100, position: 'relative' }}>
+                                <Spin
+                                    size={'large'}
+                                    indicator={<CustomSpin />}
+                                    spinning={this.state.recommendLoading}
+                                    />
+                            </div>
+                        )}
+                    </InfiniteScroll>
                 </div>
-            </InfiniteScroll>
+            </div>
         );
     }
 }

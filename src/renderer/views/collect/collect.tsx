@@ -21,6 +21,10 @@ export default class Collect extends React.Component<any, any> {
     }
 
     render() {
-        return <TomatoxWaterfall data={this.state.resources} />;
+        return (
+            <div className={cssM.scrollWrapper}>
+                <TomatoxWaterfall data={this.state.resources} />
+            </div>
+        );
     }
 }

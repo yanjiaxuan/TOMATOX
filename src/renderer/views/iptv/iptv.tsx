@@ -60,7 +60,7 @@ export default class Iptv extends React.Component<any, any> {
                         }
                         />
                 </div>
-                <div style={{ width: '100%', height: '100%', marginTop: 50 }}>
+                <div className={cssM.scrollWrapper}>
                     <div className={cssM.cardWrapper}>{this.renderSources()}</div>
                 </div>
             </div>
