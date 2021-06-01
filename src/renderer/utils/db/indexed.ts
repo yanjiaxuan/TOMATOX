@@ -13,11 +13,10 @@ export default class Indexed {
     public static init(): Promise<Indexed> {
         return new Promise((resolve, reject) => {
             if (!this.instance) {
-                const dbReq = window.indexedDB.open('TOMATOX', 2);
+                const dbReq = window.indexedDB.open('TOMATOX', 3);
                 dbReq.onupgradeneeded = () => {
                     const db = dbReq.result;
-                    if (db.objectStoreNames.contains(TABLES.TABLE_HISTORY)) {
-                        db.deleteObjectStore(TABLES.TABLE_HISTORY);
+                    if (!db.objectStoreNames.contains(TABLES.TABLE_HISTORY)) {
                         const table = db.createObjectStore(TABLES.TABLE_HISTORY, {
                             keyPath: 'id'
                         });
@@ -25,8 +24,7 @@ export default class Indexed {
                             unique: false
                         });
                     }
-                    if (db.objectStoreNames.contains(TABLES.TABLE_COLLECT)) {
-                        db.deleteObjectStore(TABLES.TABLE_COLLECT);
+                    if (!db.objectStoreNames.contains(TABLES.TABLE_COLLECT)) {
                         db.createObjectStore(TABLES.TABLE_COLLECT, {
                             keyPath: 'id'
                         });
