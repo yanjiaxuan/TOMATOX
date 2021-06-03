@@ -1,4 +1,4 @@
-import React, { createRef, LegacyRef, useEffect, useRef } from 'react';
+import React from 'react';
 import {
     LeftOutlined,
     MinusOutlined,
@@ -40,6 +40,9 @@ export default class Player extends React.Component<any, any> {
         },
         Left: () => {
             this.xgPlayer!.currentTime = Math.max(this.xgPlayer!.currentTime - 10, 0);
+        },
+        Space: () => {
+            this.xgPlayer!.paused ? this.xgPlayer!.play() : this.xgPlayer!.pause();
         }
     };
 
@@ -135,7 +138,7 @@ export default class Player extends React.Component<any, any> {
         setPlayConfig({ speed: this.xgPlayer!.playbackRate });
     };
 
-    private timeConverter(time: number) {
+    private static timeConverter(time: number) {
         const hours = Math.floor(time / 3600);
         const minutes = Math.floor((time % 3600) / 60);
         const senconds = Math.floor(time % 60);
@@ -151,7 +154,7 @@ export default class Player extends React.Component<any, any> {
                 lastPlaySrc: this.state.curPlaySrc,
                 lastPlayTime: this.xgPlayer?.currentTime || 0,
                 lastPlayDate: Date.now(),
-                lastPlayDesc: `观看至 ${this.state.curPlayDrama || ''} ${this.timeConverter(
+                lastPlayDesc: `观看至 ${this.state.curPlayDrama || ''} ${Player.timeConverter(
                     this.xgPlayer?.currentTime || 0
                 )}`
             }

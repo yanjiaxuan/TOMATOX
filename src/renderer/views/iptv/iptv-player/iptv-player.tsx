@@ -34,6 +34,9 @@ export default class IptvPlayer extends React.Component<any, any> {
         },
         Left: () => {
             this.xgPlayer!.currentTime = Math.max(this.xgPlayer!.currentTime - 10, 0);
+        },
+        Space: () => {
+            this.xgPlayer!.paused ? this.xgPlayer!.play() : this.xgPlayer!.pause();
         }
     };
 
