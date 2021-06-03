@@ -92,7 +92,7 @@ export default class Classify extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <div style={{ height: '100%' }}>
+            <div className={cssM.fullWrapper}>
                 <div className={cssM.typeWrapper}>{this.renderClassify()}</div>
                 <div className={cssM.scrollWrapper}>
                     <InfiniteScroll

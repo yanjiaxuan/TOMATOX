@@ -1,13 +1,13 @@
 import store from '@/utils/store';
 import Req from '../index';
 
-/** ac=videolist 默认，查询结果带播放列表
- *  t 分类
- *  pg 页码
- *  ids 资源id
- *  wd 关键字
- */
-
+// ac：模式（videolist或detail详细模式），为空＝列表标准模式
+// ids: 影片id，多个使用,隔开
+// t: 类型
+// h：最近多少小时内
+// pg: 页数
+// wd：搜索like
+// at：输出格式，可选xml
 export function queryResources(
     curPage: number,
     type?: number,

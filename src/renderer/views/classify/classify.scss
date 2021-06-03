@@ -1,13 +1,18 @@
+.full-wrapper {
+    width: 100%;
+    height: calc(100vh - 50px);
+    transform: translateZ(0);
+    display: flex;
+    flex-direction: column;
+}
+
 .scroll-wrapper {
-    height: calc(100% - 80px);
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    transform: translateZ(0);
 }
 
 .type-wrapper {
-    height: 80px;
     width: 100%;
     padding: 5px 20px 0 20px;
     background-color: #444444;
