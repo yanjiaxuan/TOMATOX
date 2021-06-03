@@ -1,4 +1,4 @@
-import { TABLES } from '@/utils/constants';
+import { DEFAULT_ORIGIN, TABLES } from '@/utils/constants';
 import { cleanResourceData } from '@/utils/filterResources';
 
 export default class Indexed {
@@ -13,20 +13,22 @@ export default class Indexed {
     public static init(): Promise<Indexed> {
         return new Promise((resolve, reject) => {
             if (!this.instance) {
-                const dbReq = window.indexedDB.open('TOMATOX', 3);
+                const dbReq = window.indexedDB.open('TOMATOX', 4);
                 dbReq.onupgradeneeded = () => {
                     const db = dbReq.result;
                     if (!db.objectStoreNames.contains(TABLES.TABLE_HISTORY)) {
-                        const table = db.createObjectStore(TABLES.TABLE_HISTORY, {
-                            keyPath: 'id'
-                        });
-                        table.createIndex('lastPlayDate', 'lastPlayDate', {
-                            unique: false
-                        });
+                        const table = db.createObjectStore(TABLES.TABLE_HISTORY, { keyPath: 'id' });
+                        table.createIndex('lastPlayDate', 'lastPlayDate', { unique: false });
                     }
                     if (!db.objectStoreNames.contains(TABLES.TABLE_COLLECT)) {
-                        db.createObjectStore(TABLES.TABLE_COLLECT, {
-                            keyPath: 'id'
+                        db.createObjectStore(TABLES.TABLE_COLLECT, { keyPath: 'id' });
+                    }
+                    if (!db.objectStoreNames.contains(TABLES.TABLE_ORIGIN)) {
+                        const table = db.createObjectStore(TABLES.TABLE_ORIGIN, { keyPath: 'id' });
+                        table.put(DEFAULT_ORIGIN);
+                        table.put({
+                            id: '百度云资源',
+                            api: 'https://api.apibdzy.com/api.php/provide/vod/at/'
                         });
                     }
                 };
@@ -35,7 +37,7 @@ export default class Indexed {
                     this.instance = new Indexed();
                     this.instance.removeThreeMonthAgoHistoryData();
                     this.instance.loadCollectedRes();
-                    resolve(this.instance);
+                    resolve(this.instance!);
                 };
             } else {
                 resolve(this.instance);
@@ -56,7 +58,6 @@ export default class Indexed {
 
     public queryAll(tableName: string) {
         return new Promise(resolve => {
-            const res: any[] = [];
             const req = Indexed.db!.transaction(tableName, 'readonly')
                 .objectStore(tableName)
                 .getAll();
@@ -77,7 +78,16 @@ export default class Indexed {
         });
     }
 
-    public insertOrUpdate(tableName: string, data: IplayResource) {
+    public insertOrUpdateOrigin(tableName: string, data: Iorigin) {
+        return new Promise(resolve => {
+            Indexed.db!.transaction(tableName, 'readwrite')
+                .objectStore(tableName)
+                .put(data).onsuccess = () => {
+                resolve(null);
+            };
+        });
+    }
+    public insertOrUpdateResource(tableName: string, data: IplayResource) {
         if (tableName === TABLES.TABLE_COLLECT) {
             Indexed.collectedRes.add(data.id);
         }
@@ -119,7 +129,7 @@ export default class Indexed {
     }
 
     public doCollect(data: IplayResource) {
-        this.insertOrUpdate(TABLES.TABLE_COLLECT, {
+        this.insertOrUpdateResource(TABLES.TABLE_COLLECT, {
             ...data,
             collectOption: { collectDate: Date.now() }
         });

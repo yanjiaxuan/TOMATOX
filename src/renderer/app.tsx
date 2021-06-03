@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CustomLayout from './components/layout/custom-layout'
-import './app.css'
-import '@/utils/origins'
+import CustomLayout from './components/layout/custom-layout';
+import './app.css';
 
-ReactDOM.render(
-    <CustomLayout />,
-  document.getElementById('root')
-);
+ReactDOM.render(<CustomLayout />, document.getElementById('root'));

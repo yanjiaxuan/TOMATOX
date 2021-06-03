@@ -1,4 +1,7 @@
-export const ORIGIN_URL = 'https://gitee.com/yanjiaxuan/tomatox-res/raw/master/resources.json';
+export const DEFAULT_ORIGIN: Iorigin = {
+    id: 'default',
+    api: 'http://www.kuaibozy.com/api.php/provide/vod/from/kbm3u8'
+};
 export const IPTV_ORIGIN_URL = 'https://gitee.com/yanjiaxuan/tomatox-res/raw/master/zhibo.json';
 export const PROD_STATEMENT =
     '版权声明：本人发布的所有资源或软件均来自网络，与本人没有任何关系，只能作为私下交流、学习、研究之用，版权归原作者及原软件公司所有。\n' +
@@ -8,5 +11,6 @@ export const PROD_STATEMENT =
 
 export const TABLES = {
     TABLE_HISTORY: 'tomatox_play_history',
-    TABLE_COLLECT: 'tomatox_collect'
+    TABLE_COLLECT: 'tomatox_collect',
+    TABLE_ORIGIN: 'tomatox_origin'
 };

@@ -23,9 +23,21 @@ export default class Recommend extends React.Component<any, any> {
 
     componentWillMount(): void {
         store.setState('GLOBAL_LOADING', true);
+        this.initResource();
+        store.subscribe('SITE_ADDRESS', () => {
+            this.page = 0;
+            this.pageCount = 10;
+            this.setState(
+                {
+                    cardsData: [],
+                    recommendLoading: false
+                },
+                this.initResource
+            );
+        });
     }
 
-    componentDidMount(): void {
+    initResource() {
         this.getRecommendLst();
     }
 
@@ -37,21 +49,28 @@ export default class Recommend extends React.Component<any, any> {
             queryResources(++this.page, this.type, undefined, 24 * 30),
             queryResources(++this.page, this.type, undefined, 24 * 30),
             queryResources(++this.page, this.type, undefined, 24 * 30)
-        ]).then(resLst => {
-            const collectRes: IplayResource[] = [];
-            resLst.forEach(res => {
-                const { list, pagecount } = res;
-                this.pageCount = pagecount;
-                collectRes.push(...list);
-            });
-            if (store.getState('GLOBAL_LOADING')) {
-                store.setState('GLOBAL_LOADING', false);
+        ]).then(
+            resLst => {
+                const collectRes: IplayResource[] = [];
+                resLst.forEach(res => {
+                    const { list, pagecount } = res;
+                    this.pageCount = pagecount;
+                    collectRes.push(...list);
+                });
+                if (store.getState('GLOBAL_LOADING')) {
+                    store.setState('GLOBAL_LOADING', false);
+                }
+                this.setState({
+                    recommendLoading: this.page < this.pageCount,
+                    cardsData: [...this.state.cardsData, ...filterResources(collectRes)]
+                });
+            },
+            reason => {
+                if (store.getState('GLOBAL_LOADING')) {
+                    store.setState('GLOBAL_LOADING', false);
+                }
             }
-            this.setState({
-                recommendLoading: this.page < this.pageCount,
-                cardsData: [...this.state.cardsData, ...filterResources(collectRes)]
-            });
-        });
+        );
     }
 
     render(): React.ReactNode {

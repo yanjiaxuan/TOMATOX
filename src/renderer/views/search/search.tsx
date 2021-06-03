@@ -26,6 +26,12 @@ export default class Search extends React.Component<any, any> {
         if (kw) {
             this.searchResByKW();
         }
+        store.subscribe('SITE_ADDRESS', () => {
+            this.setState({
+                cardsData: [],
+                recommendLoading: false
+            });
+        });
     }
 
     async searchResByKW() {

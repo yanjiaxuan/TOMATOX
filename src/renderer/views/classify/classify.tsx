@@ -23,17 +23,42 @@ export default class Classify extends React.Component<any, any> {
     }
 
     async componentWillMount() {
+        this.initResource();
+        store.subscribe('SITE_ADDRESS', () => {
+            this.page = 0;
+            this.pageCount = 10;
+            this.setState(
+                {
+                    types: {},
+                    selectedType: '',
+                    cardsData: [],
+                    recommendLoading: false
+                },
+                this.initResource
+            );
+        });
+    }
+
+    initResource() {
         store.setState('GLOBAL_LOADING', true);
-        const res = (await queryTypes()) as any;
-        const types: Record<string, number> = {};
-        res.class.forEach((item: any) => {
-            types[item.type_name] = item.type_id;
-        });
-        this.setState({
-            types,
-            selectedType: Object.keys(types)[0]
-        });
-        this.getRecommendLst();
+        queryTypes().then(
+            (res: any) => {
+                const types: Record<string, number> = {};
+                res.class.forEach((item: any) => {
+                    types[item.type_name] = item.type_id;
+                });
+                this.setState({
+                    types,
+                    selectedType: Object.keys(types)[0]
+                });
+                this.getRecommendLst();
+            },
+            reason => {
+                if (store.getState('GLOBAL_LOADING')) {
+                    store.setState('GLOBAL_LOADING', false);
+                }
+            }
+        );
     }
 
     private getRecommendLst() {
@@ -41,21 +66,28 @@ export default class Classify extends React.Component<any, any> {
             queryResources(++this.page, this.state.types[this.state.selectedType]),
             queryResources(++this.page, this.state.types[this.state.selectedType]),
             queryResources(++this.page, this.state.types[this.state.selectedType])
-        ]).then(reses => {
-            const allList: IplayResource[] = [];
-            reses.forEach(res => {
-                const { list, pagecount } = res;
-                this.pageCount = pagecount;
-                allList.push(...list);
-            });
-            if (store.getState('GLOBAL_LOADING')) {
-                store.setState('GLOBAL_LOADING', false);
+        ]).then(
+            reses => {
+                const allList: IplayResource[] = [];
+                reses.forEach(res => {
+                    const { list, pagecount } = res;
+                    this.pageCount = pagecount;
+                    allList.push(...list);
+                });
+                if (store.getState('GLOBAL_LOADING')) {
+                    store.setState('GLOBAL_LOADING', false);
+                }
+                this.setState({
+                    recommendLoading: this.page < this.pageCount,
+                    cardsData: [...this.state.cardsData, ...filterResources(allList)]
+                });
+            },
+            reason => {
+                if (store.getState('GLOBAL_LOADING')) {
+                    store.setState('GLOBAL_LOADING', false);
+                }
             }
-            this.setState({
-                recommendLoading: this.page < this.pageCount,
-                cardsData: [...this.state.cardsData, ...filterResources(allList)]
-            });
-        });
+        );
     }
 
     private changeType(key: string, item: number) {

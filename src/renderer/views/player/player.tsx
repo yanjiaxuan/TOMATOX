@@ -159,7 +159,7 @@ export default class Player extends React.Component<any, any> {
                 )}`
             }
         };
-        Indexed.instance!.insertOrUpdate(TABLES.TABLE_HISTORY, newData);
+        Indexed.instance!.insertOrUpdateResource(TABLES.TABLE_HISTORY, newData);
 
         shortcutManager.unregister(remote.getCurrentWindow(), Object.keys(this.mainEventHandler));
         this.xgPlayer!.src = '';

@@ -5,9 +5,8 @@ class Store {
 
     constructor() {
         this.state = {
-            ORIGIN_LIST: '', // 视频源列表
+            SITE_ADDRESS: undefined,
             GLOBAL_LOADING: false, // 全局loading
-            SITE_ADDRESS: undefined, // 当前视频源
             SEARCH_KEYWORDS: '', // 搜索关键字
             CURRENT_PATH: '', // 当前页面路径
             GLOBAL_SEARCH_ENABLE: true // 全局搜索按钮状态
