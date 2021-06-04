@@ -45,9 +45,11 @@ export default class Setting extends React.Component<any, any> {
     };
 
     private addOrigin = () => {
-        const name = (this.refs.oriNameInput as Input).state.value;
-        const addr = (this.refs.oriAddrInput as Input).state.value;
-        if (!name || !/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test(name)) {
+        const name = (this.refs.oriNameInput as Input).state.value.trim();
+        const addr = (this.refs.oriAddrInput as Input).state.value.trim();
+        if (this.state.selectableOrigins.filter((item: Iorigin) => item.id === name).length) {
+            message.warn('名称已存在');
+        } else if (!name || !/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test(name)) {
             message.warn('名称不能为空且只能输入大小写字母和数字');
         } else if (!addr || !/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?/.test(addr)) {
             message.warn('地址不合法');
@@ -57,6 +59,8 @@ export default class Setting extends React.Component<any, any> {
             this.setState({
                 selectableOrigins: [...this.state.selectableOrigins, newOri]
             });
+            (this.refs.oriNameInput as Input).setValue('');
+            (this.refs.oriAddrInput as Input).setValue('');
         }
     };
 
@@ -80,7 +84,7 @@ export default class Setting extends React.Component<any, any> {
                                 <Col span={16} className={cssM.originItem}>
                                     地址：{item.api}
                                 </Col>
-                                {item.id !== 'default' && (
+                                {item.id !== 'default' && this.state.enableOrigin !== item.id && (
                                     <Col span={2}>
                                         <span
                                             className={cssM.originBtn}
