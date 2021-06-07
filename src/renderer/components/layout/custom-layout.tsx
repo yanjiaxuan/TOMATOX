@@ -9,6 +9,7 @@ import CustomContent from './content/custom-content';
 import { TABLES } from '@/utils/constants';
 import { getEnabledOrigin } from '@/utils/db/storage';
 import store from '@/utils/store';
+import GlobalLoading from '../global-loading/global-loading';
 
 const { Header, Sider, Content } = Layout;
 
@@ -26,8 +27,11 @@ export default function CustomLayout() {
     }
     return (
         <>
-            {!loaded && <div className={cssM.defaultBackground} />}
-            {loaded && <LayoutFunc />}
+            {loaded ? (
+                <LayoutFunc />
+            ) : (
+                <div className={cssM.defaultBackground}>{/* <GlobalLoading /> */}</div>
+            )}
         </>
     );
 }

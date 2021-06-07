@@ -1,0 +1,25 @@
+.global-loading-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f1f1f1;
+    .loading-icon {
+        animation: g-loading-ani 0.5s 0s cubic-bezier(0, 0, 0.49, 0.91) infinite alternate;
+    }
+    .loading-text {
+        font-size: 25px;
+        font-weight: bold;
+    }
+}
+
+@keyframes g-loading-ani {
+    0% {
+        transform: translateY(0px) scale(1, 0.9);
+    }
+    100% {
+        transform: translateY(-100px) scale(1, 1.1);
+    }
+}
