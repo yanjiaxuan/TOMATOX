@@ -70,8 +70,8 @@ export default class History extends React.Component<any, any> {
         dData.forEach((value, key) => {
             res.push(
                 <div key={key}>
-                    <div className={cssM.yearMonthStyle}>{ym}</div>
-                    <div className={cssM.dayStyle}>{key}</div>
+                    <div className={[cssM.yearMonthStyle, 'theme-color'].join(' ')}>{ym}</div>
+                    <div className={[cssM.dayStyle, 'theme-color'].join(' ')}>{key}</div>
                     <TomatoxWaterfall data={value} />
                 </div>
             );

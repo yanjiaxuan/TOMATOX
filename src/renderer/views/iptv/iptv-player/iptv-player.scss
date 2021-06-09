@@ -5,9 +5,7 @@
     height: 100vh;
     left: 0;
     top: 0;
-    background: #403f3f;
     overflow: hidden;
-    color: #fff;
 }
 
 .play-full-header {
@@ -16,9 +14,7 @@
     left: 0;
     width: 100%;
     height: 30px;
-    background-color: #282c34;
     z-index: 1;
-    color: #f1f1f1;
     font-size: 14px;
     line-height: 30px;
     display: flex;
@@ -31,7 +27,6 @@
             cursor: pointer;
             display: inline-block;
             height: 100%;
-            background-color: #434c4e;
             padding: 0 14px;
             -webkit-app-region: no-drag;
         }
@@ -41,10 +36,6 @@
                 padding: 0 5px;
                 cursor: pointer;
                 transition: all 0.5s ease-in-out;
-                color: #ccc;
-                &:hover {
-                    color: #a0a0a0;
-                }
                 &:nth-of-type(3) {
                     margin-right: 5px;
                 }

@@ -112,7 +112,7 @@ export default class Search extends React.Component<any, any> {
                 <div>
                     <img src={TOMATOX_ICON} />
                 </div>
-                <span>暂无结果，请尝试搜索其他关键字</span>
+                <span className={'theme-color'}>暂无结果，请尝试搜索其他关键字</span>
             </div>
         );
     }

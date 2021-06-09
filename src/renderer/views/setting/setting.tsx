@@ -72,7 +72,7 @@ export default class Setting extends React.Component<any, any> {
                     {this.state.selectableOrigins.map((item: Iorigin) => (
                         <Checkbox
                             key={item.id}
-                            className={cssM.origins}
+                            className={[cssM.origins, 'theme-color'].join(' ')}
                             checked={this.state.enableOrigin === item.id}
                             onChange={() => {
                                 this.onChange(item);
@@ -100,7 +100,7 @@ export default class Setting extends React.Component<any, any> {
                     ))}
                 </div>
                 <span className={cssM.settingTitle}>添加视频源</span>
-                <div className={cssM.settingContent}>
+                <div className={[cssM.settingContent, 'theme-input'].join(' ')}>
                     <Row gutter={30}>
                         <Col span={6}>
                             <Input ref={'oriNameInput'} addonBefore={'名称'} />

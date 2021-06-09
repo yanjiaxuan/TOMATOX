@@ -15,6 +15,7 @@ import {
 import { Control } from 'react-keeper';
 import store from '@/utils/store';
 import cssModule from './custom-header.scss';
+import { setTheme } from '@/utils/db/storage';
 
 const { ipcRenderer } = require('electron');
 
@@ -27,6 +28,12 @@ function developingMsg() {
         icon: <></>,
         duration: 1
     });
+}
+
+function changeTheme() {
+    const targetTheme = store.getState('TOMATOX_THEME') === 'dark' ? 'light' : 'dark';
+    store.setState('TOMATOX_THEME', targetTheme);
+    setTheme(targetTheme);
 }
 
 export default function CustomHeader() {
@@ -71,7 +78,7 @@ export default function CustomHeader() {
                         style={{ fontSize: 18 }}
                         />
                 )}
-                <SkinOutlined onClick={developingMsg} />
+                <SkinOutlined onClick={changeTheme} />
                 <UserOutlined onClick={developingMsg} />
                 <ShareAltOutlined onClick={developingMsg} />
             </span>

@@ -10,10 +10,6 @@
     max-width: 450px;
     margin-left: 100px;
     -webkit-app-region: no-drag;
-    input {
-        background-color: #696666;
-        border-color: #696666;
-    }
 }
 
 .operation-btn {
@@ -21,9 +17,8 @@
     span {
         padding: 0 5px;
         cursor: pointer;
-        transition: all .3s ease-in-out;
+        transition: all 0.3s ease-in-out;
         width: 30px;
-        color: #c9c8c8;
         font-size: 15px;
         &:hover {
             color: #f1f1f1;
@@ -31,14 +26,12 @@
     }
 }
 
-
 .app-btn {
     -webkit-app-region: no-drag;
     span {
         cursor: pointer;
-        transition: all .3s ease-in-out;
+        transition: all 0.3s ease-in-out;
         width: 30px;
-        color: #cccccc;
         display: inline-block;
         font-size: 20px;
         margin: 0 5px;

@@ -43,12 +43,14 @@ export default function tomatoxWaterfall(props: { data: IplayResource[] }) {
                                     )}
                                 </div>
                             </div>
-                            <span>{ele.name}</span>
-                            <span>
+                            <span className={'theme-color'}>{ele.name}</span>
+                            <span className={'theme-color'}>
                                 {ele.historyOption?.lastPlayDesc ? '' : ele.actor || '未知'}
                             </span>
                             {ele.historyOption?.lastPlayDesc && (
-                                <span>{ele.historyOption.lastPlayDesc}</span>
+                                <span className={'theme-color'}>
+                                    {ele.historyOption.lastPlayDesc}
+                                </span>
                             )}
                         </div>
                     </Link>

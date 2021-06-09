@@ -81,7 +81,19 @@
 }
 
 .ant-menu-item-selected {
+    color: #fff !important;
     background: #ff5c49 !important;
+}
+
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover {
+    color: #fff !important;
+}
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+    border-right: unset;
 }
 
 .ant-btn-primary {

@@ -12,7 +12,7 @@
 
 @keyframes icon-gun {
     0% {
-       transform: translate(-40px) rotate(0deg);
+        transform: translate(-40px) rotate(0deg);
     }
     100% {
         transform: translate(40px) rotate(360deg);
@@ -20,7 +20,6 @@
 }
 
 .loading-text {
-    color: #9fe8fc;
     letter-spacing: 1px;
     animation: text-gun 1s ease-in-out 0s infinite alternate;
 }
@@ -33,6 +32,6 @@
         transform: rotate(0deg) translateY(0px);
     }
     100% {
-        transform: rotate(15deg)  translateY(-10px);
+        transform: rotate(15deg) translateY(-10px);
     }
 }

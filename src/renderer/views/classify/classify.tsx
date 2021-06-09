@@ -125,7 +125,9 @@ export default class Classify extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <div className={cssM.fullWrapper}>
-                <div className={cssM.typeWrapper}>{this.renderClassify()}</div>
+                <div className={[cssM.typeWrapper, 'theme-2nd-header'].join(' ')}>
+                    {this.renderClassify()}
+                </div>
                 <div className={cssM.scrollWrapper}>
                     <InfiniteScroll
                         initialLoad={false}

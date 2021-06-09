@@ -104,8 +104,8 @@ export default class IptvPlayer extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <div className={cssM.fullScreen}>
-                <div className={cssM.playFullHeader}>
+            <div className={[cssM.fullScreen, 'theme-content'].join(' ')}>
+                <div className={[cssM.playFullHeader, 'theme-header'].join(' ')}>
                     <span
                         onClick={() => {
                             Control.go(-1);

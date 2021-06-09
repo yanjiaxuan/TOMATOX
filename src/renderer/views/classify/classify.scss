@@ -15,7 +15,6 @@
 .type-wrapper {
     width: 100%;
     padding: 5px 20px 0 20px;
-    background-color: #444444;
     padding-bottom: 10px;
 }
 
@@ -24,7 +23,6 @@
     position: relative;
     cursor: pointer;
     padding: 10px 10px 0 10px;
-    color: #fff;
     font-size: 15px;
     &-active:after {
         transition: all 0.5s linear;

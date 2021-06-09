@@ -49,7 +49,7 @@ export default class Iptv extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <div style={{ width: '100%', height: 'calc(100vh - 50px)' }}>
-                <div className={cssM.searchWrapper}>
+                <div className={[cssM.searchWrapper, 'theme-2nd-header', 'theme-input'].join(' ')}>
                     <Search
                         placeholder={'搜索直播频道'}
                         onSearch={this.filterResources}

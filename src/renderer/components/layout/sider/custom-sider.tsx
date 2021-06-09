@@ -23,7 +23,7 @@ export default function CustomSider(props: any) {
 
     return (
         <>
-            <div className={cssM.prodTitle}>
+            <div className={[cssM.prodTitle, 'theme-logo'].join(' ')}>
                 <img src={Icon} className={cssM.prodIcon} />
                 <span>TOMATOX</span>
             </div>
