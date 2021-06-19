@@ -218,3 +218,8 @@
     color: #f1f1f1;
     border: 1px solid #ff5c49;
 }
+
+.ant-tabs-content-holder {
+    height: 100%;
+    overflow-y: auto;
+}

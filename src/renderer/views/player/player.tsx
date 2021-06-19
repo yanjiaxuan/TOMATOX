@@ -254,81 +254,77 @@ export default class Player extends React.Component<any, any> {
                 <div className={cssM.playFullWrapper}>
                     <div ref={'playWrapperRef'} className={cssM.playerWrapper} />
                     <div className={[cssM.videoInfoWrapper, 'theme-content'].join(' ')}>
-                        <div className={cssM.videoInfo}>
-                            <Tabs
-                                defaultActiveKey={'播放列表'}
-                                className={cssM.sourceTab}
-                                onChange={newKey => {
-                                    this.selectedKey = newKey.includes('播放列表')
-                                        ? newKey
-                                        : this.selectedKey;
-                                }}>
-                                {this.descSources()}
-                                <Tabs.TabPane tab={'详情'} key={'详情'}>
+                        <Tabs
+                            defaultActiveKey={'播放列表'}
+                            className={cssM.sourceTab}
+                            onChange={newKey => {
+                                this.selectedKey = newKey.includes('播放列表')
+                                    ? newKey
+                                    : this.selectedKey;
+                            }}>
+                            {this.descSources()}
+                            <Tabs.TabPane tab={'详情'} key={'详情'}>
+                                <div
+                                    className={[cssM.detailHeaderWrapper, 'theme-color'].join(' ')}>
+                                    <img
+                                        className={cssM.detailImage}
+                                        src={this.controlState?.picture}
+                                        />
+                                    <div className={cssM.detailTextWrapper}>
+                                        <div className={cssM.detailTitle}>
+                                            {this.controlState?.name}
+                                        </div>
+                                        <div>
+                                            {this.controlState?.doubanScore !== '0.0' && (
+                                                <div className={cssM.detailContent}>
+                                                    评分：{this.controlState?.doubanScore}
+                                                </div>
+                                            )}
+                                            {this.controlState?.type && (
+                                                <div className={cssM.detailContent}>
+                                                    类型：{this.controlState?.type}
+                                                </div>
+                                            )}
+                                            {this.controlState?.lang && (
+                                                <div className={cssM.detailContent}>
+                                                    语言：{this.controlState?.lang}
+                                                </div>
+                                            )}
+                                            {this.controlState?.area && (
+                                                <div className={cssM.detailContent}>
+                                                    地区：{this.controlState?.area}
+                                                </div>
+                                            )}
+                                            {this.controlState?.director && (
+                                                <div className={cssM.detailContent}>
+                                                    导演：{this.controlState?.director}
+                                                </div>
+                                            )}
+                                            {this.controlState?.actor && (
+                                                <div className={cssM.detailContent}>
+                                                    主演：{this.controlState?.actor}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={[cssM.detailNoteWrapper, 'theme-color'].join(' ')}>
+                                    <div className={cssM.detailNoteFirst}>
+                                        {this.controlState?.remark}
+                                    </div>
+                                    <div className={cssM.detailNoteSecond}>
+                                        更新时间：{this.controlState?.updateTime}
+                                    </div>
+                                    <div className={cssM.detailDescTitle}>简介</div>
                                     <div
-                                        className={[cssM.detailHeaderWrapper, 'theme-color'].join(
-                                            ' '
-                                        )}>
-                                        <img
-                                            className={cssM.detailImage}
-                                            src={this.controlState?.picture}
-                                            />
-                                        <div className={cssM.detailTextWrapper}>
-                                            <div className={cssM.detailTitle}>
-                                                {this.controlState?.name}
-                                            </div>
-                                            <div>
-                                                {this.controlState?.doubanScore !== '0.0' && (
-                                                    <div className={cssM.detailContent}>
-                                                        评分：{this.controlState?.doubanScore}
-                                                    </div>
-                                                )}
-                                                {this.controlState?.type && (
-                                                    <div className={cssM.detailContent}>
-                                                        类型：{this.controlState?.type}
-                                                    </div>
-                                                )}
-                                                {this.controlState?.lang && (
-                                                    <div className={cssM.detailContent}>
-                                                        语言：{this.controlState?.lang}
-                                                    </div>
-                                                )}
-                                                {this.controlState?.area && (
-                                                    <div className={cssM.detailContent}>
-                                                        地区：{this.controlState?.area}
-                                                    </div>
-                                                )}
-                                                {this.controlState?.director && (
-                                                    <div className={cssM.detailContent}>
-                                                        导演：{this.controlState?.director}
-                                                    </div>
-                                                )}
-                                                {this.controlState?.actor && (
-                                                    <div className={cssM.detailContent}>
-                                                        主演：{this.controlState?.actor}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={'theme-color'}>
-                                        <div className={cssM.detailNoteFirst}>
-                                            {this.controlState?.remark}
-                                        </div>
-                                        <div className={cssM.detailNoteSecond}>
-                                            更新时间：{this.controlState?.updateTime}
-                                        </div>
-                                        <div className={cssM.detailDescTitle}>简介</div>
-                                        <div
-                                            className={cssM.detailDesc}
-                                            dangerouslySetInnerHTML={{
-                                                __html: this.controlState?.describe
-                                            }}
-                                            />
-                                    </div>
-                                </Tabs.TabPane>
-                            </Tabs>
-                        </div>
+                                        className={cssM.detailDesc}
+                                        dangerouslySetInnerHTML={{
+                                            __html: this.controlState?.describe
+                                        }}
+                                        />
+                                </div>
+                            </Tabs.TabPane>
+                        </Tabs>
                     </div>
                 </div>
             </div>
