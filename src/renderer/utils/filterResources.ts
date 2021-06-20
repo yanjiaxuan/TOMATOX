@@ -5,6 +5,19 @@ export function filterResources(resources: any[]) {
 }
 
 export function filterResource(resource: any): IplayResource {
+    let listStr = '';
+    if (resource.dl && resource.dl.dd) {
+        if (resource.dl.dd instanceof Array) {
+            const videoList = resource.dl.dd.filter(
+                (item: any) => item.flag && item.flag.includes('m3u8')
+            );
+            if (videoList.length) {
+                listStr = videoList[0].text;
+            }
+        } else {
+            listStr = resource.dl.dd.text;
+        }
+    }
     return {
         id: resource.id,
         type: resource.type,
@@ -23,13 +36,13 @@ export function filterResource(resource: any): IplayResource {
         tag: '',
         year: resource.year,
         updateTime: resource.last,
-        playList: filterPlayList(resource.dl.dd.text)
+        playList: filterPlayList(listStr)
     };
 }
 
 function filterPlayList(listStr: string) {
     const list = new Map<string, string>();
-    const splitLists = listStr.split('$$$').filter(val => val.includes('.m3u'));
+    const splitLists = listStr.split('$$$').filter(val => val.includes('.m3u8'));
     if (splitLists.length) {
         splitLists[0].split('#').forEach(item => {
             const [key, val] = item.split('$');
