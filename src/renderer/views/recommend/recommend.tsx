@@ -62,7 +62,7 @@ export default class Recommend extends React.Component<any, any> {
                 }
                 this.setState({
                     recommendLoading: this.page < this.pageCount,
-                    cardsData: [...this.state.cardsData, ...filterResources(collectRes)]
+                    cardsData: [...this.state.cardsData, ...collectRes]
                 });
             },
             reason => {

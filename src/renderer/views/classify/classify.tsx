@@ -44,8 +44,8 @@ export default class Classify extends React.Component<any, any> {
         queryTypes().then(
             (res: any) => {
                 const types: Record<string, number> = {};
-                res.class.forEach((item: any) => {
-                    types[item.type_name] = item.type_id;
+                res.forEach((item: any) => {
+                    types[item.text] = item.id;
                 });
                 this.setState({
                     types,
@@ -79,7 +79,7 @@ export default class Classify extends React.Component<any, any> {
                 }
                 this.setState({
                     recommendLoading: this.page < this.pageCount,
-                    cardsData: [...this.state.cardsData, ...filterResources(allList)]
+                    cardsData: [...this.state.cardsData, ...allList]
                 });
             },
             reason => {

@@ -275,11 +275,6 @@ export default class Player extends React.Component<any, any> {
                                             {this.controlState?.name}
                                         </div>
                                         <div>
-                                            {this.controlState?.doubanScore !== '0.0' && (
-                                                <div className={cssM.detailContent}>
-                                                    评分：{this.controlState?.doubanScore}
-                                                </div>
-                                            )}
                                             {this.controlState?.type && (
                                                 <div className={cssM.detailContent}>
                                                     类型：{this.controlState?.type}

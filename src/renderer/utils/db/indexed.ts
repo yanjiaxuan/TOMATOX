@@ -1,5 +1,6 @@
-import { DEFAULT_ORIGIN, TABLES } from '@/utils/constants';
+import { CANDIDATE_ORIGIN, DEFAULT_ORIGIN, TABLES } from '@/utils/constants';
 import { cleanResourceData } from '@/utils/filterResources';
+import { setEnabledOrigin } from '@/utils/db/storage';
 
 export default class Indexed {
     private static db: IDBDatabase | undefined;
@@ -13,7 +14,7 @@ export default class Indexed {
     public static init(): Promise<Indexed> {
         return new Promise((resolve, reject) => {
             if (!this.instance) {
-                const dbReq = window.indexedDB.open('TOMATOX', 4);
+                const dbReq = window.indexedDB.open('TOMATOX', 5);
                 dbReq.onupgradeneeded = () => {
                     const db = dbReq.result;
                     if (!db.objectStoreNames.contains(TABLES.TABLE_HISTORY)) {
@@ -26,10 +27,13 @@ export default class Indexed {
                     if (!db.objectStoreNames.contains(TABLES.TABLE_ORIGIN)) {
                         const table = db.createObjectStore(TABLES.TABLE_ORIGIN, { keyPath: 'id' });
                         table.put(DEFAULT_ORIGIN);
-                        table.put({
-                            id: '百度云资源',
-                            api: 'https://api.apibdzy.com/api.php/provide/vod/at/'
-                        });
+                        table.put(CANDIDATE_ORIGIN);
+                    } else {
+                        db.deleteObjectStore(TABLES.TABLE_ORIGIN);
+                        const table = db.createObjectStore(TABLES.TABLE_ORIGIN, { keyPath: 'id' });
+                        table.put(DEFAULT_ORIGIN);
+                        table.put(CANDIDATE_ORIGIN);
+                        setEnabledOrigin('默认');
                     }
                 };
                 dbReq.onsuccess = () => {

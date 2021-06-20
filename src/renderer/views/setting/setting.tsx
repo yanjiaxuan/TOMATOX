@@ -17,8 +17,10 @@ export default class Setting extends React.Component<any, any> {
 
     componentWillMount(): void {
         Indexed.instance!.queryAll(TABLES.TABLE_ORIGIN).then(res => {
+            const result = res as Iorigin[];
+            result.sort((a, b) => a.addTime - b.addTime);
             this.setState({
-                selectableOrigins: res as Iorigin[]
+                selectableOrigins: result
             });
         });
     }
@@ -54,7 +56,7 @@ export default class Setting extends React.Component<any, any> {
         } else if (!addr || !/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?/.test(addr)) {
             message.warn('地址不合法');
         } else {
-            const newOri: Iorigin = { id: name, api: addr };
+            const newOri: Iorigin = { id: name, api: addr, addTime: Date.now() };
             Indexed.instance!.insertOrUpdateOrigin(TABLES.TABLE_ORIGIN, newOri);
             this.setState({
                 selectableOrigins: [...this.state.selectableOrigins, newOri]
@@ -84,7 +86,7 @@ export default class Setting extends React.Component<any, any> {
                                 <Col span={16} className={cssM.originItem}>
                                     地址：{item.api}
                                 </Col>
-                                {item.id !== 'default' && this.state.enableOrigin !== item.id && (
+                                {item.id !== '默认' && this.state.enableOrigin !== item.id && (
                                     <Col span={2}>
                                         <span
                                             className={cssM.originBtn}

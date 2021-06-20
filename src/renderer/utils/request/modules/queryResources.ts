@@ -1,5 +1,7 @@
 import store from '@/utils/store';
 import Req from '../index';
+import xmlParser from '@/utils/xmlParser';
+import { filterResources } from '@/utils/filterResources';
 
 // ac：模式（videolist或detail详细模式），为空＝列表标准模式
 // ids: 影片id，多个使用,隔开
@@ -14,22 +16,48 @@ export function queryResources(
     keyWord?: string,
     lastUpdate?: number
 ): any {
-    return Req({
-        method: 'get',
-        url: store.getState('SITE_ADDRESS').api,
-        params: {
-            ac: 'videolist',
-            pg: curPage,
-            t: type,
-            wd: keyWord,
-            h: lastUpdate
-        }
+    return new Promise(resolve => {
+        Req({
+            method: 'get',
+            url: store.getState('SITE_ADDRESS').api,
+            params: {
+                ac: 'videolist',
+                pg: curPage,
+                t: type,
+                wd: keyWord,
+                h: lastUpdate
+            }
+        }).then(xmlData => {
+            const result: IplayResource[] = [];
+            const parseJson = xmlParser((xmlData as unknown) as string);
+            const jsonData = parseJson.rss ? parseJson.rss : parseJson;
+            if (jsonData.list && jsonData.list.video) {
+                const videoList =
+                    jsonData.list.video instanceof Array
+                        ? jsonData.list.video
+                        : [jsonData.list.video];
+                result.push(...filterResources(videoList));
+            }
+            resolve({
+                limit: jsonData.list.pagesize,
+                list: result,
+                page: jsonData.list.page,
+                pagecount: jsonData.list.pagecount,
+                total: jsonData.list.recordcount
+            });
+        });
     });
 }
 
 export function queryTypes() {
-    return Req({
-        method: 'get',
-        url: store.getState('SITE_ADDRESS').api
+    return new Promise(resolve => {
+        Req({
+            method: 'get',
+            url: store.getState('SITE_ADDRESS').api
+        }).then(res => {
+            const parseJson = xmlParser((res as unknown) as string);
+            const jsonData = parseJson.rss ? parseJson.rss : parseJson;
+            resolve(jsonData.class.ty || []);
+        });
     });
 }

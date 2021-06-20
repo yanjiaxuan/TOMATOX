@@ -77,9 +77,8 @@ export default class Search extends React.Component<any, any> {
         }
         const { pagecount, list } = await queryResources(++this.page, undefined, keyword);
         this.pageCount = pagecount;
-        const res = filterResources(list);
         this.setState({
-            cardsData: [...this.state.cardsData, ...res]
+            cardsData: [...this.state.cardsData, ...list]
         });
     }
 

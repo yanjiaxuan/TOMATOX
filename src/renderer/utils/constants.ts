@@ -1,6 +1,12 @@
 export const DEFAULT_ORIGIN: Iorigin = {
-    id: 'default',
-    api: 'https://www.kuaibozy.com/api.php/provide/vod/from/kbm3u8'
+    id: '默认',
+    api: 'https://www.kuaibozy.com/api.php/provide/vod/from/kbm3u8/at/xml',
+    addTime: Date.now()
+};
+export const CANDIDATE_ORIGIN: Iorigin = {
+    id: '百度云资源',
+    api: 'https://m3u8.apibdzy.com/api.php/provide/vod/at/xml',
+    addTime: Date.now() + 1
 };
 export const IPTV_ORIGIN_URL = 'https://gitee.com/yanjiaxuan/tomatox-res/raw/master/zhibo.json';
 export const PROD_STATEMENT =

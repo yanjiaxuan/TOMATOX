@@ -4,6 +4,7 @@ declare module '*.scss';
 declare interface Iorigin {
     id: string;
     api: string;
+    addTime: number;
 }
 
 declare interface IplayResource {

@@ -6,24 +6,24 @@ export function filterResources(resources: any[]) {
 
 export function filterResource(resource: any): IplayResource {
     return {
-        id: resource.vod_id,
-        type: resource.type_name,
-        picture: resource.vod_pic,
-        lang: resource.vod_lang,
-        name: resource.vod_name,
-        director: resource.vod_director,
-        describe: resource.vod_blurb,
-        area: resource.vod_area,
-        actor: resource.vod_actor,
-        class: resource.vod_class,
-        doubanId: resource.vod_douban_id,
-        doubanScore: resource.vod_douban_score,
-        origin: resource.vod_play_from,
-        remark: resource.vod_remarks,
-        tag: resource.vod_tag,
-        year: resource.vod_year,
-        updateTime: resource.vod_time,
-        playList: filterPlayList(resource.vod_play_url)
+        id: resource.id,
+        type: resource.type,
+        picture: resource.pic,
+        lang: resource.lang,
+        name: resource.name,
+        director: resource.director,
+        describe: resource.des,
+        area: resource.area,
+        actor: resource.actor,
+        class: '',
+        doubanId: '',
+        doubanScore: '',
+        origin: '',
+        remark: resource.note,
+        tag: '',
+        year: resource.year,
+        updateTime: resource.last,
+        playList: filterPlayList(resource.dl.dd.text)
     };
 }
 

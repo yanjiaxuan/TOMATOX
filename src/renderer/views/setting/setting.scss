@@ -20,10 +20,12 @@
 }
 
 .origins {
-    margin-bottom: 10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
     span:nth-of-type(2) {
         width: 100%;
     }
+    border-bottom: 1px solid rgba(142, 142, 142, 0.2);
 }
 
 .origin-item {
