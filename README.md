@@ -34,6 +34,14 @@ Clone the repository with Git:
 git clone --depth=1 git@github.com:yanjiaxuan/TOMATOX.git <your-project-name>
 ```
 
+Setting npm registry and electron mirror address
+
+```bash
+npm config set registry https://mirrors.huaweicloud.com/repository/npm/
+npm config set disturl https://mirrors.huaweicloud.com/nodejs/
+npm config set electron_mirror https://mirrors.huaweicloud.com/electron/
+```
+
 And then install the dependencies:
 
 ```bash
