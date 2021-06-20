@@ -75,7 +75,12 @@ export default class Search extends React.Component<any, any> {
             store.setState('GLOBAL_LOADING', false);
             return;
         }
-        const { pagecount, list } = await queryResources(++this.page, undefined, keyword);
+        const res = await queryResources(++this.page, undefined, keyword);
+        if (!res) {
+            this.pageCount = 0;
+            return;
+        }
+        const { pagecount, list } = res;
         this.pageCount = pagecount;
         this.setState({
             cardsData: [...this.state.cardsData, ...list]

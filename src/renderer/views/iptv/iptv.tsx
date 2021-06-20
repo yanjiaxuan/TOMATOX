@@ -17,7 +17,8 @@ export default class Iptv extends React.Component<any, any> {
         };
     }
     async componentWillMount() {
-        const res = (await queryIptvResource()) as Array<{ sourceName: string; src: string }>;
+        const res =
+            ((await queryIptvResource()) as Array<{ sourceName: string; src: string }>) || [];
         this.allResources.push(...res);
         this.setState({
             sources: this.allResources

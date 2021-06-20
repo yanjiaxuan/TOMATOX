@@ -53,6 +53,10 @@ export default class Recommend extends React.Component<any, any> {
             resLst => {
                 const collectRes: IplayResource[] = [];
                 resLst.forEach(res => {
+                    if (!res) {
+                        this.pageCount = 0;
+                        return;
+                    }
                     const { list, pagecount } = res;
                     this.pageCount = pagecount;
                     collectRes.push(...list);

@@ -3,7 +3,7 @@ import { message } from 'antd';
 
 const instance = axios.create({
     baseURL: '/',
-    timeout: 20000
+    timeout: 5000
 });
 
 instance.interceptors.request.use(
@@ -23,7 +23,7 @@ instance.interceptors.response.use(
     },
     err => {
         message.error(err.message);
-        return Promise.reject(err);
+        return null;
     }
 );
 

@@ -43,6 +43,10 @@ export default class Classify extends React.Component<any, any> {
         store.setState('GLOBAL_LOADING', true);
         queryTypes().then(
             (res: any) => {
+                if (!res) {
+                    store.setState('GLOBAL_LOADING', false);
+                    return;
+                }
                 const types: Record<string, number> = {};
                 res.forEach((item: any) => {
                     types[item.text] = item.id;
@@ -70,6 +74,10 @@ export default class Classify extends React.Component<any, any> {
             reses => {
                 const allList: IplayResource[] = [];
                 reses.forEach(res => {
+                    if (!res) {
+                        this.pageCount = 0;
+                        return;
+                    }
                     const { list, pagecount } = res;
                     this.pageCount = pagecount;
                     allList.push(...list);
