@@ -18,23 +18,21 @@ export default class Search extends React.Component<any, any> {
             cardsData: [],
             recommendLoading: false
         };
-        store.subscribe('SEARCH_KEYWORDS', this.searchResByKW.bind(this));
     }
 
     componentWillMount(): void {
+        store.subscribe('SEARCH_KEYWORDS', this.searchResByKW);
         const kw = store.getState('SEARCH_KEYWORDS');
         if (kw) {
             this.searchResByKW();
         }
-        store.subscribe('SITE_ADDRESS', () => {
-            this.setState({
-                cardsData: [],
-                recommendLoading: false
-            });
-        });
     }
 
-    async searchResByKW() {
+    componentWillUnmount(): void {
+        store.unSubscribe('SEARCH_KEYWORDS', this.searchResByKW);
+    }
+
+    searchResByKW = async () => {
         this.page = 0;
         this.pageCount = 10;
         store.setState('GLOBAL_LOADING', true);
@@ -47,7 +45,7 @@ export default class Search extends React.Component<any, any> {
                 this.searchWrapper();
             }
         );
-    }
+    };
 
     async searchWrapper() {
         if (this.page >= this.pageCount) {

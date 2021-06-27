@@ -19,8 +19,6 @@ import { setTheme } from '@/utils/db/storage';
 
 const { ipcRenderer } = require('electron');
 
-let latestKW = '';
-
 function developingMsg() {
     message.info({
         content: '功能正在开发中...',
@@ -42,12 +40,9 @@ export default function CustomHeader() {
         setSearchEnable(newVal);
     });
     async function onSearch(keyword: string) {
-        if (keyword !== latestKW) {
-            latestKW = keyword;
-            store.setState('GLOBAL_SEARCH_ENABLE', false);
-            store.setState('SEARCH_KEYWORDS', keyword);
-            Control.go('/search');
-        }
+        store.setState('GLOBAL_SEARCH_ENABLE', false);
+        store.setState('SEARCH_KEYWORDS', keyword);
+        Control.go('/search');
     }
     return (
         <div className={cssModule.headerWrapper}>
