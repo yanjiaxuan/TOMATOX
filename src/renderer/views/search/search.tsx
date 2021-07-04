@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import TomatoxWaterfall from '@/components/tomatox-waterfall/tomatox-waterfall';
 import store from '@/utils/store';
 import TOMATOX_ICON from '@/images/svg/icon.svg';
-import { queryResources } from '@/utils/request/modules/queryResources';
+import { queryResources, searchResources } from '@/utils/request/modules/queryResources';
 import { filterResources } from '@/utils/filterResources';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Spin } from 'antd';
 import CustomSpin from '@/components/custom-spin/custom-spin';
 import cssM from './search.scss';
+import { getEnabledOrigin } from '@/utils/db/storage';
 
 export default class Search extends React.Component<any, any> {
     private page = 0;
@@ -73,7 +74,12 @@ export default class Search extends React.Component<any, any> {
             store.setState('GLOBAL_LOADING', false);
             return;
         }
-        const res = await queryResources(++this.page, undefined, keyword);
+        let res;
+        if (getEnabledOrigin() === '默认') {
+            res = await searchResources(++this.page, keyword);
+        } else {
+            res = await queryResources(++this.page, undefined, keyword);
+        }
         if (!res) {
             this.pageCount = 0;
             return;
