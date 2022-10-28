@@ -8,7 +8,7 @@ export const CANDIDATE_ORIGIN: Iorigin = {
     api: 'https://m3u8.apibdzy.com/api.php/provide/vod/at/xml',
     addTime: Date.now() + 1
 };
-export const DEFAULT_SEARCH_INDEX = 'https://gitee.com/yanjiaxuan/TOMATOX_RES/raw/main/result.json';
+export const DEFAULT_SEARCH_INDEX = 'https://raw.githubusercontent.com/yanjiaxuan/TOMATOX_RES/main/result.json';
 export const defaultIndexMapper: Record<string, number> = {};
 fetch(DEFAULT_SEARCH_INDEX)
     .then(res => res.json())
@@ -18,7 +18,7 @@ fetch(DEFAULT_SEARCH_INDEX)
         }
     });
 
-export const IPTV_ORIGIN_URL = 'https://gitee.com/yanjiaxuan/TOMATOX_RES/raw/main/zhibo.json';
+export const IPTV_ORIGIN_URL = 'https://raw.githubusercontent.com/yanjiaxuan/TOMATOX_RES/main/zhibo.json';
 export const PROD_STATEMENT =
     '版权声明：本人发布的所有资源或软件均来自网络，与本人没有任何关系，只能作为私下交流、学习、研究之用，版权归原作者及原软件公司所有。\n' +
     '                本人发布的所有资源或软件请在下载后24小时内自行删除。如果您喜欢这个资源或软件，请联系原作者或原软件公司购买正版。与本人无关！\n' +
