@@ -1,0 +1,55 @@
+.header-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  .prod-title {
+    width: 170px;
+    display: flex;
+    align-items: center;
+    //padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-app-region: drag;
+    .prod-icon {
+      width: 30px;
+      margin-right: 10px;
+    }
+  }
+
+  .header-input {
+    min-width: 300px;
+    max-width: 450px;
+    margin-left: 100px;
+    -webkit-app-region: no-drag;
+  }
+
+  .app-btn {
+    -webkit-app-region: no-drag;
+    span {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      width: 30px;
+      display: inline-block;
+      font-size: 20px;
+      margin: 0 5px;
+    }
+  }
+
+  .operation-btn {
+    -webkit-app-region: no-drag;
+    span {
+      padding: 0 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      width: 30px;
+      font-size: 15px;
+      &:hover {
+        color: #f1f1f1;
+      }
+    }
+  }
+}
+
+
