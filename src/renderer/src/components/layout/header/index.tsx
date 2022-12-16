@@ -6,7 +6,8 @@ import {
   ReloadOutlined,
   SearchOutlined,
   MinusOutlined,
-  BlockOutlined,
+  ExpandOutlined,
+  CompressOutlined,
   CloseOutlined,
   UserOutlined,
   SkinOutlined,
@@ -25,6 +26,13 @@ function developingMsg(): void {
 
 export default function TomatoxHeader(): JSX.Element {
   const [searchLoading, setSearchLoading] = useState(false)
+  const [windowMax, setWindowMax] = useState(false)
+
+  function changeScreenState(): void {
+    setWindowMax(!windowMax)
+    window.electron.ipcRenderer.send('WINDOW_MAX')
+  }
+
   function onSearch(): void {
     setSearchLoading(true)
     setTimeout(() => {
@@ -73,11 +81,11 @@ export default function TomatoxHeader(): JSX.Element {
             window.electron.ipcRenderer.send('WINDOW_MIN')
           }}
         />
-        <BlockOutlined
-          onClick={(): void => {
-            window.electron.ipcRenderer.send('WINDOW_MAX')
-          }}
-        />
+        {windowMax ? (
+          <CompressOutlined onClick={changeScreenState} />
+        ) : (
+          <ExpandOutlined onClick={changeScreenState} />
+        )}
         <CloseOutlined
           onClick={(): void => {
             window.electron.ipcRenderer.send('WINDOW_CLOSE')
