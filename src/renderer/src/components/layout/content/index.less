@@ -3,3 +3,18 @@
     height: calc(100vh - 50px);
     overflow-y: hidden;
 }
+
+.fade-exit {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.fade-exit-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: all 300ms;
+}

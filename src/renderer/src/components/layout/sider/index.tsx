@@ -9,13 +9,20 @@ import {
   PlayCircleOutlined,
   SettingOutlined
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './index.less'
 
 export default function TomatoxSider(props: { theme: MenuTheme }): JSX.Element {
+  const navigate = useNavigate()
+
   return (
     <>
-      <Menu defaultSelectedKeys={['/recommend']} theme={props.theme} mode={'inline'}>
+      <Menu
+        defaultSelectedKeys={['/recommend']}
+        theme={props.theme}
+        mode={'inline'}
+        onSelect={({ key }): void => navigate(key)}
+      >
         <Menu.Item key={'/recommend'} icon={<FireOutlined />}>
           <Link to={'/recommend'}>
             <span>推荐</span>

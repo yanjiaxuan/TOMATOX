@@ -1,7 +1,8 @@
-import CustomLayout from './components/layout/index'
 import { ConfigProvider } from 'antd'
 import { ThemeConfig } from 'antd/es/config-provider/context'
 import { useState } from 'react'
+import { useRoutes } from 'react-router-dom';
+import { routers } from './routers';
 
 const themes: Record<'dark' | 'light', ThemeConfig> = {
   dark: {
@@ -25,7 +26,7 @@ function App(): JSX.Element {
 
   return (
     <ConfigProvider theme={themes[curTheme]}>
-      <CustomLayout theme={curTheme} />
+      { useRoutes(routers) }
     </ConfigProvider>
   )
 }
