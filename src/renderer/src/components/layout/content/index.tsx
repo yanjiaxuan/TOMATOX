@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Spin } from 'antd'
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
 import './index.less'
 

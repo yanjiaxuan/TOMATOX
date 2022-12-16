@@ -1,8 +1,8 @@
 import { ConfigProvider } from 'antd'
 import { ThemeConfig } from 'antd/es/config-provider/context'
 import { useState } from 'react'
-import { useRoutes } from 'react-router-dom';
-import { routers } from './routers';
+import { useRoutes } from 'react-router-dom'
+import { routers } from './routers'
 
 const themes: Record<'dark' | 'light', ThemeConfig> = {
   dark: {
@@ -24,11 +24,7 @@ const themes: Record<'dark' | 'light', ThemeConfig> = {
 function App(): JSX.Element {
   const [curTheme] = useState<'light' | 'dark'>('light')
 
-  return (
-    <ConfigProvider theme={themes[curTheme]}>
-      { useRoutes(routers) }
-    </ConfigProvider>
-  )
+  return <ConfigProvider theme={themes[curTheme]}>{useRoutes(routers)}</ConfigProvider>
 }
 
 export default App
