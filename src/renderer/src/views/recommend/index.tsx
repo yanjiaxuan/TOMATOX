@@ -1,3 +1,5 @@
+import './index.less'
+
 export default function Recommend(): JSX.Element {
-  return <div>Recommend</div>
+  return <div className={'recommend-wrapper'}>Recommend</div>
 }
