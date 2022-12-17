@@ -9,6 +9,34 @@ body {
   user-select: none;
 }
 
+/*滚动条整体宽度*/
+::-webkit-scrollbar {
+  width: 5px;
+}
+/*滚动条滑槽样式*/
+::-webkit-scrollbar-track {
+  /*-webkit-box-shadow: inset 0 0 6px rgba(9, 9, 9, 0.71);*/
+  /*border-radius: 1px;*/
+}
+/*滚动条样式*/
+::-webkit-scrollbar-thumb {
+  /*border-radius: 2px;*/
+  background: rgba(111, 111, 111, 0.78);
+  border-radius: 5px;
+
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+}
+::-webkit-scrollbar-thumb:hover {
+  /*background: #ccc;*/
+}
+::-webkit-scrollbar-thumb:active {
+  /*background: #999;*/
+}
+/*浏览器失焦的样式*/
+::-webkit-scrollbar-thumb:window-inactive {
+  /*background: #ffffff;*/
+}
+
 // rewrite keep alive wrapper style
 .ka-wrapper {
   width: 100%;

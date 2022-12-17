@@ -72,7 +72,7 @@ declare interface IResQueryParams {
   t?: string
   // h：最近多少小时内
   h?: number
-  // pg: 页数
+  // pg: 页码
   pg?: number
   // wd：搜索like
   wd?: string

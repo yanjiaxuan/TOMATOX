@@ -1,0 +1,57 @@
+.card-list {
+  padding: 20px 10px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .card {
+    width: 185px;
+    cursor: pointer;
+    margin: 0 10px 20px;
+
+    .card-cover {
+      width: 185px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .ant-card-body {
+      padding: 15px;
+      .ant-card-meta {
+        .ant-card-meta-title {
+          font-size: 15px;
+          margin-bottom: 2px;
+        }
+        .ant-card-meta-description {
+          font-size: 12px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .ant-card-actions {
+      height: 40px;
+      margin: 0 15px;
+      li {
+        &:nth-of-type(1) {
+          width: 75% !important;
+          text-align: left;
+          span {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+        &:nth-of-type(2) {
+          width: 25% !important;
+        }
+        span {
+          font-size: 12px;
+          line-height: 1;
+        }
+      }
+    }
+  }
+}
