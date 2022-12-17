@@ -1,13 +1,16 @@
 import { ConfigProvider } from 'antd'
-import { useRoutes } from 'react-router-dom'
-import { routers } from './routers'
 import store from './store'
 import themeConfig from './config/theme-config'
+import TomatoxLayout from './components/layout'
 
 function App(): JSX.Element {
   const { theme } = store
 
-  return <ConfigProvider theme={themeConfig[theme]}>{useRoutes(routers)}</ConfigProvider>
+  return (
+    <ConfigProvider theme={themeConfig[theme]}>
+      <TomatoxLayout />
+    </ConfigProvider>
+  )
 }
 
 export default App

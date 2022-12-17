@@ -9,13 +9,11 @@ import {
   PlayCircleOutlined,
   SettingOutlined
 } from '@ant-design/icons'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './index.less'
 import store from '../../../store'
 
 export default function TomatoxSider(): JSX.Element {
-  const navigate = useNavigate()
-  const location = useLocation()
   const { theme } = store
 
   return (
@@ -25,7 +23,6 @@ export default function TomatoxSider(): JSX.Element {
         theme={theme}
         mode={'vertical'}
         style={{ height: '100%' }}
-        onSelect={({ key }): void => navigate(key)}
       >
         <Menu.Item key={'/recommend'} icon={<FireOutlined />}>
           <Link to={'/recommend'}>
@@ -68,7 +65,6 @@ export default function TomatoxSider(): JSX.Element {
           </Link>
         </Menu.Item>
       </Menu>
-      {location.pathname === '/' ? <Navigate to={'/recommend'} /> : null}
     </>
   )
 }
