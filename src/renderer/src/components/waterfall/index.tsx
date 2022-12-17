@@ -6,8 +6,8 @@ import { Card, Image } from 'antd'
 export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element {
   return (
     <div className={'card-list'}>
-      {props.data.map((item) => (
-        <Link to={'/play'} key={item.id}>
+      {props.data.map((item, index) => (
+        <Link to={'/play'} key={index}>
           <Card
             cover={<Image src={item.picture} className={'card-cover'} preview={false} />}
             className={'card'}

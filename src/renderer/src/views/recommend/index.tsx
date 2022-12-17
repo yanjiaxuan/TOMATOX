@@ -1,7 +1,7 @@
 import './index.less'
 import { queryResources } from '../../api/resource'
 import InfiniteScroll from 'react-infinite-scroller'
-import { Spin } from 'antd'
+import { FloatButton, Spin } from 'antd'
 import { useState } from 'react'
 import Waterfall from '@renderer/components/waterfall'
 
@@ -31,7 +31,7 @@ export default function Recommend(): JSX.Element {
   }
 
   return (
-    <div className={'recommend-wrapper'}>
+    <div id={'recommend-wrapper'} className={'recommend-wrapper'}>
       <InfiniteScroll
         initialLoad={true}
         pageStart={0}
@@ -40,12 +40,9 @@ export default function Recommend(): JSX.Element {
         useWindow={false}
       >
         <Waterfall data={resourceList} />
-        <Spin
-          size={'large'}
-          tip={'Loading...'}
-          style={{ width: '100%', height: 100, paddingTop: 20 }}
-        />
+        <Spin size={'large'} tip={'Loading...'} style={{ width: '100%', height: 100 }} />
       </InfiniteScroll>
+      <FloatButton.BackTop target={() => document.getElementById('recommend-wrapper')!} />
     </div>
   )
 }
