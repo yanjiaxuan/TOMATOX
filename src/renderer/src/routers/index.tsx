@@ -21,7 +21,7 @@ const lazyLoad = (children: ReactNode): ReactNode => {
 export const routers: RouteObject[] = [
   {
     path: '/',
-    element: <TomatoxLayout theme={'light'} />,
+    element: <TomatoxLayout />,
     children: [
       { index: true, path: '/recommend', element: lazyLoad(<Recommend />) },
       { path: '/classify', element: lazyLoad(<Classify />) },

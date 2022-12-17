@@ -1,14 +1,16 @@
-import { Layout, theme } from 'antd'
+import { Layout, theme as _theme } from 'antd'
 const { Header, Sider, Content } = Layout
-import './index.less'
 import TomatoxHeader from './header'
+import './index.less'
 import TomatoxSider from './sider'
 import TomatoxContent from './content'
+import store from '../../store'
 
-export default function TomatoxLayout(props: { theme: 'dark' | 'light' }): JSX.Element {
+export default function TomatoxLayout(): JSX.Element {
   const {
     token: { colorBgContainer }
-  } = theme.useToken()
+  } = _theme.useToken()
+  const { theme } = store
 
   return (
     <Layout className={'tomatox-layout'}>
@@ -19,8 +21,8 @@ export default function TomatoxLayout(props: { theme: 'dark' | 'light' }): JSX.E
         <TomatoxHeader />
       </Header>
       <Layout className={'tomatox-sicon'}>
-        <Sider className={'tomatox-sider'} theme={props.theme}>
-          <TomatoxSider theme={props.theme} />
+        <Sider className={'tomatox-sider'} theme={theme}>
+          <TomatoxSider theme={theme} />
         </Sider>
         <Content className={'tomatox-content'}>
           <TomatoxContent />

@@ -14,6 +14,7 @@ import {
   ShareAltOutlined
 } from '@ant-design/icons'
 import Icon from '@renderer/assets/images/svg/icon.svg'
+import store from '../../../store'
 
 function developingMsg(): void {
   message.info({
@@ -40,7 +41,7 @@ export default function TomatoxHeader(): JSX.Element {
     }, 1000)
   }
   function changeTheme(): void {
-    // do nothing
+    store.theme = store.theme === 'dark' ? 'light' : 'dark'
   }
   return (
     <div className={'header-wrapper'}>
