@@ -3,9 +3,12 @@ import './assets/styles/index.less'
 import App from './App'
 
 import { BrowserRouter } from 'react-router-dom'
+import { AliveScope } from 'react-activation'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
-    <App />
+    <AliveScope>
+      <App />
+    </AliveScope>
   </BrowserRouter>
 )

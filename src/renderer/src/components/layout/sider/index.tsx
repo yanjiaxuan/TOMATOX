@@ -1,4 +1,4 @@
-import { Menu, MenuTheme } from 'antd'
+import { Menu } from 'antd'
 import {
   FireOutlined,
   HistoryOutlined,
@@ -11,17 +11,20 @@ import {
 } from '@ant-design/icons'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import './index.less'
+import store from '../../../store'
 
-export default function TomatoxSider(props: { theme: MenuTheme }): JSX.Element {
+export default function TomatoxSider(): JSX.Element {
   const navigate = useNavigate()
   const location = useLocation()
+  const { theme } = store
 
   return (
     <>
       <Menu
         defaultSelectedKeys={['/recommend']}
-        theme={props.theme}
-        mode={'inline'}
+        theme={theme}
+        mode={'vertical'}
+        style={{ height: '100%' }}
         onSelect={({ key }): void => navigate(key)}
       >
         <Menu.Item key={'/recommend'} icon={<FireOutlined />}>

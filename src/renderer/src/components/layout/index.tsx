@@ -8,7 +8,7 @@ import store from '../../store'
 
 export default function TomatoxLayout(): JSX.Element {
   const {
-    token: { colorBgContainer }
+    token: { colorBgContainer, colorText }
   } = _theme.useToken()
   const { theme } = store
 
@@ -20,11 +20,11 @@ export default function TomatoxLayout(): JSX.Element {
       >
         <TomatoxHeader />
       </Header>
-      <Layout className={'tomatox-sicon'}>
-        <Sider className={'tomatox-sider'} theme={theme}>
-          <TomatoxSider theme={theme} />
+      <Layout>
+        <Sider theme={theme}>
+          <TomatoxSider />
         </Sider>
-        <Content className={'tomatox-content'}>
+        <Content style={{ color: colorText }}>
           <TomatoxContent />
         </Content>
       </Layout>

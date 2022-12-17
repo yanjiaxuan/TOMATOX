@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import eventHandler from './event-handler'
+import { initUpdater } from './app-updater'
 
 function createWindow(): void {
   // Create the browser window.
@@ -45,6 +46,7 @@ function createWindow(): void {
   }
 
   eventHandler(mainWindow)
+  initUpdater(mainWindow)
 }
 
 // This method will be called when Electron has finished

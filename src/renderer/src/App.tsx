@@ -2,7 +2,7 @@ import { ConfigProvider } from 'antd'
 import { useRoutes } from 'react-router-dom'
 import { routers } from './routers'
 import store from './store'
-import themeConfig from './utils/themeConfig'
+import themeConfig from './config/theme-config'
 
 function App(): JSX.Element {
   const { theme } = store

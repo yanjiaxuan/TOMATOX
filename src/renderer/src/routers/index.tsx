@@ -13,9 +13,16 @@ import Search from '@renderer/views/search/index'
 import Setting from '@renderer/views/setting/index'
 import { ReactNode } from 'react'
 import TomatoxLayout from '../components/layout'
+import KeepAlive from 'react-activation'
 
+const keepAlive = (children: ReactNode): ReactNode => {
+  return <KeepAlive>{children}</KeepAlive>
+}
 const lazyLoad = (children: ReactNode): ReactNode => {
   return <Suspense>{children}</Suspense>
+}
+const ka_lazy = (children: ReactNode): ReactNode => {
+  return keepAlive(lazyLoad(children))
 }
 
 export const routers: RouteObject[] = [
@@ -23,16 +30,16 @@ export const routers: RouteObject[] = [
     path: '/',
     element: <TomatoxLayout />,
     children: [
-      { index: true, path: '/recommend', element: lazyLoad(<Recommend />) },
-      { path: '/classify', element: lazyLoad(<Classify />) },
-      { path: '/iptv', element: lazyLoad(<Iptv />) },
-      { path: '/iptvPlayer', element: lazyLoad(<IptvPlayer />) },
-      { path: '/history', element: lazyLoad(<History />) },
-      { path: '/collect', element: lazyLoad(<Collect />) },
-      { path: '/play', element: lazyLoad(<Player />) },
-      { path: '/search', element: lazyLoad(<Search />) },
-      { path: '/setting', element: lazyLoad(<Setting />) },
-      { path: '/about', element: lazyLoad(<About />) }
+      { index: true, path: '/recommend', element: ka_lazy(<Recommend />) },
+      { path: '/classify', element: ka_lazy(<Classify />) },
+      { path: '/iptv', element: ka_lazy(<Iptv />) },
+      { path: '/iptvPlayer', element: ka_lazy(<IptvPlayer />) },
+      { path: '/history', element: ka_lazy(<History />) },
+      { path: '/collect', element: ka_lazy(<Collect />) },
+      { path: '/play', element: ka_lazy(<Player />) },
+      { path: '/search', element: ka_lazy(<Search />) },
+      { path: '/setting', element: ka_lazy(<Setting />) },
+      { path: '/about', element: ka_lazy(<About />) }
     ]
   }
 ]
