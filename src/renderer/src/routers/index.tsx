@@ -1,5 +1,4 @@
 import { RouteObject } from 'react-router-dom'
-import { Suspense } from 'react'
 
 import Recommend from '@renderer/views/recommend/index'
 import Classify from '@renderer/views/classify/index'
@@ -15,14 +14,8 @@ import { ReactNode } from 'react'
 import TomatoxLayout from '../components/layout'
 import KeepAlive from 'react-activation'
 
-const keepAlive = (children: ReactNode): ReactNode => {
-  return <KeepAlive>{children}</KeepAlive>
-}
-const lazyLoad = (children: ReactNode): ReactNode => {
-  return <Suspense>{children}</Suspense>
-}
-const ka_lazy = (children: ReactNode): ReactNode => {
-  return keepAlive(lazyLoad(children))
+const keepAlive = (id: string, children: ReactNode): ReactNode => {
+  return <KeepAlive id={id}>{children}</KeepAlive>
 }
 
 export const routers: RouteObject[] = [
@@ -30,16 +23,16 @@ export const routers: RouteObject[] = [
     path: '/',
     element: <TomatoxLayout />,
     children: [
-      { index: true, path: '/recommend', element: ka_lazy(<Recommend />) },
-      { path: '/classify', element: ka_lazy(<Classify />) },
-      { path: '/iptv', element: ka_lazy(<Iptv />) },
-      { path: '/iptvPlayer', element: ka_lazy(<IptvPlayer />) },
-      { path: '/history', element: ka_lazy(<History />) },
-      { path: '/collect', element: ka_lazy(<Collect />) },
-      { path: '/play', element: ka_lazy(<Player />) },
-      { path: '/search', element: ka_lazy(<Search />) },
-      { path: '/setting', element: ka_lazy(<Setting />) },
-      { path: '/about', element: ka_lazy(<About />) }
+      { path: 'recommend', element: keepAlive('Recommend', <Recommend />) },
+      { path: 'classify', element: keepAlive('Classify', <Classify />) },
+      { path: 'iptv', element: keepAlive('Iptv', <Iptv />) },
+      { path: 'iptvPlayer', element: keepAlive('IptvPlayer', <IptvPlayer />) },
+      { path: 'history', element: keepAlive('History', <History />) },
+      { path: 'collect', element: keepAlive('Collect', <Collect />) },
+      { path: 'play', element: keepAlive('Player', <Player />) },
+      { path: 'search', element: keepAlive('Search', <Search />) },
+      { path: 'setting', element: keepAlive('Setting', <Setting />) },
+      { path: 'about', element: keepAlive('About', <About />) }
     ]
   }
 ]
