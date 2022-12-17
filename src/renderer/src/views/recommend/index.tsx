@@ -43,7 +43,7 @@ export default function Recommend(): JSX.Element {
         <Spin size={'large'} tip={'Loading...'} style={{ width: '100%', height: 100 }} />
       </InfiniteScroll>
       <FloatButton.BackTop
-        target={(): HTMLElement => document.getElementById('recommend-wrapper')!}
+        target={(): HTMLElement => document.getElementById('recommend-wrapper') || document.body}
       />
     </div>
   )
