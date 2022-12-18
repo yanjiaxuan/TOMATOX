@@ -1,6 +1,4 @@
-import { Location, RouteObject, Navigate } from 'react-router-dom'
-import { ReactNode } from 'react'
-import KeepAlive from 'react-activation'
+import { RouteObject, Navigate } from 'react-router-dom'
 
 import Recommend from '@renderer/views/recommend/index'
 import Classify from '@renderer/views/classify/index'
@@ -14,27 +12,21 @@ import Search from '@renderer/views/search/index'
 import Setting from '@renderer/views/setting/index'
 import TomatoxLayout from '../components/layout'
 
-const keepAlive = (location: Location, children: ReactNode): ReactNode => {
-  return <KeepAlive id={location.pathname}>{children}</KeepAlive>
-}
-
-export function getRouters(location: Location): RouteObject[] {
-  return [
-    {
-      element: <TomatoxLayout />,
-      children: [
-        { path: '/', element: <Navigate to={'/recommend'} /> },
-        { path: '/recommend', element: keepAlive(location, <Recommend />) },
-        { path: '/classify', element: keepAlive(location, <Classify />) },
-        { path: '/iptv', element: keepAlive(location, <Iptv />) },
-        { path: '/iptvPlayer', element: keepAlive(location, <IptvPlayer />) },
-        { path: '/history', element: keepAlive(location, <History />) },
-        { path: '/collect', element: keepAlive(location, <Collect />) },
-        { path: '/play', element: keepAlive(location, <Player />) },
-        { path: '/search', element: keepAlive(location, <Search />) },
-        { path: '/setting', element: keepAlive(location, <Setting />) },
-        { path: '/about', element: keepAlive(location, <About />) }
-      ]
-    }
-  ]
-}
+export const routers: RouteObject[] = [
+  {
+    element: <TomatoxLayout />,
+    children: [
+      { path: '/', element: <Navigate to={'/recommend'} /> },
+      { path: '/recommend', element: <Recommend /> },
+      { path: '/classify', element: <Classify /> },
+      { path: '/iptv', element: <Iptv /> },
+      { path: '/iptvPlayer', element: <IptvPlayer /> },
+      { path: '/history', element: <History /> },
+      { path: '/collect', element: <Collect /> },
+      { path: '/play', element: <Player /> },
+      { path: '/search', element: <Search /> },
+      { path: '/setting', element: <Setting /> },
+      { path: '/about', element: <About /> }
+    ]
+  }
+]
