@@ -2,6 +2,7 @@ import { HeartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './index.less'
 import { Card, Image } from 'antd'
+import Fallback from '@renderer/assets/images/png/fallback.png'
 
 export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element {
   return (
@@ -9,7 +10,14 @@ export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element
       {props.data.map((item, index) => (
         <Link to={'/play'} key={index}>
           <Card
-            cover={<Image src={item.picture} className={'card-cover'} preview={false} />}
+            cover={
+              <Image
+                src={item.picture}
+                className={'card-cover'}
+                preview={false}
+                fallback={Fallback}
+              />
+            }
             className={'card'}
             hoverable={true}
             actions={[
