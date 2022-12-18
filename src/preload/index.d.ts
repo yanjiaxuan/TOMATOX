@@ -1,4 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import Store from 'electron-store'
 
 declare global {
   interface Window {
@@ -6,5 +7,6 @@ declare global {
     api: {
       openBrowser: (url: string) => Promise<void>
     }
+    store: Store
   }
 }

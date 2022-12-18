@@ -5,4 +5,7 @@ export const PROD_STATEMENT =
   '                任何涉及商业盈利性目的的单位或个人，均不得使用本人发布的资源或软件，否则产生的一切后果将由使用者自己承担！'
 
 export const IPTV_ORIGIN_URL = 'https://cdn.jsdelivr.net/gh/yanjiaxuan/TOMATOX_RES@main/iptv.json'
-export const RESOURCE_ORIGIN_URL = 'https://www.kuaibozy.com/api.php/provide/vod/from/kbm3u8/at/xml'
+export const ANALYSIS_ORIGIN_URL =
+  'https://cdn.jsdelivr.net/gh/yanjiaxuan/TOMATOX_RES@main/analysis.json'
+export const RESOURCE_ORIGIN_URL =
+  'https://cdn.jsdelivr.net/gh/yanjiaxuan/TOMATOX_RES@main/resource.json'
