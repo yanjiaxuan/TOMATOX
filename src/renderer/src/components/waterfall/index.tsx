@@ -1,13 +1,18 @@
 import './index.less'
-import { Card, Image } from 'antd'
+import { Card, Image, theme } from 'antd'
 import Fallback from '@renderer/assets/images/png/fallback.png'
 
 export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element {
+  const {
+    token: { colorBgContainer }
+  } = theme.useToken()
+
   return (
     <div className={'card-list'}>
       {props.data.map((item, index) => (
         <Card
           key={index}
+          style={{ backgroundImage: `url(${item.picture})` }}
           cover={
             <Image
               src={item.picture}
@@ -16,7 +21,11 @@ export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element
               fallback={Fallback}
             />
           }
+          bordered={false}
           hoverable={true}
+          bodyStyle={{
+            backgroundImage: `linear-gradient(90deg, ${colorBgContainer}, transparent)`
+          }}
         >
           <Card.Meta
             title={item.name}
