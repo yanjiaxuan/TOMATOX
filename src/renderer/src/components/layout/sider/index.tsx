@@ -3,7 +3,6 @@ import {
   FireOutlined,
   HistoryOutlined,
   HeartOutlined,
-  AppstoreOutlined,
   StarOutlined,
   PlayCircleOutlined,
   SettingOutlined
@@ -26,11 +25,6 @@ export default function TomatoxSider(): JSX.Element {
         <Menu.Item key={'/recommend'} icon={<FireOutlined />}>
           <Link to={'/recommend'}>
             <span>推荐</span>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key={'/classify'} icon={<AppstoreOutlined />}>
-          <Link to={'/classify'}>
-            <span>分类</span>
           </Link>
         </Menu.Item>
         <Menu.Item key={'/iptv'} icon={<PlayCircleOutlined />}>

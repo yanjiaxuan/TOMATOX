@@ -1,7 +1,6 @@
 import { RouteObject, Navigate } from 'react-router-dom'
 
 import Recommend from '@renderer/views/recommend/index'
-import Classify from '@renderer/views/classify/index'
 import History from '@renderer/views/history/index'
 import Collect from '@renderer/views/collect/index'
 import Player from '@renderer/views/player/index'
@@ -18,7 +17,6 @@ export const routers: RouteObject[] = [
     children: [
       { path: '/', element: <Navigate to={'/recommend'} /> },
       { path: '/recommend', element: <Recommend /> },
-      { path: '/classify', element: <Classify /> },
       { path: '/iptv', element: <Iptv /> },
       { path: '/iptvPlayer', element: <IptvPlayer /> },
       { path: '/history', element: <History /> },
