@@ -5,11 +5,14 @@ import IPTV from '@renderer/assets/images/svg/iptv.svg'
 
 export default function Iptv(): JSX.Element {
   const { iptvGroups } = store
+  function playIptv(): void {
+    store.playDrawerOpen = true
+  }
 
   return (
     <div className={'iptv-wrapper'}>
       {iptvGroups.map((item) => (
-        <Card className={'iptv-group'} key={item.type} hoverable>
+        <Card className={'iptv-group'} key={item.type} hoverable onClick={playIptv}>
           <Image src={IPTV} width={40} height={40} preview={false} />
           <span className={'iptv-group-name'}>{item.type}</span>
         </Card>

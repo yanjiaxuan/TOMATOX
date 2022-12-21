@@ -5,6 +5,7 @@ import { queryIptvResource } from '../api/iptv'
 
 const store = resso<{
   theme: 'dark' | 'light'
+  playDrawerOpen: boolean
   resourceSites: IResConfig[]
   resourceTypes: { label: string; value: string }[]
   analysisSites: IResConfig[]
@@ -14,6 +15,7 @@ const store = resso<{
   curAnalysisSite: string
 }>({
   theme: 'light',
+  playDrawerOpen: false,
   resourceSites: [],
   resourceTypes: [{ label: '全部', value: '' }],
   analysisSites: [],

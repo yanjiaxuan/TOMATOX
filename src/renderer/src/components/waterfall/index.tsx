@@ -1,11 +1,16 @@
 import './index.less'
 import { Card, Image, theme } from 'antd'
 import Fallback from '@renderer/assets/images/png/fallback.png'
+import store from '../../store'
 
 export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element {
   const {
     token: { colorBgContainer }
   } = theme.useToken()
+
+  function playResource(res: IPlayResource): void {
+    store.playDrawerOpen = true
+  }
 
   return (
     <div className={'card-list'}>
@@ -25,6 +30,9 @@ export default function Waterfall(props: { data: IPlayResource[] }): JSX.Element
           hoverable={true}
           bodyStyle={{
             backgroundImage: `linear-gradient(90deg, ${colorBgContainer}, transparent)`
+          }}
+          onClick={(): void => {
+            playResource(item)
           }}
         >
           <Card.Meta

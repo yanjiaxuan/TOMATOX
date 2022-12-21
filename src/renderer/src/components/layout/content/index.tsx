@@ -1,12 +1,17 @@
 import { useState } from 'react'
-import { Spin } from 'antd'
+import { Button, Drawer, Spin } from 'antd'
 import { Outlet, useLocation } from 'react-router-dom'
 import KeepAlive from 'react-activation'
 import './index.less'
+import store from '../../../store'
 
 export default function TomatoxContent(): JSX.Element {
   const [loading] = useState(false)
   const location = useLocation()
+  const { playDrawerOpen } = store
+  function closePlayDrawer(): void {
+    store.playDrawerOpen = false
+  }
 
   return (
     <Spin size={'large'} spinning={loading} tip={'Loading...'} style={{ maxHeight: 'unset' }}>
@@ -14,6 +19,15 @@ export default function TomatoxContent(): JSX.Element {
         <KeepAlive id={location.pathname}>
           <Outlet />
         </KeepAlive>
+        <Drawer
+          open={playDrawerOpen}
+          width={'100%'}
+          title={null}
+          closable={false}
+          className={'play-drawer'}
+        >
+          <Button onClick={closePlayDrawer}>1234</Button>
+        </Drawer>
       </div>
     </Spin>
   )
