@@ -92,11 +92,21 @@ declare interface IXMLResParseResult {
     recordcount: number
   }
   class: {
-    ty?: string[]
+    ty?: { id: string; text: string }[]
   }
 }
 
 declare interface IPlayConfig {
   voice?: number
   speed?: number
+}
+
+declare interface IResConfig {
+  id: string
+  url: string
+}
+
+declare interface IIptvGroup {
+  type: string
+  list: IResConfig[]
 }

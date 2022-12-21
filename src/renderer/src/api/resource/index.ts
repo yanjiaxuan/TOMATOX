@@ -3,8 +3,14 @@ import parseXML from '@renderer/utils/xml-util'
 import { convertResources } from '@renderer/utils/resource-converter'
 import { message } from 'antd'
 import { RESOURCE_ORIGIN_URL } from '../../utils/constant'
+import store from '../../store'
+
+export function queryResourceSites(): Promise<IResConfig[]> {
+  return request({ method: 'get', url: RESOURCE_ORIGIN_URL })
+}
 
 export async function queryResources(params: IResQueryParams): Promise<IResPageInfo> {
+  const { curResourceSite } = store
   const result: IResPageInfo = {
     limit: 10,
     list: [],
@@ -14,7 +20,7 @@ export async function queryResources(params: IResQueryParams): Promise<IResPageI
   }
   const responseXML = await request<string, string>({
     method: 'get',
-    url: RESOURCE_ORIGIN_URL,
+    url: curResourceSite,
     params
   })
   if (responseXML) {
@@ -39,15 +45,19 @@ export async function queryResources(params: IResQueryParams): Promise<IResPageI
   return result
 }
 
-export async function queryTypes(): Promise<string[]> {
-  const responseXML = await request<string, string>({ method: 'get', url: RESOURCE_ORIGIN_URL })
+export async function queryResTypes(resUrl: string): Promise<{ id: string; text: string }[]> {
+  const { curResourceSite } = store
+  const responseXML = await request<string, string>({
+    method: 'get',
+    url: resUrl || curResourceSite
+  })
   if (responseXML) {
     try {
       const parseJson = parseXML(responseXML) as IXMLResParseResultWrapper | IXMLResParseResult
       const jsonData = 'rss' in parseJson ? parseJson.rss : parseJson
       return jsonData.class.ty || []
     } catch (e) {
-      message.error((e as Error).message)
+      message.error('资源类型加载失败')
     }
   }
   return []
