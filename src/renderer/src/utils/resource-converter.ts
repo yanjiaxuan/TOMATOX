@@ -3,15 +3,15 @@ export function convertResources(resources: IPlayResOri[]): IPlayResource[] {
 }
 
 export function convertResource(resource: IPlayResOri): IPlayResource {
-  let listStr = ''
+  const playList: { type: string; list: { name: string; url: string }[] }[] = []
   if (resource.dl && resource.dl.dd) {
     if (resource.dl.dd instanceof Array) {
-      const videoList = resource.dl.dd.filter((item) => item.flag && item.flag.includes('m3u8'))
-      if (videoList.length) {
-        listStr = videoList[0].text
-      }
+      const videoList = resource.dl.dd
+      videoList.forEach((item) => {
+        playList.push({ type: item.flag, list: convertPlayList(item.text) })
+      })
     } else {
-      listStr = resource.dl.dd.text
+      playList.push({ type: resource.dl.dd.flag, list: convertPlayList(resource.dl.dd.text) })
     }
   }
   return {
@@ -32,18 +32,25 @@ export function convertResource(resource: IPlayResOri): IPlayResource {
     tag: '',
     year: resource.year,
     updateTime: resource.last,
-    playList: convertPlayList(listStr)
+    playList: playList
   }
 }
 
-function convertPlayList(listStr: string): Map<string, string> {
-  const list = new Map<string, string>()
-  const splitLists = listStr.split('$$$').filter((val) => val.includes('.m3u8'))
-  if (splitLists.length) {
-    splitLists[0].split('#').forEach((item) => {
-      const [key, val] = item.split('$')
-      key && val && list.set(key, val)
-    })
+function convertPlayList(listStr: string): { name: string; url: string }[] {
+  const list: { name: string; url: string }[] = []
+  try {
+    const splitLists = listStr.split('$$$')
+    if (splitLists.length > 1) {
+      debugger
+    }
+    if (splitLists.length) {
+      splitLists[0].split('#').forEach((item) => {
+        const [key, val] = item.split('$')
+        key && val && list.push({ name: key, url: val })
+      })
+    }
+  } catch (e) {
+    // noop
   }
   return list
 }

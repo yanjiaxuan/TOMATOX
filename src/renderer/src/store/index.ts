@@ -6,6 +6,7 @@ import { queryIptvResource } from '../api/iptv'
 const store = resso<{
   theme: 'dark' | 'light'
   resourceSites: IResConfig[]
+  resourceTypes: { label: string; value: string }[]
   analysisSites: IResConfig[]
   iptvGroups: IIptvGroup[]
   curResourceSite: string
@@ -14,6 +15,7 @@ const store = resso<{
 }>({
   theme: 'light',
   resourceSites: [],
+  resourceTypes: [{ label: '全部', value: '' }],
   analysisSites: [],
   iptvGroups: [],
   curResourceSite: '',

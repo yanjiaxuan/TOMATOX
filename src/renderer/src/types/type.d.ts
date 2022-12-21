@@ -42,7 +42,7 @@ declare interface IPlayResource {
   tag: string
   year: string
   updateTime: string
-  playList: Map<string, string>
+  playList: { type: string; list: { name: string; url: string }[] }[]
   historyOption?: {
     lastPlaySrc?: string
     lastPlayTime?: number

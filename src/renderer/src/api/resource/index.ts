@@ -39,7 +39,7 @@ export async function queryResources(params: IResQueryParams): Promise<IResPageI
       result.pageCount = jsonData.list?.pagecount || result.pageCount
       result.total = jsonData.list?.recordcount || result.total
     } catch (e) {
-      message.error((e as Error).message)
+      message.error('资源加载失败')
     }
   }
   return result

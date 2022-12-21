@@ -16,25 +16,28 @@ import { queryResTypes } from '../../../api/resource'
 export default function TomatoxHeader(): JSX.Element {
   const [searchLoading, setSearchLoading] = useState(false)
   const [windowMax, setWindowMax] = useState(false)
-  const { resourceSites, curResourceSite, curResourceType } = store
-  const [resTypes, setResTypes] = useState<{ label: string; value: string }[]>([])
+  const { resourceSites, resourceTypes, curResourceSite, curResourceType } = store
 
   useEffect(() => {
+    const types = [{ label: '全部', value: '' }]
+    store.curResourceType = types[0].value
     queryResTypes(curResourceSite).then((res) => {
-      const types = [
-        { label: '全部', value: '' },
+      types.push(
         ...res.map((item): { label: string; value: string } => ({
           label: item.text,
-          value: item.text
+          value: item.id
         }))
-      ]
-      setResTypes(types)
-      store.curResourceType = types[0].value
+      )
+      store.resourceTypes = types
     })
   }, [curResourceSite])
 
   function changeResourceSite(value: string): void {
     store.curResourceSite = value
+  }
+
+  function changeResourceType(value: string): void {
+    store.curResourceType = value
   }
 
   function changeScreenState(): void {
@@ -66,8 +69,8 @@ export default function TomatoxHeader(): JSX.Element {
           value={curResourceType}
           placeholder={'请选择类型'}
           style={{ width: 150, margin: '0 20px' }}
-          options={resTypes}
-          onChange={(value): any => (store.curResourceType = value)}
+          options={resourceTypes}
+          onChange={changeResourceType}
         />
         <Input.Search
           loading={searchLoading}
