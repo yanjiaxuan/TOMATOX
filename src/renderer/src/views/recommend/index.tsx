@@ -43,22 +43,27 @@ export default function Recommend(): JSX.Element {
   return (
     <>
       <div className={'recommend-wrapper'} ref={recommendRef}>
-        {initial &&
-          Array.from({ length: 10 }, (_, index) => (
-            <Skeleton key={index} avatar active style={{ padding: 20 }} />
-          ))}
-        <InfiniteScroll
-          initialLoad={false}
-          pageStart={1}
-          loadMore={getRecommendLst}
-          hasMore={page < pageCount && !dataLoading}
-          useWindow={false}
-        >
-          <Waterfall data={resourceList} />
-          {page < pageCount && !initial && (
-            <Spin size={'large'} tip={'Loading...'} style={{ width: '100%', height: 100 }} />
-          )}
-        </InfiniteScroll>
+        {initial && (
+          <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+            {Array.from({ length: 10 }, (_, index) => (
+              <Skeleton key={index} active style={{ padding: 30 }} />
+            ))}
+          </div>
+        )}
+        {!initial && (
+          <InfiniteScroll
+            initialLoad={false}
+            pageStart={1}
+            loadMore={getRecommendLst}
+            hasMore={page < pageCount && !dataLoading}
+            useWindow={false}
+          >
+            <Waterfall data={resourceList} />
+            {page < pageCount && !initial && (
+              <Spin size={'large'} tip={'Loading...'} style={{ width: '100%', height: 100 }} />
+            )}
+          </InfiniteScroll>
+        )}
       </div>
       <FloatButton.BackTop target={(): HTMLElement => recommendRef.current || document.body} />
     </>
