@@ -9,8 +9,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@root': resolve('.'),
-      '@': resolve('src'),
       '@renderer': resolve('src/renderer/src')
     }
   }

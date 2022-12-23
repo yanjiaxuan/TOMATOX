@@ -1,9 +1,11 @@
 import { app, shell, BrowserWindow } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+
 import Store from 'electron-store'
 import eventHandler from './event-handler'
 import { initUpdater } from './app-updater'
+
 Store.initRenderer()
 
 function createWindow(): void {

@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: tomatox-simpilfy
+appId: github.yanjiaxuan.tomatox
+productName: TOMATOX
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ asarUnpack:
   - '**/*.{node,dll}'
 afterSign: build/notarize.js
 win:
-  executableName: tomatox-simpilfy
+  executableName: tomatox
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

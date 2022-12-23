@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import react from '@vitejs/plugin-react'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   main: {
@@ -12,11 +12,9 @@ export default defineConfig({
   renderer: {
     resolve: {
       alias: {
-        '@root': resolve('.'),
-        '@': resolve('src'),
         '@renderer': resolve('src/renderer/src')
       }
     },
-    plugins: [react()]
+    plugins: [vue()]
   }
 })

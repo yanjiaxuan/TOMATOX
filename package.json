@@ -1,6 +1,6 @@
 {
   "name": "tomatox",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "A free fast beautiful online video player with electron.",
   "main": "./out/main/index.js",
   "author": {
@@ -10,122 +10,46 @@
   "homepage": "https://github.com/yanjiaxuan/TOMATOX",
   "scripts": {
     "format": "prettier --write .",
-    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
-    "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+    "typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
-    "build:mac": "electron-vite build && electron-builder --mac --config",
-    "build:linux": "electron-vite build && electron-builder --linux --config"
+    "build:mac": "npm run build && electron-builder --mac --config",
+    "build:linux": "npm run build && electron-builder --linux --config"
   },
   "dependencies": {
-    "@ant-design/icons": "4.8.0",
-    "@electron-toolkit/preload": "1.0.2",
-    "@electron-toolkit/utils": "1.0.2",
-    "antd": "5.0.7",
-    "axios": "1.2.1",
+    "@electron-toolkit/preload": "^1.0.2",
+    "@electron-toolkit/utils": "^1.0.2",
     "electron-store": "^8.1.0",
-    "electron-updater": "5.3.0",
-    "fast-xml-parser": "4.0.12",
-    "react-activation": "0.12.2",
-    "react-infinite-scroller": "^1.2.6",
-    "resso": "0.13.0"
+    "electron-updater": "^5.3.0",
+    "pinia": "^2.0.28",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@electron-toolkit/tsconfig": "1.0.1",
-    "@electron/notarize": "1.2.3",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@electron/notarize": "^1.2.3",
+    "@rushstack/eslint-patch": "^1.2.0",
     "@types/node": "16.11.22",
-    "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.9",
-    "@typescript-eslint/eslint-plugin": "5.43.0",
-    "@typescript-eslint/parser": "5.43.0",
-    "@vitejs/plugin-react": "2.2.0",
-    "electron": "21.3.0",
-    "electron-builder": "23.6.0",
-    "electron-vite": "1.0.14",
-    "eslint": "8.28.0",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-react": "7.31.11",
-    "less": "4.1.3",
-    "prettier": "2.7.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-router-dom": "6.4.5",
-    "typescript": "4.9.3",
-    "vite": "3.2.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:yanjiaxuan/TOMATOX.git"
-  },
-  "files": [
-    "dist/",
-    "package.json"
-  ],
-  "bugs": {
-    "url": "https://github.com/yanjiaxuan/TOMATOX/issues"
-  },
-  "license": "MIT",
-  "build": {
-    "productName": "TOMATOX",
-    "copyright": "Copyright @ 2022 yanjiaxuan",
-    "appId": "github.yanjiaxuan.tomatox",
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "yanjiaxuan",
-        "repo": "TOMATOX"
-      }
-    ],
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "dist/",
-      "package.json"
-    ],
-    "win": {
-      "icon": "public/icon256.ico",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ]
-    },
-    "linux": {
-      "icon": "public/icon.png"
-    },
-    "mac": {
-      "icon": "public/icon.icn",
-      "category": "public.app-category.developer-tools",
-      "target": "default",
-      "extendInfo": {
-        "LSUIElement": 1
-      }
-    },
-    "snap": {
-      "publish": [
-        "github"
-      ]
-    },
-    "nsis": {
-      "installerIcon": "public/icon256.ico",
-      "installerHeaderIcon": "public/icon256.ico",
-      "uninstallerIcon": "public/icon256.ico",
-      "uninstallDisplayName": "TOMATOX",
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "allowElevation": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
-    }
+    "@vicons/antd": "^0.12.0",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.2",
+    "electron": "^21.3.0",
+    "electron-builder": "^23.6.0",
+    "electron-vite": "^1.0.14",
+    "eslint": "^8.28.0",
+    "eslint-plugin-vue": "^9.7.0",
+    "less": "^4.1.3",
+    "naive-ui": "^2.34.2",
+    "prettier": "^2.7.1",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4",
+    "vue": "^3.2.45",
+    "vue-tsc": "^1.0.9"
   }
 }

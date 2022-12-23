@@ -1,3 +1,3 @@
 provider: generic
 url: https://example.com/auto-updates
-updaterCacheDirName: tomatox-simpilfy-updater
+updaterCacheDirName: tomatox-vue-updater
