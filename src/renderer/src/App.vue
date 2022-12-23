@@ -4,6 +4,7 @@
     :theme="globalSettingStore.theme === 'dark' ? darkTheme : ''"
     :theme-overrides="themeConfig"
   >
+    <n-global-style />
     <router-view />
   </n-config-provider>
 </template>
@@ -17,6 +18,7 @@ const globalSettingStore = useGlobalSettingStore()
 
 const themeConfig = reactive<GlobalThemeOverrides>({
   common: {
+    fontFamily: 'HarmonyOs Sans'
     // primaryColor: '#2b8cf7'
   }
 })
